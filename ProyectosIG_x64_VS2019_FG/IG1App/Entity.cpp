@@ -74,7 +74,7 @@ void PoligonsRGB::render(glm::dmat4 const& modelViewMat) const
 }
 TrianguloRGB::TrianguloRGB(GLdouble r)
 {
-	mMesh = Mesh::generaPoligonoRegular(3, r);
+	mMesh = Mesh::generaTriangulo(r);
 }
 TrianguloRGB::~TrianguloRGB()
 {
