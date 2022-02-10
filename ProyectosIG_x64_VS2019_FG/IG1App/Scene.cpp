@@ -16,7 +16,10 @@ void Scene::init()
 
     // Graphics objects (entities) of the scene
 	gObjects.push_back(new EjesRGB(400.0));
-	gObjects.push_back(new PoligonsRGB(5,100));
+	//glm::dvec4  mColor = { 0, 0, 1, 0 };
+	PoligonsRGB* pentagono = new PoligonsRGB(5, 100);
+	pentagono->setColor({ 1,0,0,0 });
+	gObjects.push_back(pentagono);
 	
 }
 //-------------------------------------------------------------------------

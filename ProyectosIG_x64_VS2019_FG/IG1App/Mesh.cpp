@@ -73,7 +73,8 @@ Mesh* Mesh::generaPoligonoRegular(GLuint num, GLdouble r)
 
     mesh->mNumVertices = num;
     mesh->vVertices.reserve(mesh->mNumVertices);
-
+   //S glColor3d(mColor.r, mColor.g, mColor.b);
+   // mesh->vColors.emplace_back(mColor);
     GLdouble alfa = 90;
     for (int i = 0; i < num; i++) {
         mesh->vVertices.emplace_back(r * cos(radians(alfa)), r * sin(radians(alfa)), 0.0);

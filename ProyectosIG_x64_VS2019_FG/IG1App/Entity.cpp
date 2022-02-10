@@ -52,6 +52,7 @@ void EjesRGB::render(dmat4 const& modelViewMat) const
 PoligonsRGB::PoligonsRGB(GLuint num, GLdouble r)
 {
 	mMesh = Mesh::generaPoligonoRegular(num, r);
+
 }
 
 PoligonsRGB::~PoligonsRGB()
