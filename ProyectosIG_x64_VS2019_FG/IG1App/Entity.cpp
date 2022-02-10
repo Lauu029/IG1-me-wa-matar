@@ -72,3 +72,23 @@ void PoligonsRGB::render(glm::dmat4 const& modelViewMat) const
 		glColor3d(0, 0, 0);
 	}
 }
+TrianguloRGB::TrianguloRGB(GLdouble r)
+{
+	mMesh = Mesh::generaPoligonoRegular(3, r);
+}
+TrianguloRGB::~TrianguloRGB()
+{
+	delete mMesh; mMesh = nullptr;
+}
+void TrianguloRGB::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		glColor3d(mColor.r, mColor.g, mColor.b);
+		dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		glLineWidth(1);
+		glColor3d(0, 0, 0);
+	}
+}
