@@ -59,7 +59,7 @@ PoligonsRGB::~PoligonsRGB()
 	delete mMesh; mMesh = nullptr;
 }
 
-void PoligonsRGB::render(glm::dmat4 const& modelViewMat, glm::dvec4 mColor) const
+void PoligonsRGB::render(glm::dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
 		glColor3d(mColor.r, mColor.g, mColor.b);

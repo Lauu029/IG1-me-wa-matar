@@ -50,6 +50,6 @@ class PoligonsRGB : public Abs_Entity
 public:
 	explicit PoligonsRGB(GLuint num, GLdouble r);
 	~PoligonsRGB();
-	virtual void render(glm::dmat4 const& modelViewMat, glm::dvec4 col) const;
+	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
 #endif //_H_Entities_H_
