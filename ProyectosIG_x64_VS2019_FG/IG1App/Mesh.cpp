@@ -106,3 +106,23 @@ Mesh* Mesh::generaTriangulo(GLdouble r)
     
     return mesh;
 }
+
+Mesh* Mesh::generaRectangulo(GLdouble w, GLdouble h)
+{
+
+    Mesh* mesh = new Mesh();
+
+    mesh->mPrimitive = GL_TRIANGLE_STRIP;
+
+    mesh->mNumVertices = 4;
+    GLdouble alfa = 90;
+    mesh->vVertices.reserve(mesh->mNumVertices);
+    mesh->vColors.reserve(mesh->mNumVertices);
+    mesh->vVertices.emplace_back(-w/2, h/2 , 0.0);
+    mesh->vVertices.emplace_back(w/2, h/2 , 0.0);
+    mesh->vVertices.emplace_back(w/2, -h/2 , 0.0);
+    mesh->vVertices.emplace_back(-w/2, -h/2 , 0.0);
+
+
+    return mesh;
+}

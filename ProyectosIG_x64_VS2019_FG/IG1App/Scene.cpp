@@ -15,7 +15,7 @@ void Scene::init()
     // Textures
 
     // Graphics objects (entities) of the scene
-	//gObjects.push_back(new EjesRGB(400.0));
+	gObjects.push_back(new EjesRGB(400.0));
 
 	/*PoligonsRGB* triangulo = new PoligonsRGB(3, 100);
 	triangulo->setColor({ 0,1,1,0 });
