@@ -24,6 +24,7 @@ void Scene::init()
 
 	gObjects.push_back(triangulo);
 	gObjects.push_back(circulo);*/
+	gObjects.push_back(new RectanguloRGB(600, 500));
 	gObjects.push_back(new TrianguloRGB(150));
 	
 }
