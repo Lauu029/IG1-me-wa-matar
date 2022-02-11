@@ -119,3 +119,24 @@ void RectanguloRGB::render(glm::dmat4 const& modelViewMat) const
 		glLineWidth(1);
 	}
 }
+
+CuboRGB::CuboRGB(GLdouble l)
+{
+	mMesh = Mesh::generaCubo(l);
+}
+
+CuboRGB::~CuboRGB()
+{
+	delete mMesh; mMesh = nullptr;
+}
+
+void CuboRGB::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		glLineWidth(1);
+	}
+}

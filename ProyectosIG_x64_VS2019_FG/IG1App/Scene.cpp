@@ -17,16 +17,16 @@ void Scene::init()
     // Graphics objects (entities) of the scene
 	gObjects.push_back(new EjesRGB(400.0));
 
-	/*PoligonsRGB* triangulo = new PoligonsRGB(3, 100);
-	triangulo->setColor({ 0,1,1,0 });
-	PoligonsRGB* circulo = new PoligonsRGB(360, 100);
-	circulo->setColor({ 1,0,0,0 });
+	///*PoligonsRGB* triangulo = new PoligonsRGB(3, 100);
+	//triangulo->setColor({ 0,1,1,0 });
+	//PoligonsRGB* circulo = new PoligonsRGB(360, 100);
+	//circulo->setColor({ 1,0,0,0 });
 
-	gObjects.push_back(triangulo);
-	gObjects.push_back(circulo);*/
-	gObjects.push_back(new RectanguloRGB(600, 500));
-	gObjects.push_back(new TrianguloRGB(150));
-	
+	//gObjects.push_back(triangulo);
+	//gObjects.push_back(circulo);*/
+	//gObjects.push_back(new RectanguloRGB(600, 500));
+	//gObjects.push_back(new TrianguloRGB(150));
+	gObjects.push_back(new CuboRGB(90));
 }
 //-------------------------------------------------------------------------
 void Scene::free() 

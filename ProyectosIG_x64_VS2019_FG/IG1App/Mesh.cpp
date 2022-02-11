@@ -131,3 +131,26 @@ Mesh* Mesh::generaRectangulo(GLdouble w, GLdouble h)
 
     return mesh;
 }
+
+Mesh* Mesh::generaCubo(GLdouble l)
+{
+    Mesh* mesh = new Mesh();
+
+    mesh->mPrimitive = GL_TRIANGLE_STRIP;
+
+    mesh->mNumVertices = 8;
+
+    mesh->vVertices.reserve(mesh->mNumVertices);
+
+    mesh->vVertices.emplace_back(l / 2, -l / 2, l/2);
+    mesh->vVertices.emplace_back(l / 2, l / 2, l/2);
+    mesh->vVertices.emplace_back(-l / 2, -l / 2, l/2);
+    mesh->vVertices.emplace_back(-l / 2, l / 2, l/2);
+    mesh->vVertices.emplace_back(l / 2, -l / 2, -l/2);
+    mesh->vVertices.emplace_back(l / 2, l / 2, -l/2);
+    mesh->vVertices.emplace_back(-l / 2, -l / 2, -l/2);
+    mesh->vVertices.emplace_back(-l / 2, l / 2, -l/2);
+
+
+    return mesh;
+}

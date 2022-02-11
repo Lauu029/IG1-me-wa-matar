@@ -30,6 +30,7 @@ public:
 	static Mesh* generaPoligonoRegular(GLuint num, GLdouble r);
 	static Mesh* generaTriangulo( GLdouble r);
 	static Mesh* generaRectangulo(GLdouble w, GLdouble h);
+	static Mesh* generaCubo(GLdouble l);
 		
 protected:
 	

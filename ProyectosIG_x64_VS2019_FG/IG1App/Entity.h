@@ -67,4 +67,11 @@ public:
 	~RectanguloRGB();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
+class CuboRGB : public Abs_Entity
+{
+public:
+	explicit CuboRGB(GLdouble l);
+	~CuboRGB();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
 #endif //_H_Entities_H_
