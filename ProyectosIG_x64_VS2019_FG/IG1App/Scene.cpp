@@ -16,14 +16,9 @@ void Scene::init()
 
     // Graphics objects (entities) of the scene
 	gObjects.push_back(new EjesRGB(400.0));
-
-	PoligonsRGB* circulo = new PoligonsRGB(360, 250);
-	circulo->setColor({ 0,1,1,0 });
-
-	gObjects.push_back(circulo);
-	gObjects.push_back(new RectanguloRGB(600, 400));
-	gObjects.push_back(new TrianguloRGB(150));
-	//gObjects.push_back(new CuboRGB(90));
+	setScene(0);
+	
+	
 }
 //-------------------------------------------------------------------------
 void Scene::free() 
@@ -58,6 +53,41 @@ void Scene::render(Camera const& cam) const
 	{
 	  el->render(cam.viewMat());
 	}
+}
+//-----------------------------------------------------------------------
+void Scene::setScene(int id)
+{
+	if (id == 0)
+	{
+		escena0();
+	}
+	else if (id == 1)
+	{
+		escena1();
+	}
+}
+//------------------------------------------------------------------------
+void Scene::escena0()
+{
+	gObjects.clear();
+
+	gObjects.push_back(new EjesRGB(400.0));
+
+	PoligonsRGB* circulo = new PoligonsRGB(360, 250);
+	circulo->setColor({ 0,1,1,0 });
+
+	gObjects.push_back(circulo);
+	gObjects.push_back(new RectanguloRGB(600, 400));
+	gObjects.push_back(new TrianguloRGB(150));
+}
+//----------------------------------------------------------------------------------------6*
+void Scene::escena1()
+{
+	gObjects.clear();
+
+	gObjects.push_back(new EjesRGB(400.0));
+
+	gObjects.push_back(new CuboRGB(90));
 }
 //-------------------------------------------------------------------------
 

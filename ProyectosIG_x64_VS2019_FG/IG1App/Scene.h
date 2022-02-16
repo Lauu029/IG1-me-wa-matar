@@ -25,6 +25,10 @@ public:
 
     void render(Camera const& cam) const;
 	
+	void setScene(int id);
+
+	void escena0();
+	void escena1();
 protected:
 	void free();
 	void setGL();
