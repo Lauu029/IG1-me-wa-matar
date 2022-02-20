@@ -19,7 +19,7 @@ public:
 	Abs_Entity& operator=(const Abs_Entity& e) = delete;  // no copy assignment
 
 	virtual void render(glm::dmat4 const& modelViewMat) const = 0;  // abstract method
-	virtual void update()const = 0;
+
 	// modeling matrix
 	glm::dmat4 const& modelMat() const { return mModelMat; };
 	void setModelMat(glm::dmat4 const& aMat) { mModelMat = aMat; };

@@ -24,17 +24,16 @@ public:
 	void init();
 
     void render(Camera const& cam) const;
-	virtual void update();
+	//virtual void update();
 	
 	void setScene(int id);
+	void setId(int _id);
 
-	void escena0();
-	void escena1();
 protected:
 	void free();
 	void setGL();
 	void resetGL();
-
+	int id=0;
 	std::vector<Abs_Entity*> gObjects;  // Entities (graphic objects) of the scene
 };
 //-------------------------------------------------------------------------
