@@ -54,6 +54,11 @@ void Scene::render(Camera const& cam) const
 	  el->render(cam.viewMat());
 	}
 }
+void Scene::update()
+{
+	for (auto g : gObjects)
+		g->update();
+}
 //-----------------------------------------------------------------------
 void Scene::setScene(int id)
 {

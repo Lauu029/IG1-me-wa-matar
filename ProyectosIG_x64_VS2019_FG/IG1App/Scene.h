@@ -24,6 +24,7 @@ public:
 	void init();
 
     void render(Camera const& cam) const;
+	virtual void update();
 	
 	void setScene(int id);
 
