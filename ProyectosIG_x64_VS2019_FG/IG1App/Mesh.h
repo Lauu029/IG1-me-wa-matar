@@ -28,7 +28,7 @@ public:
 	std::vector<glm::dvec4> const& colors() const { return vColors; };
 
 	static Mesh* generaPoligonoRegular(GLuint num, GLdouble r);
-	static Mesh* generaTriangulo( GLdouble r);
+	static Mesh* generaTriangulo( GLdouble r, GLdouble x, GLdouble y);
 	static Mesh* generaRectangulo(GLdouble w, GLdouble h);
 	static Mesh* generaCubo(GLdouble l);
 		

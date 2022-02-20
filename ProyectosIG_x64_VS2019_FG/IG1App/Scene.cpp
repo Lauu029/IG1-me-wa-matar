@@ -15,18 +15,19 @@ void Scene::init()
     // Textures
 
     // Graphics objects (entities) of the scene
+	GLdouble r = 250;
 	gObjects.push_back(new EjesRGB(400.0));
 	gObjects.push_back(new EjesRGB(400.0));
 	if (id == 0)
 	{
 		
-
-		PoligonsRGB* circulo = new PoligonsRGB(360, 250);
+			
+		PoligonsRGB* circulo = new PoligonsRGB(360, r);
 		circulo->setColor({ 0,1,1,0 });
 
 		gObjects.push_back(circulo);
-		gObjects.push_back(new RectanguloRGB(600, 400));
-		gObjects.push_back(new TrianguloRGB(150));
+		gObjects.push_back(new RectanguloRGB(r*2, r));
+		gObjects.push_back(new TrianguloRGB(50, r, 0));
 	}
 	else if (id == 1)
 	{
@@ -87,6 +88,12 @@ void Scene::setScene(int id)
 void Scene::setId(int _id)
 {
 	id = _id;
+}
+
+void Scene::Update()
+{
+	for (auto g : gObjects)
+				g->update();
 }
 
 

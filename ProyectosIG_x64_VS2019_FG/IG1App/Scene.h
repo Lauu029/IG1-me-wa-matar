@@ -28,6 +28,7 @@ public:
 	
 	void setScene(int id);
 	void setId(int _id);
+	void Update();
 
 protected:
 	void free();

@@ -43,6 +43,7 @@ void IG1App::init()
 	mCamera = new Camera(mViewPort);
 	mScene = new Scene;
 	
+
 	mCamera->set2D();
 	mScene->init();
 }
@@ -112,6 +113,8 @@ void IG1App::resize(int newWidth, int newHeight)
 void IG1App::key(unsigned char key, int x, int y) 
 {
 	bool need_redisplay = true;
+	bool isUpdateing = false;
+
 	
 	switch (key) {
 	case 27:  // Escape key 
@@ -133,6 +136,9 @@ void IG1App::key(unsigned char key, int x, int y)
 		break;
 	case '1':
 		mScene->setScene(1);
+		break;
+	case 'u': 
+		update();
 		break;
 	default:
 		need_redisplay = false;
@@ -175,6 +181,16 @@ void IG1App::specialKey(int key, int x, int y)
 
 	if (need_redisplay)
 		glutPostRedisplay(); // marks the window as needing to be redisplayed -> calls to display()
+}
+void IG1App::update()
+{
+	GLuint mLastUpdateTime;
+	mLastUpdateTime = glutGet(GLUT_ELAPSED_TIME);
+	if (mLastUpdateTime >= 1000)
+	{
+		mScene->Update();
+		mLastUpdateTime = 0;
+	}
 }
 //-------------------------------------------------------------------------
 

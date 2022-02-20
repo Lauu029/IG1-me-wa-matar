@@ -83,7 +83,7 @@ Mesh* Mesh::generaPoligonoRegular(GLuint num, GLdouble r)
     return mesh;
 }
 
-Mesh* Mesh::generaTriangulo(GLdouble r)
+Mesh* Mesh::generaTriangulo(GLdouble r, GLdouble x, GLdouble y)
 {
     Mesh* mesh = new Mesh();
 
@@ -102,7 +102,6 @@ Mesh* Mesh::generaTriangulo(GLdouble r)
     mesh->vVertices.emplace_back(r * cos(radians(alfa)), r * sin(radians(alfa)), 0.0);
     mesh->vColors.emplace_back(1.0, 0.0, 1.0, 1.0);
 
-    
     return mesh;
 }
 

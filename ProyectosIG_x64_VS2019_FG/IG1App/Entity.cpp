@@ -72,9 +72,11 @@ void PoligonsRGB::render(glm::dmat4 const& modelViewMat) const
 		glColor3d(0, 0, 0);
 	}
 }
-TrianguloRGB::TrianguloRGB(GLdouble r)
+TrianguloRGB::TrianguloRGB(GLdouble r, GLdouble x, GLdouble y)
 {
-	mMesh = Mesh::generaTriangulo(r);
+	mMesh = Mesh::generaTriangulo(r,x,y);
+	mModelMat = translate(mModelMat, dvec3(x, y, 0));
+
 }
 TrianguloRGB::~TrianguloRGB()
 {
@@ -94,8 +96,16 @@ void TrianguloRGB::render(glm::dmat4 const& modelViewMat) const
 		glLineWidth(1);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glColor3d(0, 0, 0);
+
 	}
 }
+void TrianguloRGB::update()
+{
+	mModelMat = rotate(mModelMat, radians(2.0), dvec3(0, 0, 1));
+	//glRotatef(1.0,0,0,0);
+
+}
+
 
 RectanguloRGB::RectanguloRGB(GLdouble w, GLdouble h)
 {

@@ -19,6 +19,7 @@ public:
 	Abs_Entity& operator=(const Abs_Entity& e) = delete;  // no copy assignment
 
 	virtual void render(glm::dmat4 const& modelViewMat) const = 0;  // abstract method
+	virtual void update(){};
 
 	// modeling matrix
 	glm::dmat4 const& modelMat() const { return mModelMat; };
@@ -56,9 +57,11 @@ public:
 class TrianguloRGB : public Abs_Entity
 {
 public:
-	explicit TrianguloRGB(GLdouble r);
+	explicit TrianguloRGB(GLdouble r, GLdouble x, GLdouble y);
 	~TrianguloRGB();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
+	virtual void update() override;
+
 };
 class RectanguloRGB : public Abs_Entity
 {
