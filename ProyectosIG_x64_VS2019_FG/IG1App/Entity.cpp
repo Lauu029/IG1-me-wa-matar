@@ -137,8 +137,8 @@ void CuboRGB::render(glm::dmat4 const& modelViewMat) const
 		upload(aMat);
 		glLineWidth(2);
 		glColor3d(0.0, 0.0, 0.0);
-		glPolygonMode(GL_FRONT, GL_FILL);
-		glPolygonMode(GL_BACK, GL_LINE);
+		glPolygonMode(GL_FRONT, GL_LINE);
+		glPolygonMode(GL_BACK, GL_FILL);
 		mMesh->render();
 		glLineWidth(1);
 	}
