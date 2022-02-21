@@ -18,26 +18,26 @@ dvec4 Abs_Entity::getColor()
 }
 
 void Abs_Entity::upload(dmat4 const& modelViewMat) const
-{ 
+{
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixd(value_ptr(modelViewMat));  // transfers modelView matrix to the GPU
 }
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
 
-EjesRGB::EjesRGB(GLdouble l): Abs_Entity()
+EjesRGB::EjesRGB(GLdouble l) : Abs_Entity()
 {
-  mMesh = Mesh::createRGBAxes(l);
+	mMesh = Mesh::createRGBAxes(l);
 }
 //-------------------------------------------------------------------------
 
-EjesRGB::~EjesRGB() 
-{ 
-	delete mMesh; mMesh = nullptr; 
+EjesRGB::~EjesRGB()
+{
+	delete mMesh; mMesh = nullptr;
 };
 //-------------------------------------------------------------------------
 
-void EjesRGB::render(dmat4 const& modelViewMat) const 
+void EjesRGB::render(dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
 		dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
@@ -74,7 +74,7 @@ void PoligonsRGB::render(glm::dmat4 const& modelViewMat) const
 }
 TrianguloRGB::TrianguloRGB(GLdouble r, GLdouble x, GLdouble y)
 {
-	mMesh = Mesh::generaTriangulo(r,x,y);
+	mMesh = Mesh::generaTriangulo(r, x, y);
 	mModelMat = translate(mModelMat, dvec3(x, y, 0));
 
 }
@@ -91,7 +91,7 @@ void TrianguloRGB::render(glm::dmat4 const& modelViewMat) const
 		glLineWidth(2);
 		glPolygonMode(GL_FRONT, GL_FILL);
 		glPolygonMode(GL_BACK, GL_LINE);
-		
+
 		mMesh->render();
 		glLineWidth(1);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -101,7 +101,7 @@ void TrianguloRGB::render(glm::dmat4 const& modelViewMat) const
 }
 void TrianguloRGB::update()
 {
-	mModelMat = translate(dmat4(1.0), dvec3(250 * cos(radians(alpha)), 
+	mModelMat = translate(dmat4(1.0), dvec3(250 * cos(radians(alpha)),
 		250 * sin(radians(alpha)), 0.0));
 	alpha++;
 	mModelMat = rotate(mModelMat, radians(angle), dvec3(0, 0, 1));
@@ -113,7 +113,7 @@ void TrianguloRGB::update()
 
 RectanguloRGB::RectanguloRGB(GLdouble w, GLdouble h)
 {
-	mMesh = Mesh::generaRectangulo(w,h);
+	mMesh = Mesh::generaRectangulo(w, h);
 }
 
 RectanguloRGB::~RectanguloRGB()
@@ -137,7 +137,7 @@ void RectanguloRGB::render(glm::dmat4 const& modelViewMat) const
 CuboRGB::CuboRGB(GLdouble l)
 {
 	mMesh = Mesh::generaCubo(l);
-	mModelMat = translate(mModelMat, dvec3(l/2, l/2, l/2));
+	mModelMat = translate(mModelMat, dvec3(l / 2, l / 2, l / 2));
 
 }
 
@@ -150,19 +150,20 @@ void CuboRGB::update()
 {
 	if (angle1 < 180)
 	{
-		mModelMat = rotate(mModelMat, angle1, dvec3(0, 0, 1));
-		angle1 += 10;
+		mModelMat = rotate(mModelMat, 2.0, dvec3(1, 0, 0));
+		angle1 += 2;
 	}
-	else if (angle2 < 180 && angle1>= 180)
+	else if (angle2 < 180 && angle1 >= 180)
 	{
-		mModelMat = rotate(mModelMat, angle2, dvec3(0, 0, 1));
-		angle2 += 10;
+		mModelMat = rotate(mModelMat, 2.0, dvec3(0, 1, 0));
+		angle2 += 2;
 	}
-	else if (angle3 < 180 && angle2 >= 180)
+	else if (angle3 < 180 && angle2 >= 180 && angle1 >= 180)
 	{
-		mModelMat = rotate(mModelMat, angle3, dvec3(0, 0, 1));
-		angle3 += 10;
+		mModelMat = rotate(mModelMat, 2.0, dvec3(0, 0, 1));
+		angle3 += 2;
 	}
+	else angle1 = angle2 = angle3 = 0;
 
 	//mModelMat = rotate(mModelMat, radians(angle1), dvec3(0, 0, 1));
 	//angle1 -= 15;
