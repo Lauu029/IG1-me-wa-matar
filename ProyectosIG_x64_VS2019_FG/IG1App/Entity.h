@@ -80,8 +80,8 @@ public:
 	virtual void update() override;
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
-	float angle1 = 0.0f;
-	float angle2 = 0.0f;
-	float angle3 = 0.0f;
+	GLdouble angle1 = 0.0f;
+	GLdouble angle2 = 0.0f;
+	GLdouble angle3 = 0.0f;
 };
 #endif //_H_Entities_H_

@@ -137,6 +137,8 @@ void RectanguloRGB::render(glm::dmat4 const& modelViewMat) const
 CuboRGB::CuboRGB(GLdouble l)
 {
 	mMesh = Mesh::generaCubo(l);
+	mModelMat = translate(mModelMat, dvec3(l/2, l/2, l/2));
+
 }
 
 CuboRGB::~CuboRGB()
@@ -146,8 +148,24 @@ CuboRGB::~CuboRGB()
 
 void CuboRGB::update()
 {
-	/*mModelMat = rotate(mModelMat, radians(angle1), dvec3(0, 0, 1));
-	angle1 -= 15;*/
+	if (angle1 < 180)
+	{
+		mModelMat = rotate(mModelMat, angle1, dvec3(0, 0, 1));
+		angle1 += 10;
+	}
+	else if (angle2 < 180 && angle1>= 180)
+	{
+		mModelMat = rotate(mModelMat, angle2, dvec3(0, 0, 1));
+		angle2 += 10;
+	}
+	else if (angle3 < 180 && angle2 >= 180)
+	{
+		mModelMat = rotate(mModelMat, angle3, dvec3(0, 0, 1));
+		angle3 += 10;
+	}
+
+	//mModelMat = rotate(mModelMat, radians(angle1), dvec3(0, 0, 1));
+	//angle1 -= 15;
 }
 
 void CuboRGB::render(glm::dmat4 const& modelViewMat) const
