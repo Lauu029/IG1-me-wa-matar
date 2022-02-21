@@ -101,7 +101,11 @@ void TrianguloRGB::render(glm::dmat4 const& modelViewMat) const
 }
 void TrianguloRGB::update()
 {
-	mModelMat = rotate(mModelMat, radians(2.0), dvec3(0, 0, 1));
+	mModelMat = translate(dmat4(1.0), dvec3(250 * cos(radians(alpha)), 
+		250 * sin(radians(alpha)), 0.0));
+	alpha++;
+	mModelMat = rotate(mModelMat, radians(angle), dvec3(0, 0, 1));
+	angle -= 15;
 	//glRotatef(1.0,0,0,0);
 
 }

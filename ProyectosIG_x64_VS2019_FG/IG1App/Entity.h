@@ -61,6 +61,9 @@ public:
 	~TrianguloRGB();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 	virtual void update() override;
+private:
+	float alpha = 0.0f;
+	GLdouble angle = 0.0f;
 
 };
 class RectanguloRGB : public Abs_Entity
