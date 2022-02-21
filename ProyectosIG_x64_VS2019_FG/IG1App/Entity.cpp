@@ -144,6 +144,10 @@ CuboRGB::~CuboRGB()
 	delete mMesh; mMesh = nullptr;
 }
 
+void CuboRGB::update()
+{
+}
+
 void CuboRGB::render(glm::dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
