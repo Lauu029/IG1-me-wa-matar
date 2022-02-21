@@ -146,6 +146,8 @@ CuboRGB::~CuboRGB()
 
 void CuboRGB::update()
 {
+	/*mModelMat = rotate(mModelMat, radians(angle1), dvec3(0, 0, 1));
+	angle1 -= 15;*/
 }
 
 void CuboRGB::render(glm::dmat4 const& modelViewMat) const
