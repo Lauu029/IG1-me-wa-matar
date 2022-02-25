@@ -7,6 +7,11 @@ using namespace glm;
 
 //-------------------------------------------------------------------------
 
+void Abs_Entity::setTexture(Texture* tex)
+{
+	mTexture = tex;
+}
+
 void Abs_Entity::setColor(dvec4 col)
 {
 	mColor = col;

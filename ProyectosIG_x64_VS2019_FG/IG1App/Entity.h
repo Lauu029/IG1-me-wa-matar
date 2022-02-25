@@ -6,6 +6,7 @@
 #include <glm.hpp>
 
 #include "Mesh.h"
+#include "Texture.h"
 
 //-------------------------------------------------------------------------
 
@@ -21,6 +22,8 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat) const = 0;  // abstract method
 	virtual void update(){};
 
+	void setTexture(Texture* tex);
+
 	// modeling matrix
 	glm::dmat4 const& modelMat() const { return mModelMat; };
 	void setModelMat(glm::dmat4 const& aMat) { mModelMat = aMat; };
@@ -34,6 +37,7 @@ protected:
 	glm::dvec4 mColor;		//Para los colores
 	// transfers modelViewMat to the GPU
 	virtual void upload(glm::dmat4 const& mModelViewMat) const; 
+	Texture* mTexture = nullptr;
 };
 //-------------------------------------------------------------------------
 
