@@ -9,6 +9,7 @@
 #include "Entity.h"
 
 #include <vector>
+#include "Texture.h"
 
 //-------------------------------------------------------------------------
 
@@ -36,6 +37,7 @@ protected:
 	void resetGL();
 	int id=0;
 	std::vector<Abs_Entity*> gObjects;  // Entities (graphic objects) of the scene
+	std::vector<Texture*> gTextures;
 };
 //-------------------------------------------------------------------------
 
