@@ -208,9 +208,9 @@ void Suelo::render(glm::dmat4 const& modelViewMat) const
 	if (mMesh != nullptr) {
 		dmat4 aMat = modelViewMat * mModelMat;
 		upload(aMat);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glColor4dv(value_ptr(mColor));
-		mTexture->bind(GL_MODULATE);
+		/*glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);*/
+		/*glColor4dv(value_ptr(mColor));*/
+		mTexture->bind(GL_REPLACE);
 		mMesh->render();
 		mTexture->unbind();
 		glColor4d(1, 1, 1, 1);

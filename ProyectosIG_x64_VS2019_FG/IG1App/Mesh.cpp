@@ -14,11 +14,6 @@ void Mesh::draw() const
 
 void Mesh::render() const
 {
-	if (vTexCoords.size() > 0) {
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	}
 	if (vVertices.size() > 0) {  // transfer data
 	  // transfer the coordinates of the vertices
 		glEnableClientState(GL_VERTEX_ARRAY);
@@ -28,10 +23,15 @@ void Mesh::render() const
 			glColorPointer(4, GL_DOUBLE, 0, vColors.data());  // components number (rgba=4), type of each component, stride, pointer  
 		}
 
+		if (vTexCoords.size() > 0) {
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
+		}
 		draw();
 
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 }
 //-------------------------------------------------------------------------
@@ -120,16 +120,16 @@ Mesh* Mesh::generaRectangulo(GLdouble w, GLdouble h)
 	mesh->mNumVertices = 4;
 
 	mesh->vVertices.reserve(mesh->mNumVertices);
-	mesh->vColors.reserve(mesh->mNumVertices);
+	/*mesh->vColors.reserve(mesh->mNumVertices);*/
 
-	mesh->vVertices.emplace_back(w / 2, -h / 2, 0.0);
-	mesh->vVertices.emplace_back(w / 2, h / 2, 0.0);
-	mesh->vVertices.emplace_back(-w / 2, -h / 2, 0.0);
 	mesh->vVertices.emplace_back(-w / 2, h / 2, 0.0);
-	mesh->vColors.emplace_back(1.0, 1.0, 0.0, 1.0);
+	mesh->vVertices.emplace_back(-w / 2, -h / 2, 0.0);
+	mesh->vVertices.emplace_back(w / 2, h / 2, 0.0);
+	mesh->vVertices.emplace_back(w / 2, -h / 2, 0.0);
+	/*mesh->vColors.emplace_back(1.0, 1.0, 0.0, 1.0);
 	mesh->vColors.emplace_back(1.0, 0.0, 1.0, 1.0);
 	mesh->vColors.emplace_back(1.0, 1.0, 1.0, 1.0);
-	mesh->vColors.emplace_back(0.0, 1.0, 1.0, 1.0);
+	mesh->vColors.emplace_back(0.0, 1.0, 1.0, 1.0);*/
 
 
 	return mesh;
