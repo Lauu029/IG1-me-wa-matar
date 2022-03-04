@@ -146,6 +146,7 @@ Mesh* Mesh::generaCubo(GLdouble l)
 	mesh->vVertices.reserve(mesh->mNumVertices);
 	mesh->vColors.reserve(mesh->mNumVertices);
 
+	//front
 	mesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
 	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
 	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
@@ -153,6 +154,7 @@ Mesh* Mesh::generaCubo(GLdouble l)
 	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
 	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
 
+	//top
 	mesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
 	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
 	mesh->vVertices.emplace_back(l / 2, l / 2, -l / 2);
@@ -160,6 +162,7 @@ Mesh* Mesh::generaCubo(GLdouble l)
 	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
 	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
 
+	//left
 	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
 	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
 	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
@@ -167,20 +170,21 @@ Mesh* Mesh::generaCubo(GLdouble l)
 	mesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
 	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
 
+	//back
 	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
 	mesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
 	mesh->vVertices.emplace_back(l / 2, l / 2, -l / 2);
 	mesh->vVertices.emplace_back(l / 2, l / 2, -l / 2);
 	mesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
 	mesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
-
+	//right
 	mesh->vVertices.emplace_back(l / 2, l / 2, -l / 2);
 	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
 	mesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
 	mesh->vVertices.emplace_back(l / 2, l / 2, -l / 2);
 	mesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
 	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
-
+	//bottom
 	mesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
 	mesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
 	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
@@ -242,4 +246,49 @@ Mesh* Mesh::generaRectanguloTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh)
 	m->vTexCoords.emplace_back(rh, rw);
 	m->vTexCoords.emplace_back(rh, 0);
 	return m;
+}
+
+Mesh* Mesh::generaContornoCaja(GLdouble l)
+{
+	Mesh* mesh = new Mesh();
+
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+
+	mesh->mNumVertices = 36;
+
+	mesh->vVertices.reserve(mesh->mNumVertices);
+	mesh->vColors.reserve(mesh->mNumVertices);
+
+	//front
+	mesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
+	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
+	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
+	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
+	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
+	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
+
+	//left
+	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
+	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
+	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
+	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
+	mesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
+	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
+
+	//right
+	mesh->vVertices.emplace_back(l / 2, l / 2, -l / 2);
+	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
+	mesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
+	mesh->vVertices.emplace_back(l / 2, l / 2, -l / 2);
+	mesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
+	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
+
+	//bottom
+	mesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
+	mesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
+	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
+	mesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
+	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
+	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
+	return nullptr;
 }

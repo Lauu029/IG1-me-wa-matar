@@ -32,7 +32,7 @@ public:
 	static Mesh* generaRectangulo(GLdouble w, GLdouble h);
 	static Mesh* generaCubo(GLdouble l);
 	static Mesh* generaRectanguloTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh);
-		
+	static Mesh* generaContornoCaja(GLdouble longitud);
 protected:
 	
 	GLuint mPrimitive = GL_TRIANGLES;   // graphic primitive: GL_POINTS, GL_LINES, GL_TRIANGLES, ...
