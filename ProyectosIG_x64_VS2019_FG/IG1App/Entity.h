@@ -86,9 +86,10 @@ public:
 	virtual void update() override;
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
-	GLdouble angle1 = 0.0f;
-	GLdouble angle2 = 0.0f;
-	GLdouble angle3 = 0.0f;
+	GLdouble angleX = 0.0f;
+	GLdouble angleY = 0.0f;
+	GLdouble angleZ = 0.0f;
+	GLdouble lado = 0.0f;
 };
 //--------------------------------------------------------------
 class Suelo : public Abs_Entity

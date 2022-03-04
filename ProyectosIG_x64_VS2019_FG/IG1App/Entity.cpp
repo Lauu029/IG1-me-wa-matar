@@ -142,8 +142,8 @@ void RectanguloRGB::render(glm::dmat4 const& modelViewMat) const
 CuboRGB::CuboRGB(GLdouble l)
 {
 	mMesh = Mesh::generaCubo(l);
-	mModelMat = translate(mModelMat, dvec3(l / 2, l / 2, l / 2));
-
+	mModelMat = translate(mModelMat, dvec3(-l / 2, l / 2, l / 2));
+	lado = l;
 }
 
 CuboRGB::~CuboRGB()
@@ -153,25 +153,24 @@ CuboRGB::~CuboRGB()
 
 void CuboRGB::update()
 {
-	if (angle1 < 180)
+	if (angleY < 180)
 	{
-		mModelMat = rotate(mModelMat, 2.0, dvec3(1, 0, 0));
-		angle1 += 2;
+		angleY += 3.0;
 	}
-	else if (angle2 < 180 && angle1 >= 180)
+	else if (angleX < 180)
 	{
-		mModelMat = rotate(mModelMat, 2.0, dvec3(0, 1, 0));
-		angle2 += 2;
+		angleX += 3.0;
 	}
-	else if (angle3 < 180 && angle2 >= 180 && angle1 >= 180)
+	else if (angleZ < 180)
 	{
-		mModelMat = rotate(mModelMat, 2.0, dvec3(0, 0, 1));
-		angle3 += 2;
+		angleZ += 3.0;
 	}
-	else angle1 = angle2 = angle3 = 0;
+	else angleX = angleY = angleZ = 0;
 
-	//mModelMat = rotate(mModelMat, radians(angle1), dvec3(0, 0, 1));
-	//angle1 -= 15;
+	mModelMat = rotate(dmat4(1), radians(angleX), dvec3(1, 0, 0));
+	mModelMat = rotate(mModelMat, radians(angleY), dvec3(0, 1, 0));
+	mModelMat = rotate(mModelMat, radians(angleZ), dvec3(0, 0, 1));
+	mModelMat = translate(mModelMat, dvec3((-lado / 2), (lado / 2), (lado / 2)));
 }
 
 void CuboRGB::render(glm::dmat4 const& modelViewMat) const

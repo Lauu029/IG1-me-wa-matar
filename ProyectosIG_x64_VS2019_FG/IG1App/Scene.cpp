@@ -14,15 +14,15 @@ void Scene::init()
 	// allocate memory and load resources
     // Lights
     // Textures
-	Texture* t = new Texture();
-	t->load("..//Bmps//baldosaC.bmp");
-	gTextures.push_back(t);
-    // Graphics objects (entities) of the scene
+	//Texture* t = new Texture();
+	//t->load("..//Bmps//baldosaC.bmp");
+	//gTextures.push_back(t);
+ //   // Graphics objects (entities) of the scene
 	GLdouble r = 250;
 	gObjects.push_back(new EjesRGB(400.0));
 
 	//gObjects.push_back(new Suelo());
-	gObjects.back()->setTexture(t);
+	//gObjects.back()->setTexture(t);
 	if (id == 0)
 	{			
 		PoligonsRGB* circulo = new PoligonsRGB(360, r);
