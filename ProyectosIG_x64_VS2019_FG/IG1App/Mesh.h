@@ -31,6 +31,7 @@ public:
 	static Mesh* generaTriangulo( GLdouble r, GLdouble x, GLdouble y);
 	static Mesh* generaRectangulo(GLdouble w, GLdouble h);
 	static Mesh* generaCubo(GLdouble l);
+	static Mesh* generaRectanguloTexCor(GLdouble w, GLdouble h);
 		
 protected:
 	

@@ -141,6 +141,19 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Viewport.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Bmps\baldosaC.bmp" />
+    <Image Include="..\Bmps\baldosaF.bmp" />
+    <Image Include="..\Bmps\baldosaP.bmp" />
+    <Image Include="..\Bmps\container.bmp" />
+    <Image Include="..\Bmps\grass.bmp" />
+    <Image Include="..\Bmps\noche.bmp" />
+    <Image Include="..\Bmps\papelC.bmp" />
+    <Image Include="..\Bmps\papelE.bmp" />
+    <Image Include="..\Bmps\windowC.bmp" />
+    <Image Include="..\Bmps\windowV.bmp" />
+    <Image Include="..\Bmps\Zelda.bmp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

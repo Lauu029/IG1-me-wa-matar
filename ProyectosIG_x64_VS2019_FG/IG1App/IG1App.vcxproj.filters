@@ -72,4 +72,39 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Bmps\baldosaC.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="..\Bmps\baldosaF.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="..\Bmps\baldosaP.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="..\Bmps\container.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="..\Bmps\grass.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="..\Bmps\noche.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="..\Bmps\papelC.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="..\Bmps\papelE.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="..\Bmps\windowC.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="..\Bmps\windowV.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="..\Bmps\Zelda.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+  </ItemGroup>
 </Project>
