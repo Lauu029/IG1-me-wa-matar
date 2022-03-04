@@ -132,6 +132,7 @@ void IG1App::key(unsigned char key, int x, int y)
 		break;
 	case '0':
 		mScene->setScene(0);
+		mCamera->set2D();
 		break;
 	case '1':
 		mScene->setScene(1);
@@ -187,8 +188,8 @@ void IG1App::specialKey(int key, int x, int y)
 }
 void IG1App::update()
 {
-	
-	if (glutGet(GLUT_ELAPSED_TIME)- mLastUpdateTime >= 30 && activeMovement)
+
+	if (glutGet(GLUT_ELAPSED_TIME) - mLastUpdateTime >= 30 && activeMovement)
 	{
 		mScene->Update();
 		mLastUpdateTime = glutGet(GLUT_ELAPSED_TIME);
