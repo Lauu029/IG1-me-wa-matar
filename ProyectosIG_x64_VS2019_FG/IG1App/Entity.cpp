@@ -189,8 +189,8 @@ void CuboRGB::render(glm::dmat4 const& modelViewMat) const
 
 Suelo::Suelo()
 {
-	mMesh = Mesh::generaRectanguloTexCor(100,100);
-	mModelMat = rotate(mModelMat, -3.14/2, dvec3(1, 0, 0));
+	mMesh = Mesh::generaRectanguloTexCor(100, 100, 4, 4);
+	mModelMat = rotate(mModelMat, -3.14 / 2, dvec3(1, 0, 0));
 }
 
 Suelo::~Suelo()
