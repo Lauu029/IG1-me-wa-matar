@@ -21,9 +21,9 @@ void Scene::init()
 	GLdouble r = 250;
 	gObjects.push_back(new EjesRGB(400.0));
 
-	gObjects.push_back(new Suelo());
+	//gObjects.push_back(new Suelo());
 	gObjects.back()->setTexture(t);
-	/*if (id == 0)
+	if (id == 0)
 	{			
 		PoligonsRGB* circulo = new PoligonsRGB(360, r);
 		circulo->setColor({ 0,1,1,0 });
@@ -35,9 +35,7 @@ void Scene::init()
 	else if (id == 1)
 	{
 		gObjects.push_back(new CuboRGB(90));
-	}*/
-	
-	
+	}	
 }
 //-------------------------------------------------------------------------
 void Scene::free() 

@@ -58,7 +58,6 @@ void IG1App::iniWinOpenGL()
 	glutInitContextVersion(3, 3);
 	glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);  // GLUT_CORE_PROFILE
 	glutInitContextFlags(GLUT_DEBUG);		// GLUT_FORWARD_COMPATIBLE
-	glutIdleFunc(s_update);
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
 
 	glutInitWindowSize(mWinW, mWinH);   // window size
@@ -73,7 +72,7 @@ void IG1App::iniWinOpenGL()
 	glutKeyboardFunc(s_key);
 	glutSpecialFunc(s_specialKey);
 	glutDisplayFunc(s_display);
-
+	glutIdleFunc(s_update);
 	cout << glGetString(GL_VERSION) << '\n';
 	cout << glGetString(GL_VENDOR) << '\n';
 }
@@ -138,7 +137,7 @@ void IG1App::key(unsigned char key, int x, int y)
 		mScene->setScene(1);
 		break;
 	case 'u':
-		update();
+		mScene->Update();
 		break;
 	case'U':
 		activeMovement = !activeMovement;
@@ -188,7 +187,7 @@ void IG1App::specialKey(int key, int x, int y)
 void IG1App::update()
 {
 	
-	if (GLUT_ELAPSED_TIME- mLastUpdateTime >= 100 && activeMovement)
+	if (glutGet(GLUT_ELAPSED_TIME)- mLastUpdateTime >= 30 && activeMovement)
 	{
 		mScene->Update();
 		mLastUpdateTime = glutGet(GLUT_ELAPSED_TIME);
