@@ -77,6 +77,7 @@ void PoligonsRGB::render(glm::dmat4 const& modelViewMat) const
 		glColor3d(0, 0, 0);
 	}
 }
+//------------------------------------------------------------------------
 TrianguloRGB::TrianguloRGB(GLdouble r, GLdouble x, GLdouble y)
 {
 	mMesh = Mesh::generaTriangulo(r, x, y);
@@ -115,7 +116,7 @@ void TrianguloRGB::update()
 
 }
 
-
+//------------------------------------------------------------------------
 RectanguloRGB::RectanguloRGB(GLdouble w, GLdouble h)
 {
 	mMesh = Mesh::generaRectangulo(w, h);
@@ -138,7 +139,7 @@ void RectanguloRGB::render(glm::dmat4 const& modelViewMat) const
 		glLineWidth(1);
 	}
 }
-
+//------------------------------------------------------------------------
 CuboRGB::CuboRGB(GLdouble l)
 {
 	mMesh = Mesh::generaCubo(l);
@@ -187,7 +188,7 @@ void CuboRGB::render(glm::dmat4 const& modelViewMat) const
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }
-
+//------------------------------------------------------------------------
 Suelo::Suelo()
 {
 	mMesh = Mesh::generaRectanguloTexCor(100, 100, 5, 5);
@@ -216,7 +217,7 @@ void Suelo::render(glm::dmat4 const& modelViewMat) const
 		glColor4d(1, 1, 1, 1);
 	}
 }
-
+//------------------------------------------------------------------------
 ContornoCaja::ContornoCaja(GLdouble l)
 {
 	mMesh = Mesh::generaCajaTexCor(l);
@@ -261,7 +262,7 @@ void ContornoCaja::render(glm::dmat4 const& modelViewMat) const
 		//glColor4d(1, 1, 1, 1);
 	}
 }
-
+//------------------------------------------------------------------------
 Estrella3D::Estrella3D(GLdouble re, GLuint np, GLdouble h)
 {
 	mMesh = Mesh::generaEstrella3DTexCor(re, np, h);
@@ -296,6 +297,65 @@ void Estrella3D::render(glm::dmat4 const& modelViewMat) const
 		mTexture->bind(GL_REPLACE);
 		mMesh->render();
 		mTexture->unbind();
-	
+
+	}
+}
+//------------------------------------------------------------------------
+
+Caja::Caja(GLdouble l)
+{
+	mMesh = Mesh::generaCajaTexCor(l);
+	posicion = dvec3(0, l * 0.5, -l * 0.5);
+	tapa = Mesh::generaRectanguloTexCor(l, l, 1, 1);
+	tapaModelMat = rotate(tapaModelMat, radians(90.0), dvec3(1, 0, 0));
+	tapaModelMat = translate(tapaModelMat, dvec3(posL.x, posL.y, posL.z - l / 2));
+
+	suelo = Mesh::generaRectanguloTexCor(l, l, 1, 1);
+	sueloModelMat = rotate(sueloModelMat, radians(90.0), dvec3(1, 0, 0));
+	sueloModelMat = translate(sueloModelMat, dvec3(posL.x, posL.y, posL.z + l / 2));
+}
+
+Caja::~Caja()
+{
+	delete mMesh; mMesh = nullptr;
+	delete suelo; suelo = nullptr;
+	delete tapa; tapa = nullptr;
+}
+
+void Caja::update()
+{
+}
+
+void Caja::setTexureCaja(Texture* front_, Texture* back_)
+{
+	front = front_;
+	back = back_;
+}
+
+void Caja::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		dmat4 aMat = modelViewMat * mModelMat;
+		upload(aMat);
+		/*glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		/*glColor4dv(value_ptr(mColor));*/
+		glEnable(GL_CULL_FACE);
+		//textura de la cara frontal
+		glCullFace(GL_BACK);
+
+		front->bind(GL_REPLACE);
+		mMesh->render();
+		suelo->render();
+		tapa->render();
+		front->unbind();
+
+		glCullFace(GL_FRONT);
+		back->bind(GL_REPLACE);
+		mMesh->render();
+		suelo->render();
+		tapa->render();
+		back->unbind();
+		glDisable(GL_CULL_FACE);
+		//glColor4d(1, 1, 1, 1);
 	}
 }

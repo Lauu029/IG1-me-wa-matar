@@ -7,13 +7,13 @@
 
 #include "Mesh.h"
 #include "Texture.h"
-
+using namespace glm;
 //-------------------------------------------------------------------------
 
 class Abs_Entity  // abstract class
 {
 public:
-	Abs_Entity() : mModelMat(1.0), mColor(3) {};  // 4x4 identity matrix
+	Abs_Entity() : mModelMat(1.0), mColor(3),posL(0,0,0) {};  // 4x4 identity matrix
 	virtual ~Abs_Entity() {};
 
 	Abs_Entity(const Abs_Entity& e) = delete;  // no copy constructor
@@ -35,6 +35,7 @@ protected:
 	Mesh* mMesh = nullptr;   // the mesh
 	glm::dmat4 mModelMat;    // modeling matrix
 	glm::dvec4 mColor;		//Para los colores
+	glm::dvec3 posL;
 	// transfers modelViewMat to the GPU
 	virtual void upload(glm::dmat4 const& mModelViewMat) const;
 	Texture* mTexture = nullptr;
@@ -124,5 +125,24 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
 	GLdouble angle = 0.0;
+};
+//-------------------------------------
+class Caja : public Abs_Entity
+{
+public:
+	explicit Caja(GLdouble l);
+	~Caja();
+	virtual void update() override;
+	void setTexureCaja(Texture* front, Texture* back);
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+protected:
+	GLdouble angle = 0.0;
+	Mesh* tapa = nullptr;
+	dmat4 tapaModelMat = dmat4(1);
+	Mesh* suelo = nullptr;
+	dmat4 sueloModelMat = dmat4(1);
+	Texture* front;
+	Texture* back;
+	dvec3 posicion;
 };
 #endif //_H_Entities_H_

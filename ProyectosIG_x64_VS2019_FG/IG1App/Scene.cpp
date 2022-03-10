@@ -46,9 +46,9 @@ void Scene::init()
 		Texture* b = new Texture();
 		b->load("..//Bmps//papelE.bmp");
 		gTextures.push_back(a);
-		ContornoCaja* caja = new ContornoCaja(100);
-		gObjects.push_back(caja);
-		caja->setTexturesCaja(a, b);
+		ContornoCaja* cajaCont = new ContornoCaja(100);
+		gObjects.push_back(cajaCont);
+		cajaCont->setTexturesCaja(a, b);
 	}
 	else if (id == 4) {
 		Texture* t = new Texture();
@@ -56,6 +56,17 @@ void Scene::init()
 		gTextures.push_back(t);
 		gObjects.push_back(new Estrella3D(100, 8, 150));
 		gObjects.back()->setTexture(t);
+	}
+	else if (id == 5) {
+		Texture* fuera = new Texture();
+		fuera->load("..//Bmps//container.bmp");
+		gTextures.push_back(fuera);
+		Texture* dentro = new Texture();
+		dentro->load("..//Bmps//papelE.bmp");
+		gTextures.push_back(dentro);
+		Caja* caja = new Caja(50);
+		gObjects.push_back(caja);
+		caja->setTexureCaja(fuera, dentro);
 	}
 }
 //-------------------------------------------------------------------------

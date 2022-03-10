@@ -145,6 +145,9 @@ void IG1App::key(unsigned char key, int x, int y)
 	case '4':
 		mScene->setScene(4);
 		break;
+	case '5':
+		mScene->setScene(5);
+		break;
 	case 'u':
 		mScene->Update();
 		break;
