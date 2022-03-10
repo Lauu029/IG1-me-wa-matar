@@ -43,9 +43,12 @@ void Scene::init()
 
 		Texture* a = new Texture();
 		a->load("..//Bmps//container.bmp");
+		Texture* b = new Texture();
+		b->load("..//Bmps//papelE.bmp");
 		gTextures.push_back(a);
-		gObjects.push_back(new ContornoCaja(50));
-		gObjects.back()->setTexture(a);
+		ContornoCaja* caja = new ContornoCaja(100);
+		gObjects.push_back(caja);
+		caja->setTexturesCaja(a, b);
 	}
 }
 //-------------------------------------------------------------------------

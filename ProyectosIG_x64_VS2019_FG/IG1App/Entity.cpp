@@ -227,6 +227,12 @@ ContornoCaja::~ContornoCaja()
 	delete mMesh; mMesh = nullptr;
 }
 
+void ContornoCaja::setTexturesCaja(Texture* a_, Texture* b_)
+{
+	a = a_;
+	b = b_;
+}
+
 void ContornoCaja::update()
 {
 }
@@ -238,9 +244,19 @@ void ContornoCaja::render(glm::dmat4 const& modelViewMat) const
 		upload(aMat);
 		/*glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		/*glColor4dv(value_ptr(mColor));*/
-		mTexture->bind(GL_REPLACE);
+		glEnable(GL_CULL_FACE);
+		//textura de la cara frontal
+		glCullFace(GL_BACK);
+
+		a->bind(GL_REPLACE);
 		mMesh->render();
-		mTexture->unbind();
+		a->unbind();
+
+		glCullFace(GL_FRONT);
+		b->bind(GL_REPLACE);
+		mMesh->render();
+		b->unbind();
+		glDisable(GL_CULL_FACE);
 		//glColor4d(1, 1, 1, 1);
 	}
 }

@@ -13,21 +13,21 @@
 class Abs_Entity  // abstract class
 {
 public:
-	Abs_Entity(): mModelMat(1.0), mColor(3) {};  // 4x4 identity matrix
+	Abs_Entity() : mModelMat(1.0), mColor(3) {};  // 4x4 identity matrix
 	virtual ~Abs_Entity() {};
 
 	Abs_Entity(const Abs_Entity& e) = delete;  // no copy constructor
 	Abs_Entity& operator=(const Abs_Entity& e) = delete;  // no copy assignment
 
 	virtual void render(glm::dmat4 const& modelViewMat) const = 0;  // abstract method
-	virtual void update(){};
+	virtual void update() {};
 
 	void setTexture(Texture* tex);
 
 	// modeling matrix
 	glm::dmat4 const& modelMat() const { return mModelMat; };
 	void setModelMat(glm::dmat4 const& aMat) { mModelMat = aMat; };
-	
+
 	void setColor(glm::dvec4 col);
 	glm::dvec4 getColor();
 protected:
@@ -36,12 +36,12 @@ protected:
 	glm::dmat4 mModelMat;    // modeling matrix
 	glm::dvec4 mColor;		//Para los colores
 	// transfers modelViewMat to the GPU
-	virtual void upload(glm::dmat4 const& mModelViewMat) const; 
+	virtual void upload(glm::dmat4 const& mModelViewMat) const;
 	Texture* mTexture = nullptr;
 };
 //-------------------------------------------------------------------------
 
-class EjesRGB : public Abs_Entity 
+class EjesRGB : public Abs_Entity
 {
 public:
 	explicit EjesRGB(GLdouble l);
@@ -100,7 +100,7 @@ public:
 	virtual void update() override;
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
-	
+
 };
 //--------------------------------------------------
 class ContornoCaja : public Abs_Entity
@@ -108,9 +108,10 @@ class ContornoCaja : public Abs_Entity
 public:
 	explicit ContornoCaja(GLdouble l);
 	~ContornoCaja();
+	void setTexturesCaja(Texture* a_, Texture* b_);
 	virtual void update() override;
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
-
+	Texture* a; Texture* b;
 };
 #endif //_H_Entities_H_
