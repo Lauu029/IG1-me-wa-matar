@@ -51,7 +51,11 @@ void Scene::init()
 		caja->setTexturesCaja(a, b);
 	}
 	else if (id == 4) {
+		Texture* t = new Texture();
+		t->load("..//Bmps//baldosaP.bmp");
+		gTextures.push_back(t);
 		gObjects.push_back(new Estrella3D(100, 8, 150));
+		gObjects.back()->setTexture(t);
 	}
 }
 //-------------------------------------------------------------------------

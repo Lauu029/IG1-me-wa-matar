@@ -264,7 +264,7 @@ void ContornoCaja::render(glm::dmat4 const& modelViewMat) const
 
 Estrella3D::Estrella3D(GLdouble re, GLuint np, GLdouble h)
 {
-	mMesh = Mesh::generaEstrella3D(re, np, h);
+	mMesh = Mesh::generaEstrella3DTexCor(re, np, h);
 }
 
 Estrella3D::~Estrella3D()
@@ -286,15 +286,16 @@ void Estrella3D::render(glm::dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
 		dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
-		glLineWidth(2);
-		glColor3d(0.0, 0.0, 0.0);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
 		upload(aMat);
+		mTexture->bind(GL_REPLACE);
 		mMesh->render();
+		mTexture->unbind();
 		aMat = scale(aMat, dvec3(1, 1, -1));
 		upload(aMat);
+		mTexture->bind(GL_REPLACE);
 		mMesh->render();
-		glLineWidth(1);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		mTexture->unbind();
+	
 	}
 }

@@ -35,6 +35,7 @@ public:
 	static Mesh* generaContornoCaja(GLdouble longitud);
 	static Mesh* generaCajaTexCor(GLdouble longitud);
 	static Mesh* generaEstrella3D(GLdouble re, GLuint np, GLdouble h);
+	static Mesh* generaEstrella3DTexCor(GLdouble re, GLuint np, GLdouble h);
 protected:
 	
 	GLuint mPrimitive = GL_TRIANGLES;   // graphic primitive: GL_POINTS, GL_LINES, GL_TRIANGLES, ...

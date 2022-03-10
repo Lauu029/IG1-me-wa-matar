@@ -321,3 +321,29 @@ Mesh* Mesh::generaEstrella3D(GLdouble re, GLuint np, GLdouble h)
 	mesh->vVertices.emplace_back(re * cos(radians(alfa)), re * sin(radians(alfa)), h);
 	return mesh;
 }
+
+Mesh* Mesh::generaEstrella3DTexCor(GLdouble re, GLuint np, GLdouble h)
+{
+	Mesh* mesh = generaEstrella3D(re, np, h);
+
+	mesh->vTexCoords.reserve(mesh->mNumVertices);
+
+	mesh->vTexCoords.emplace_back(0.5f, 0.5f);
+
+	// Vértices de la textura
+	GLdouble angle = 0;
+	for (int i = 0; i < mesh->mNumVertices - 1; i++) {
+		if (i % 2 == 0) {
+			
+			mesh->vTexCoords.emplace_back((cos(radians(angle)) / 2 * 0.5f + 0.5f),( sin(radians(angle)) / 2 * 0.5f + 0.5f));
+		}
+
+		else {
+			mesh->vTexCoords.emplace_back((cos(radians(angle)) / 2 * 0.5f + 0.5f),(sin(radians(angle)) / 2 * 0.5f + 0.5f));
+		}
+
+
+		angle += 360.0f / (np * 2.0f);
+	}
+	return mesh;
+}
