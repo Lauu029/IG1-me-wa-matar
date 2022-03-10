@@ -123,5 +123,6 @@ public:
 	virtual void update() override;
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
+	GLdouble angle = 0.0;
 };
 #endif //_H_Entities_H_

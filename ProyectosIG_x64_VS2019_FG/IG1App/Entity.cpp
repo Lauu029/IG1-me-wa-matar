@@ -235,6 +235,7 @@ void ContornoCaja::setTexturesCaja(Texture* a_, Texture* b_)
 
 void ContornoCaja::update()
 {
+
 }
 
 void ContornoCaja::render(glm::dmat4 const& modelViewMat) const
@@ -273,6 +274,12 @@ Estrella3D::~Estrella3D()
 
 void Estrella3D::update()
 {
+
+	mModelMat = rotate(dmat4(1), -radians(angle), dvec3(0, 1, 0));
+	mModelMat = rotate(mModelMat, radians(angle), dvec3(0, 0, 1));
+	angle++;
+
+
 }
 
 void Estrella3D::render(glm::dmat4 const& modelViewMat) const
@@ -281,7 +288,7 @@ void Estrella3D::render(glm::dmat4 const& modelViewMat) const
 		dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
 		glLineWidth(2);
 		glColor3d(0.0, 0.0, 0.0);
-		glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		upload(aMat);
 		mMesh->render();
 		aMat = scale(aMat, dvec3(1, 1, -1));
