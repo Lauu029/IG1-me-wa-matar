@@ -254,11 +254,11 @@ Mesh* Mesh::generaContornoCaja(GLdouble l)
 
 	mesh->mPrimitive = GL_TRIANGLE_STRIP;
 
-	mesh->mNumVertices =10;
+	mesh->mNumVertices = 10;
 
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
-	
+
 	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
 	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
 	mesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
@@ -270,7 +270,7 @@ Mesh* Mesh::generaContornoCaja(GLdouble l)
 
 	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
 	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
-	
+
 	return mesh;
 }
 
@@ -280,19 +280,44 @@ Mesh* Mesh::generaCajaTexCor(GLdouble l)
 
 	mesh->vTexCoords.reserve(mesh->mNumVertices);
 
-	mesh->vTexCoords.emplace_back(0,1);
-	mesh->vTexCoords.emplace_back(0,0);
-	mesh->vTexCoords.emplace_back(1,1);
-	mesh->vTexCoords.emplace_back(1,0);
-	mesh->vTexCoords.emplace_back(2,1);
-	mesh->vTexCoords.emplace_back(2,0);
-	mesh->vTexCoords.emplace_back(3,1);
-	mesh->vTexCoords.emplace_back(3,0);
+	mesh->vTexCoords.emplace_back(0, 1);
+	mesh->vTexCoords.emplace_back(0, 0);
+	mesh->vTexCoords.emplace_back(1, 1);
+	mesh->vTexCoords.emplace_back(1, 0);
+	mesh->vTexCoords.emplace_back(2, 1);
+	mesh->vTexCoords.emplace_back(2, 0);
+	mesh->vTexCoords.emplace_back(3, 1);
+	mesh->vTexCoords.emplace_back(3, 0);
 
-	mesh->vTexCoords.emplace_back(4,1);
-	mesh->vTexCoords.emplace_back(4,0);
-	mesh->vTexCoords.emplace_back(0,1);
-	mesh->vTexCoords.emplace_back(0,0);
+	mesh->vTexCoords.emplace_back(4, 1);
+	mesh->vTexCoords.emplace_back(4, 0);
+	mesh->vTexCoords.emplace_back(0, 1);
+	mesh->vTexCoords.emplace_back(0, 0);
 
+	return mesh;
+}
+
+Mesh* Mesh::generaEstrella3D(GLdouble re, GLuint np, GLdouble h)
+{
+	Mesh* mesh = new Mesh();
+	mesh->mPrimitive = GL_TRIANGLE_FAN;
+	mesh->mNumVertices = np * 2 + 2;
+
+	mesh->vVertices.emplace_back(0, 0, 0);
+
+	GLdouble ri = re / 2;
+	GLdouble alfa = 0;
+	for (int i = 0; i < np * 2; i++) {
+		if (i % 2 == 0) {
+			mesh->vVertices.emplace_back(re * cos(radians(alfa)), re * sin(radians(alfa)), h);
+
+		}
+		else {
+			mesh->vVertices.emplace_back(ri * cos(radians(alfa)), ri * sin(radians(alfa)), h);
+		}
+		alfa += 360 / (np * 2.0);
+
+	}
+	mesh->vVertices.emplace_back(re * cos(radians(alfa)), re * sin(radians(alfa)), h);
 	return mesh;
 }

@@ -50,6 +50,9 @@ void Scene::init()
 		gObjects.push_back(caja);
 		caja->setTexturesCaja(a, b);
 	}
+	else if (id == 4) {
+		gObjects.push_back(new Estrella3D(100, 8, 150));
+	}
 }
 //-------------------------------------------------------------------------
 void Scene::free()

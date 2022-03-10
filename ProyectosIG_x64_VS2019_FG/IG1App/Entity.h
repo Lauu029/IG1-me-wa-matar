@@ -114,4 +114,14 @@ public:
 protected:
 	Texture* a; Texture* b;
 };
+//-------------------------------------
+class Estrella3D : public Abs_Entity
+{
+public:
+	explicit Estrella3D(GLdouble re, GLuint np, GLdouble h);
+	~Estrella3D();
+	virtual void update() override;
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+protected:
+};
 #endif //_H_Entities_H_
