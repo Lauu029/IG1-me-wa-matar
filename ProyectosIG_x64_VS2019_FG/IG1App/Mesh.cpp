@@ -254,41 +254,45 @@ Mesh* Mesh::generaContornoCaja(GLdouble l)
 
 	mesh->mPrimitive = GL_TRIANGLE_STRIP;
 
-	mesh->mNumVertices = 36;
+	mesh->mNumVertices =10;
 
 	mesh->vVertices.reserve(mesh->mNumVertices);
-	mesh->vColors.reserve(mesh->mNumVertices);
 
-	//front
+	
+	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
+	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
 	mesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
 	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
-	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
-
-	//left
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
-	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
-	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
-
-	//right
-	mesh->vVertices.emplace_back(l / 2, l / 2, -l / 2);
-	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
 	mesh->vVertices.emplace_back(l / 2, l / 2, -l / 2);
 	mesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
-	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
+	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
+	mesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
 
-	//bottom
-	mesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
-	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
+	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
 	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
-	return nullptr;
+	
+	return mesh;
+}
+
+Mesh* Mesh::generaCajaTexCor(GLdouble l)
+{
+	Mesh* mesh = generaContornoCaja(l);
+
+	mesh->vTexCoords.reserve(mesh->mNumVertices);
+
+	mesh->vTexCoords.emplace_back(0,1);
+	mesh->vTexCoords.emplace_back(0,0);
+	mesh->vTexCoords.emplace_back(1,1);
+	mesh->vTexCoords.emplace_back(1,0);
+	mesh->vTexCoords.emplace_back(2,1);
+	mesh->vTexCoords.emplace_back(2,0);
+	mesh->vTexCoords.emplace_back(3,1);
+	mesh->vTexCoords.emplace_back(3,0);
+
+	mesh->vTexCoords.emplace_back(4,1);
+	mesh->vTexCoords.emplace_back(4,0);
+	mesh->vTexCoords.emplace_back(0,1);
+	mesh->vTexCoords.emplace_back(0,0);
+
+	return mesh;
 }

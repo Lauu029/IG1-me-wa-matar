@@ -102,4 +102,15 @@ public:
 protected:
 	
 };
+//--------------------------------------------------
+class ContornoCaja : public Abs_Entity
+{
+public:
+	explicit ContornoCaja(GLdouble l);
+	~ContornoCaja();
+	virtual void update() override;
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+protected:
+
+};
 #endif //_H_Entities_H_
