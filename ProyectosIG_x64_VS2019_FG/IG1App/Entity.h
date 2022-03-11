@@ -13,7 +13,7 @@ using namespace glm;
 class Abs_Entity  // abstract class
 {
 public:
-	Abs_Entity() : mModelMat(1.0), mColor(3),posL(0,0,0) {};  // 4x4 identity matrix
+	Abs_Entity() : mModelMat(1.0), mColor(3), posL(0, 0, 0) {};  // 4x4 identity matrix
 	virtual ~Abs_Entity() {};
 
 	Abs_Entity(const Abs_Entity& e) = delete;  // no copy constructor
@@ -35,7 +35,7 @@ protected:
 	Mesh* mMesh = nullptr;   // the mesh
 	glm::dmat4 mModelMat;    // modeling matrix
 	glm::dvec4 mColor;		//Para los colores
-	glm::dvec3 posL;
+	glm::dvec3 posL;	//posicion de la entidad
 	// transfers modelViewMat to the GPU
 	virtual void upload(glm::dmat4 const& mModelViewMat) const;
 	Texture* mTexture = nullptr;
@@ -96,12 +96,14 @@ protected:
 class Suelo : public Abs_Entity
 {
 public:
-	explicit Suelo();
+	explicit Suelo(GLdouble l,GLint n);
 	~Suelo();
 	virtual void update() override;
 	virtual void render(glm::dmat4 const& modelViewMat) const;
+	void setTextureSuelo(Texture* a, Texture* b);
 protected:
-
+	Texture* fuera = nullptr;
+	Texture* dentro = nullptr;
 };
 //--------------------------------------------------
 class ContornoCaja : public Abs_Entity
@@ -113,7 +115,8 @@ public:
 	virtual void update() override;
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
-	Texture* a; Texture* b;
+	Texture* a = nullptr;
+	Texture* b = nullptr;
 };
 //-------------------------------------
 class Estrella3D : public Abs_Entity
@@ -137,12 +140,12 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
 	GLdouble angle = 0.0;
-	Mesh* tapa = nullptr;
-	dmat4 tapaModelMat = dmat4(1);
-	Mesh* suelo = nullptr;
+	Suelo* tapa = nullptr;
+	Suelo* suelo_ = nullptr;
+	Texture* front = nullptr;
+	Texture* back = nullptr;
 	dmat4 sueloModelMat = dmat4(1);
-	Texture* front;
-	Texture* back;
-	dvec3 posicion;
+	dmat4 tapaModelMat = dmat4(1);
+	dvec3 posicion = dvec3(0, 0, 0);
 };
 #endif //_H_Entities_H_

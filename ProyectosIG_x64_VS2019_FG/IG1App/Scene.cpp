@@ -35,8 +35,9 @@ void Scene::init()
 		Texture* t = new Texture();
 		t->load("..//Bmps//baldosaC.bmp");
 		gTextures.push_back(t);
-		gObjects.push_back(new Suelo());
-		gObjects.back()->setTexture(t);
+		Suelo* suelo_ = new Suelo(100, 5);
+		gObjects.push_back(suelo_);
+		suelo_->setTextureSuelo(t, t);
 
 	}
 	else if (id == 3) {
