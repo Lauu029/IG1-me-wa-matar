@@ -144,8 +144,6 @@ protected:
 	Suelo* suelo_ = nullptr;
 	Texture* front = nullptr;
 	Texture* back = nullptr;
-	dmat4 sueloModelMat = dmat4(1);
-	dmat4 tapaModelMat = dmat4(1);
 	dvec3 posicion = dvec3(0, 0, 0);
 };
 #endif //_H_Entities_H_

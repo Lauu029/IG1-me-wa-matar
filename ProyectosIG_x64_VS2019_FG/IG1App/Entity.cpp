@@ -193,7 +193,7 @@ void CuboRGB::render(glm::dmat4 const& modelViewMat) const
 Suelo::Suelo(GLdouble l, GLint n)
 {
 	mMesh = Mesh::generaRectanguloTexCor(l, l, n, n);
-	//mModelMat = rotate(mModelMat, -3.14 / 2, dvec3(1, 0, 0));
+	mModelMat = rotate(mModelMat, radians(-90.0), dvec3(1, 0, 0));
 }
 
 Suelo::~Suelo()
@@ -340,6 +340,13 @@ Caja::~Caja()
 
 void Caja::update()
 {
+	//tapa->setModelMat(rotate(tapa->modelMat(), radians(angle), dvec3(1, 0, 0)));
+	tapa->setModelMat(translate(tapa->modelMat(), dvec3(0, -sin(radians(angle)), 0)));
+	if (angle < 180) {
+		angle++;
+
+	}
+	else angle--;
 }
 
 void Caja::setTexureCaja(Texture* front_, Texture* back_)

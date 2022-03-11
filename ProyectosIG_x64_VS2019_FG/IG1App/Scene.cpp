@@ -65,7 +65,7 @@ void Scene::init()
 		Texture* dentro = new Texture();
 		dentro->load("..//Bmps//papelE.bmp");
 		gTextures.push_back(dentro);
-		Caja* caja = new Caja(50);
+		Caja* caja = new Caja(100);
 		gObjects.push_back(caja);
 		caja->setTexureCaja(fuera, dentro);
 	}
