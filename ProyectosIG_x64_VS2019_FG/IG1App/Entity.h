@@ -139,7 +139,9 @@ public:
 	void setTexureCaja(Texture* front, Texture* back);
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
-	GLdouble angle = 0.0;
+	GLdouble angle = 90.0;
+	GLdouble lado = 0.0;
+	bool giro = false;
 	Suelo* tapa = nullptr;
 	Suelo* suelo_ = nullptr;
 	Texture* front = nullptr;

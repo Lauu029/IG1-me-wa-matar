@@ -321,6 +321,7 @@ Caja::Caja(GLdouble l)
 	mMesh = Mesh::generaCajaTexCor(l);
 	posicion = dvec3(0, l * 0.5, -l * 0.5);
 	tapa = new Suelo(l, 1);
+	lado = l;
 
 	tapa->setModelMat(translate(dmat4(1), dvec3(0, l / 2.0, 0)));
 	tapa->setModelMat(rotate(tapa->modelMat(), radians(-90.0), dvec3(1, 0, 0)));
@@ -340,13 +341,20 @@ Caja::~Caja()
 
 void Caja::update()
 {
-	//tapa->setModelMat(rotate(tapa->modelMat(), radians(angle), dvec3(1, 0, 0)));
-	tapa->setModelMat(translate(tapa->modelMat(), dvec3(0, -sin(radians(angle)), 0)));
-	if (angle < 180) {
-		angle++;
-
+	if (!giro)
+	{
+		angle -= 3.0;
 	}
-	else angle--;
+	else angle += 3.0;
+	if (angle >= 90.0 || angle <= -90.0) giro = !giro;
+
+	tapa->setModelMat(rotate(dmat4(1), 3.14, dvec3(0,1, 0)));
+	tapa->setModelMat(translate(tapa->modelMat(), dvec3(0,(lado/2), (lado/2))));
+	tapa->setModelMat(rotate(tapa->modelMat(), radians(angle), dvec3(-1,0, 0)));
+	tapa->setModelMat(translate(tapa->modelMat(), dvec3(0,  (lado / 2),0)));
+	//tapa->setModelMat(rotate(tapa->modelMat(), radians(angleY), dvec3(0, 1, 0)));
+	//tapa->setModelMat(rotate(tapa->modelMat(), radians(angleZ), dvec3(0, 0, 1)));
+	//tapa->setModelMat(translate(tapa->modelMat(), dvec3(0,-lado/2, -lado/2)));
 }
 
 void Caja::setTexureCaja(Texture* front_, Texture* back_)
