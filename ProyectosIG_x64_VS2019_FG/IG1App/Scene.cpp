@@ -70,12 +70,9 @@ void Scene::init()
 		caja->setTexureCaja(fuera, dentro);
 	}
 	else if (id == 6) {
-
-		
 		Texture* texCristalera = new Texture();
-		texCristalera->load("..//Bmps//windowV.bmp",255/2);
+		texCristalera->load("..//Bmps//windowV.bmp",100);
 		gTextures.push_back(texCristalera);
-
 		Cristalera* crist_ = new Cristalera(200, 100);
 		gTranslucidObjects.push_back(crist_);
 		gTranslucidObjects.back()->setTexture(texCristalera);

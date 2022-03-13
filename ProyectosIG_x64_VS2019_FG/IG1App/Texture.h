@@ -28,6 +28,9 @@ public:
   
   void setWrap(GLuint wp);  // GL_REPEAT, GL_CLAMP 
 
+  //carga textura y color
+  void load(const std::string& BMP_Name, glm::u8vec3 color, GLubyte alpha);
+
 protected:
 
   void init();
