@@ -243,7 +243,7 @@ Mesh* Mesh::generaRectanguloTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh)
 	return m;
 }
 
-Mesh* Mesh::generaContornoCaja(GLdouble l)
+Mesh* Mesh::generaContornoCaja(GLdouble w,GLdouble h)
 {
 	Mesh* mesh = new Mesh();
 
@@ -254,24 +254,24 @@ Mesh* Mesh::generaContornoCaja(GLdouble l)
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
 
-	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
-	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(l / 2, l / 2, -l / 2);
-	mesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
-	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
+	mesh->vVertices.emplace_back(-w / 2, h / 2, w / 2);
+	mesh->vVertices.emplace_back(-w / 2, -h / 2, w / 2);
+	mesh->vVertices.emplace_back(w / 2,  h/ 2, w / 2);
+	mesh->vVertices.emplace_back(w / 2, -h / 2, w / 2);
+	mesh->vVertices.emplace_back(w / 2,  h/ 2, - w/ 2);
+	mesh->vVertices.emplace_back(w / 2, -h / 2, - w/ 2);
+	mesh->vVertices.emplace_back(-w / 2, h / 2, -w / 2);
+	mesh->vVertices.emplace_back(-w / 2, -h / 2, - w/ 2);
 
-	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
+	mesh->vVertices.emplace_back(-w / 2, h / 2, w / 2);
+	mesh->vVertices.emplace_back(-w / 2, -h / 2, w / 2);
 
 	return mesh;
 }
 
-Mesh* Mesh::generaCajaTexCor(GLdouble l)
+Mesh* Mesh::generaCajaTexCor(GLdouble w, GLdouble h)
 {
-	Mesh* mesh = generaContornoCaja(l);
+	Mesh* mesh = generaContornoCaja(w,h);
 
 	mesh->vTexCoords.reserve(mesh->mNumVertices);
 
@@ -329,15 +329,11 @@ Mesh* Mesh::generaEstrella3DTexCor(GLdouble re, GLuint np, GLdouble h)
 	GLdouble angle = 0;
 	for (int i = 0; i < mesh->mNumVertices - 1; i++) {
 		if (i % 2 == 0) {
-			
 			mesh->vTexCoords.emplace_back((cos(radians(angle)) / 2 * 0.5f + 0.5f),( sin(radians(angle)) / 2 * 0.5f + 0.5f));
 		}
-
 		else {
 			mesh->vTexCoords.emplace_back((cos(radians(angle)) / 2 * 0.5f + 0.5f),(sin(radians(angle)) / 2 * 0.5f + 0.5f));
 		}
-
-
 		angle += 360.0f / (np * 2.0f);
 	}
 	return mesh;

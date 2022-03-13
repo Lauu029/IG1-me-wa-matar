@@ -96,7 +96,7 @@ protected:
 class Suelo : public Abs_Entity
 {
 public:
-	explicit Suelo(GLdouble l,GLint n);
+	explicit Suelo(GLdouble l, GLint n);
 	~Suelo();
 	virtual void update() override;
 	virtual void render(glm::dmat4 const& modelViewMat) const;
@@ -146,6 +146,17 @@ protected:
 	Suelo* suelo_ = nullptr;
 	Texture* front = nullptr;
 	Texture* back = nullptr;
-	dvec3 posicion = dvec3(0, 0, 0);
+};
+//-------------------------------------
+class Cristalera : public Abs_Entity
+{
+public:
+	explicit Cristalera(GLdouble w, GLdouble h);
+	~Cristalera();
+	virtual void update() override;
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+protected:
+	GLdouble angle = 90.0;
+	GLdouble lado = 0.0;
 };
 #endif //_H_Entities_H_

@@ -32,31 +32,31 @@ void Scene::init()
 		gObjects.push_back(new CuboRGB(90));
 	}
 	else if (id == 2) {
-		Texture* t = new Texture();
-		t->load("..//Bmps//baldosaC.bmp");
-		gTextures.push_back(t);
+		Texture* texSuelo = new Texture();
+		texSuelo->load("..//Bmps//baldosaC.bmp");
+		gTextures.push_back(texSuelo);
 		Suelo* suelo_ = new Suelo(100, 5);
 		gObjects.push_back(suelo_);
-		suelo_->setTextureSuelo(t, t);
+		suelo_->setTextureSuelo(texSuelo, texSuelo);
 
 	}
 	else if (id == 3) {
 
-		Texture* a = new Texture();
-		a->load("..//Bmps//container.bmp");
-		Texture* b = new Texture();
-		b->load("..//Bmps//papelE.bmp");
-		gTextures.push_back(a);
+		Texture* cajaFuera = new Texture();
+		cajaFuera->load("..//Bmps//container.bmp");
+		Texture* cajaDentro = new Texture();
+		cajaDentro->load("..//Bmps//papelE.bmp");
+		gTextures.push_back(cajaFuera);
 		ContornoCaja* cajaCont = new ContornoCaja(100);
 		gObjects.push_back(cajaCont);
-		cajaCont->setTexturesCaja(a, b);
+		cajaCont->setTexturesCaja(cajaFuera, cajaDentro);
 	}
 	else if (id == 4) {
-		Texture* t = new Texture();
-		t->load("..//Bmps//baldosaP.bmp");
-		gTextures.push_back(t);
+		Texture* texEstrella = new Texture();
+		texEstrella->load("..//Bmps//baldosaP.bmp");
+		gTextures.push_back(texEstrella);
 		gObjects.push_back(new Estrella3D(100, 8, 150));
-		gObjects.back()->setTexture(t);
+		gObjects.back()->setTexture(texEstrella);
 	}
 	else if (id == 5) {
 		Texture* fuera = new Texture();
@@ -69,6 +69,17 @@ void Scene::init()
 		gObjects.push_back(caja);
 		caja->setTexureCaja(fuera, dentro);
 	}
+	else if (id == 6) {
+
+		
+		Texture* texCristalera = new Texture();
+		texCristalera->load("..//Bmps//windowV.bmp",255/2);
+		gTextures.push_back(texCristalera);
+
+		Cristalera* crist_ = new Cristalera(200, 100);
+		gTranslucidObjects.push_back(crist_);
+		gTranslucidObjects.back()->setTexture(texCristalera);
+	}
 }
 //-------------------------------------------------------------------------
 void Scene::free()
@@ -79,6 +90,11 @@ void Scene::free()
 		delete el;  el = nullptr;
 	}
 	gObjects.clear();
+	for (Abs_Entity* el : gTranslucidObjects)
+	{
+		delete el;  el = nullptr;
+	}
+	gTranslucidObjects.clear();
 	for (Texture* t : gTextures) {
 		delete t; t = nullptr;
 	}
@@ -110,12 +126,16 @@ void Scene::render(Camera const& cam) const
 	{
 		el->render(cam.viewMat());
 	}
+	//preparacion para el render translucido
+	glDepthMask(GL_FALSE);
+	glEnable(GL_BLEND);	
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+	for (Abs_Entity* tr : gTranslucidObjects) {
+		tr->render(cam.viewMat());
+	}
+	glDepthMask(GL_TRUE);
+	glDisable(GL_BLEND);
 }
-//void Scene::update()
-//{
-//	/*for (auto g : gObjects)
-//		g->update();*/
-//}
 //-----------------------------------------------------------------------
 void Scene::setScene(int id)
 {
@@ -133,6 +153,8 @@ void Scene::setId(int _id)
 void Scene::Update()
 {
 	for (auto g : gObjects)
+		g->update();
+	for (auto g : gTranslucidObjects)
 		g->update();
 }
 
