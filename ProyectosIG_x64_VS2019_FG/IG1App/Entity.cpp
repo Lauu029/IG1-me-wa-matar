@@ -415,3 +415,41 @@ void Cristalera::render(glm::dmat4 const& modelViewMat) const
 
 	}
 }
+//------------------------------------------------------------
+Hierba::Hierba(GLdouble w)
+{
+	mMesh = Mesh::generaRectanguloTexCor(w, w,1,1);
+	
+}
+
+Hierba::~Hierba()
+{
+	delete mMesh; mMesh = nullptr;
+}
+
+void Hierba::update()
+{
+}
+
+
+void Hierba::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		glEnable(GL_ALPHA_TEST);
+		glAlphaFunc(GL_GREATER, 0.0);
+		mTexture->bind(GL_MODULATE);
+
+		dmat4 aMat = modelViewMat * rotate(mModelMat, radians(60.0), dvec3(0, 1, 0));
+		upload(aMat);
+		mMesh->render();
+		aMat = modelViewMat * rotate(mModelMat, radians(120.0), dvec3(0, 1, 0));
+		upload(aMat);
+		mMesh->render();
+		aMat = modelViewMat * rotate(mModelMat, radians(180.0), dvec3(0, 1, 0));
+		upload(aMat);
+		mMesh->render();
+
+		mTexture->unbind();
+		glDisable(GL_ALPHA_TEST);
+	}
+}

@@ -159,4 +159,13 @@ protected:
 	GLdouble angle = 90.0;
 	GLdouble lado = 0.0;
 };
+//-----------------------------------------------
+class Hierba : public Abs_Entity
+{
+public:
+	explicit Hierba(GLdouble w);
+	~Hierba();
+	virtual void update() override;
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
 #endif //_H_Entities_H_

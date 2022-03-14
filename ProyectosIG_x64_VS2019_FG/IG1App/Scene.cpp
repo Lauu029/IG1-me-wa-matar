@@ -78,8 +78,11 @@ void Scene::init()
 		gTranslucidObjects.back()->setTexture(texCristalera);
 	}
 	else if (id == 7) {
-		Texture* hierba = new Texture();
-		hierba->load("..//Bmps//grass.bmp", glm::u8vec3(0, 0, 0), 0);
+		Texture* hText = new Texture();
+		hText->load("..//Bmps//grass.bmp", glm::u8vec3(0, 0, 0), 0);
+
+		gObjects.push_back(new Hierba(100));
+		gObjects.back()->setTexture(hText);
 	}
 }
 //-------------------------------------------------------------------------
