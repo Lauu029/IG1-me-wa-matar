@@ -71,11 +71,15 @@ void Scene::init()
 	}
 	else if (id == 6) {
 		Texture* texCristalera = new Texture();
-		texCristalera->load("..//Bmps//windowV.bmp",100);
+		texCristalera->load("..//Bmps//windowV.bmp",255/2);
 		gTextures.push_back(texCristalera);
 		Cristalera* crist_ = new Cristalera(200, 100);
 		gTranslucidObjects.push_back(crist_);
 		gTranslucidObjects.back()->setTexture(texCristalera);
+	}
+	else if (id == 7) {
+		Texture* hierba = new Texture();
+		hierba->load("..//Bmps//grass.bmp", glm::u8vec3(0, 0, 0), 0);
 	}
 }
 //-------------------------------------------------------------------------
