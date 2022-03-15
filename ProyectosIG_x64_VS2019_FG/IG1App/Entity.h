@@ -30,6 +30,8 @@ public:
 
 	void setColor(glm::dvec4 col);
 	glm::dvec4 getColor();
+	
+	void setPos(GLdouble x, GLdouble y, GLdouble z);
 protected:
 
 	Mesh* mMesh = nullptr;   // the mesh
@@ -122,7 +124,7 @@ protected:
 class Estrella3D : public Abs_Entity
 {
 public:
-	explicit Estrella3D(GLdouble re, GLuint np, GLdouble h);
+	explicit Estrella3D(GLdouble re, GLuint np, GLdouble h, GLdouble x=0, GLdouble y=0, GLdouble z=0);
 	~Estrella3D();
 	virtual void update() override;
 	virtual void render(glm::dmat4 const& modelViewMat) const;
@@ -133,7 +135,7 @@ protected:
 class Caja : public Abs_Entity
 {
 public:
-	explicit Caja(GLdouble l);
+	explicit Caja(GLdouble l, GLdouble x=0, GLdouble y=0, GLdouble z=0);
 	~Caja();
 	virtual void update() override;
 	void setTexureCaja(Texture* front, Texture* back);
@@ -141,9 +143,9 @@ public:
 protected:
 	GLdouble angle = 90.0;
 	GLdouble lado = 0.0;
-	bool giro = false;
 	Suelo* tapa = nullptr;
 	Suelo* suelo_ = nullptr;
+	bool giro = false;
 	Texture* front = nullptr;
 	Texture* back = nullptr;
 };
@@ -163,7 +165,7 @@ protected:
 class Hierba : public Abs_Entity
 {
 public:
-	explicit Hierba(GLdouble w);
+	explicit Hierba(GLdouble w, GLdouble x = 0, GLdouble y = 0, GLdouble z = 0);
 	~Hierba();
 	virtual void update() override;
 	virtual void render(glm::dmat4 const& modelViewMat) const;

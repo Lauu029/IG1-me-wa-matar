@@ -28,6 +28,10 @@ void Abs_Entity::upload(dmat4 const& modelViewMat) const
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixd(value_ptr(modelViewMat));  // transfers modelView matrix to the GPU
 }
+void Abs_Entity::setPos(GLdouble x, GLdouble y, GLdouble z)
+{
+	posL = dvec3(x, y, z);
+}
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
 
@@ -235,7 +239,7 @@ void Suelo::setTextureSuelo(Texture* a, Texture* b)
 //------------------------------------------------------------------------
 ContornoCaja::ContornoCaja(GLdouble l)
 {
-	mMesh = Mesh::generaCajaTexCor(l,l);
+	mMesh = Mesh::generaCajaTexCor(l, l);
 }
 
 ContornoCaja::~ContornoCaja()
@@ -278,9 +282,11 @@ void ContornoCaja::render(glm::dmat4 const& modelViewMat) const
 	}
 }
 //------------------------------------------------------------------------
-Estrella3D::Estrella3D(GLdouble re, GLuint np, GLdouble h)
+Estrella3D::Estrella3D(GLdouble re, GLuint np, GLdouble h, GLdouble x, GLdouble y, GLdouble z)
 {
+	setPos(x, y, z);
 	mMesh = Mesh::generaEstrella3DTexCor(re, np, h);
+	mModelMat = translate(mModelMat, posL);
 }
 
 Estrella3D::~Estrella3D()
@@ -291,7 +297,8 @@ Estrella3D::~Estrella3D()
 void Estrella3D::update()
 {
 
-	mModelMat = rotate(dmat4(1), -radians(angle), dvec3(0, 1, 0));
+	mModelMat = translate(dmat4(1), posL);
+	mModelMat = rotate(mModelMat, -radians(angle), dvec3(0, 1, 0));
 	mModelMat = rotate(mModelMat, radians(angle), dvec3(0, 0, 1));
 	angle++;
 
@@ -317,18 +324,20 @@ void Estrella3D::render(glm::dmat4 const& modelViewMat) const
 }
 //------------------------------------------------------------------------
 
-Caja::Caja(GLdouble l)
+Caja::Caja(GLdouble l, GLdouble x, GLdouble y, GLdouble z)
 {
-	mMesh = Mesh::generaCajaTexCor(l,l);
+	setPos(x, y, z);
+	mMesh = Mesh::generaCajaTexCor(l, l);
+	mModelMat = translate(mModelMat, dvec3(posL.x, posL.y, posL.z));
 	tapa = new Suelo(l, 1);
 	lado = l;
 
-	tapa->setModelMat(translate(dmat4(1), dvec3(0, l / 2.0, 0)));
+	tapa->setModelMat(translate(dmat4(1), dvec3(posL.x, posL.y + l / 2.0, posL.z)));
 	tapa->setModelMat(rotate(tapa->modelMat(), radians(-90.0), dvec3(1, 0, 0)));
 
 
 	suelo_ = new Suelo(l, 1);
-	suelo_->setModelMat(translate(dmat4(1), dvec3(0, -l / 2.0, 0)));
+	suelo_->setModelMat(translate(dmat4(1), dvec3(posL.x, posL.y - l / 2.0, posL.z)));
 	suelo_->setModelMat(rotate(suelo_->modelMat(), radians(90.0), dvec3(1, 0, 0)));
 }
 
@@ -349,7 +358,7 @@ void Caja::update()
 	if (angle >= 90.0 || angle <= -90.0) giro = !giro;
 
 	tapa->setModelMat(rotate(dmat4(1), 3.14, dvec3(0, 1, 0)));
-	tapa->setModelMat(translate(tapa->modelMat(), dvec3(0, (lado / 2), (lado / 2))));
+	tapa->setModelMat(translate(tapa->modelMat(), dvec3(-posL.x, posL.y + (lado / 2), -posL.z + (lado / 2))));
 	tapa->setModelMat(rotate(tapa->modelMat(), radians(angle), dvec3(-1, 0, 0)));
 	tapa->setModelMat(translate(tapa->modelMat(), dvec3(0, (lado / 2), 0)));
 }
@@ -390,7 +399,7 @@ void Caja::render(glm::dmat4 const& modelViewMat) const
 	}
 }
 //------------------------------------------------------------
-Cristalera::Cristalera(GLdouble w,GLdouble h)
+Cristalera::Cristalera(GLdouble w, GLdouble h)
 {
 	mMesh = Mesh::generaCajaTexCor(w, h);
 }
@@ -417,10 +426,11 @@ void Cristalera::render(glm::dmat4 const& modelViewMat) const
 	}
 }
 //------------------------------------------------------------
-Hierba::Hierba(GLdouble w)
+Hierba::Hierba(GLdouble w, GLdouble x, GLdouble y, GLdouble z)
 {
-	mMesh = Mesh::generaRectanguloTexCor(w, w,1,1);
-	
+	setPos(x, y, z);
+	mMesh = Mesh::generaRectanguloTexCor(w, w, 1, 1);
+	mModelMat = translate(mModelMat, posL);
 }
 
 Hierba::~Hierba()
@@ -458,7 +468,7 @@ void Hierba::render(glm::dmat4 const& modelViewMat) const
 Foto::Foto(GLdouble w)
 {
 	mMesh = Mesh::generaRectanguloTexCor(w, w, 1, 1);
-	mModelMat = translate(dmat4(1), dvec3(0,1, 0));
+	mModelMat = translate(dmat4(1), dvec3(0, 1, 0));
 	mModelMat = rotate(mModelMat, radians(-90.0), dvec3(1, 0, 0));
 }
 
@@ -478,7 +488,7 @@ void Foto::render(glm::dmat4 const& modelViewMat) const
 	if (mMesh != nullptr) {
 		dmat4 aMat = modelViewMat * mModelMat;
 		upload(aMat);
-		
+
 		mTexture->bind(GL_REPLACE);
 
 		mMesh->render();

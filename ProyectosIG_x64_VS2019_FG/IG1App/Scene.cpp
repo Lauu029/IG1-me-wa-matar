@@ -71,7 +71,7 @@ void Scene::init()
 	}
 	else if (id == 6) {
 		Texture* texCristalera = new Texture();
-		texCristalera->load("..//Bmps//windowV.bmp",255/2);
+		texCristalera->load("..//Bmps//windowV.bmp", 255 / 2);
 		gTextures.push_back(texCristalera);
 		Cristalera* crist_ = new Cristalera(200, 100);
 		gTranslucidObjects.push_back(crist_);
@@ -85,6 +85,15 @@ void Scene::init()
 		gObjects.back()->setTexture(hText);
 	}
 	else if (id == 8) {
+
+		Texture* fotoText = new Texture();
+		fotoText->loadColorBuffer(IG1App::s_ig1app.getWidht(), IG1App::s_ig1app.getHeigth(), GL_FRONT);
+
+		gObjects.push_back(new Foto(100));
+		gObjects.back()->setTexture(fotoText);
+	}
+	else if (id == 9) {
+		//Suelo
 		Texture* texSuelo = new Texture();
 		texSuelo->load("..//Bmps//baldosaC.bmp");
 		gTextures.push_back(texSuelo);
@@ -92,6 +101,38 @@ void Scene::init()
 		gObjects.push_back(suelo_);
 		suelo_->setTextureSuelo(texSuelo, texSuelo);
 
+		//Caja
+		Texture* fuera = new Texture();
+		fuera->load("..//Bmps//container.bmp");
+		gTextures.push_back(fuera);
+		Texture* dentro = new Texture();
+		dentro->load("..//Bmps//papelE.bmp");
+		gTextures.push_back(dentro);
+		Caja* caja = new Caja(70, -100, 35, -100);
+		gObjects.push_back(caja);
+		caja->setTexureCaja(fuera, dentro);
+
+		//Estrella
+		Texture* texEstrella = new Texture();
+		texEstrella->load("..//Bmps//baldosaP.bmp");
+		gTextures.push_back(texEstrella);
+		gObjects.push_back(new Estrella3D(80, 8, 150,-100, 150,-100));
+		gObjects.back()->setTexture(texEstrella);
+
+		//Cristalera
+		Texture* texCristalera = new Texture();
+		texCristalera->load("..//Bmps//windowV.bmp", 255 / 2);
+		gTextures.push_back(texCristalera);
+		Cristalera* crist_ = new Cristalera(300, 100);
+		gTranslucidObjects.push_back(crist_);
+		gTranslucidObjects.back()->setTexture(texCristalera);
+		//hierba
+		Texture* hText = new Texture();
+		hText->load("..//Bmps//grass.bmp", glm::u8vec3(0, 0, 0), 0);
+
+		gObjects.push_back(new Hierba(100,80,50,-80));
+		gObjects.back()->setTexture(hText);
+		//Foto
 		Texture* fotoText = new Texture();
 		fotoText->loadColorBuffer(IG1App::s_ig1app.getWidht(), IG1App::s_ig1app.getHeigth(), GL_FRONT);
 
@@ -146,8 +187,8 @@ void Scene::render(Camera const& cam) const
 	}
 	//preparacion para el render translucido
 	glDepthMask(GL_FALSE);
-	glEnable(GL_BLEND);	
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	for (Abs_Entity* tr : gTranslucidObjects) {
 		tr->render(cam.viewMat());
 	}
