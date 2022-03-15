@@ -132,6 +132,7 @@ void Scene::init()
 
 		gObjects.push_back(new Hierba(100,80,50,-80));
 		gObjects.back()->setTexture(hText);
+		
 		//Foto
 		Texture* fotoText = new Texture();
 		fotoText->loadColorBuffer(IG1App::s_ig1app.getWidht(), IG1App::s_ig1app.getHeigth(), GL_FRONT);
@@ -215,6 +216,15 @@ void Scene::Update()
 		g->update();
 	for (auto g : gTranslucidObjects)
 		g->update();
+}
+
+void Scene::savePhoto()
+{
+	Texture* photo = new Texture();
+	photo->loadColorBuffer(IG1App::s_ig1app.getWidht(), IG1App::s_ig1app.getHeigth());
+	photo->save("..//Bmps//foto.bmp");
+	delete photo;
+	
 }
 
 

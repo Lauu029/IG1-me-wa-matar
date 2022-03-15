@@ -30,7 +30,7 @@ public:
 	void setScene(int id);
 	void setId(int _id);
 	void Update();
-
+	void savePhoto();
 protected:
 	void free();
 	void setGL();

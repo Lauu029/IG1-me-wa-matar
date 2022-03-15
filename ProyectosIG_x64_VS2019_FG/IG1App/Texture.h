@@ -12,35 +12,36 @@
 class Texture
 {
 public:
-  Texture(){};
-  ~Texture();
+	Texture() {};
+	~Texture();
 
-  Texture(const Texture & tex) = delete;  // no copy constructor
-  Texture & operator=(const Texture & tex) = delete;  // no copy assignment
+	Texture(const Texture& tex) = delete;  // no copy constructor
+	Texture& operator=(const Texture& tex) = delete;  // no copy assignment
 
-  void load(const std::string & BMP_Name, GLubyte alpha = 255); // load from file and upload to GPU
-  
-  void bind(GLuint mixMode);   // GL_REPLACE, GL_MODULATE, GL_ADD, ...
-  void unbind() const { glBindTexture(GL_TEXTURE_2D, 0); };
+	void load(const std::string& BMP_Name, GLubyte alpha = 255); // load from file and upload to GPU
 
-  GLuint width() const { return mWidth; };
-  GLuint height() const { return mHeight; };
-  
-  void setWrap(GLuint wp);  // GL_REPEAT, GL_CLAMP 
+	void bind(GLuint mixMode);   // GL_REPLACE, GL_MODULATE, GL_ADD, ...
+	void unbind() const { glBindTexture(GL_TEXTURE_2D, 0); };
 
-  //carga textura y color
-  void load(const std::string& BMP_Name, glm::u8vec3 color, GLubyte alpha);
+	GLuint width() const { return mWidth; };
+	GLuint height() const { return mHeight; };
 
-  void loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer = GL_FRONT);
+	void setWrap(GLuint wp);  // GL_REPEAT, GL_CLAMP 
+
+	//carga textura y color
+	void load(const std::string& BMP_Name, glm::u8vec3 color, GLubyte alpha);
+
+	void loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer = GL_FRONT);
+	void save(const std::string& BMP_Name) const;
 
 protected:
 
-  void init();
-  
-  GLuint mWidth = 0;
-  GLuint mHeight = 0;
-  GLuint mId = 0;
-  
+	void init();
+
+	GLuint mWidth = 0;
+	GLuint mHeight = 0;
+	GLuint mId = 0;
+
 };
 
 //-------------------------------------------------------------------------
