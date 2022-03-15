@@ -3,7 +3,7 @@
 #include <gtc/matrix_transform.hpp>  
 #include <gtc/type_ptr.hpp>
 
-
+#include "IG1App.h"
 using namespace glm;
 //-------------------------------------------------------------------------
 
@@ -83,6 +83,20 @@ void Scene::init()
 
 		gObjects.push_back(new Hierba(100));
 		gObjects.back()->setTexture(hText);
+	}
+	else if (id == 8) {
+		Texture* texSuelo = new Texture();
+		texSuelo->load("..//Bmps//baldosaC.bmp");
+		gTextures.push_back(texSuelo);
+		Suelo* suelo_ = new Suelo(300, 5);
+		gObjects.push_back(suelo_);
+		suelo_->setTextureSuelo(texSuelo, texSuelo);
+
+		Texture* fotoText = new Texture();
+		fotoText->loadColorBuffer(IG1App::s_ig1app.getWidht(), IG1App::s_ig1app.getHeigth(), GL_FRONT);
+
+		gObjects.push_back(new Foto(100));
+		gObjects.back()->setTexture(fotoText);
 	}
 }
 //-------------------------------------------------------------------------

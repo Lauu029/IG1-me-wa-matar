@@ -45,7 +45,7 @@ void IG1App::init()
 
 
 	mCamera->set3D();
-	mScene->setScene(6);
+	mScene->setScene(8);
 }
 //-------------------------------------------------------------------------
 
@@ -153,6 +153,9 @@ void IG1App::key(unsigned char key, int x, int y)
 		break;
 	case'7':
 		mScene->setScene(7);
+		break;
+	case '8':
+		mScene->setScene(8);
 		break;
 	case 'u':
 		mScene->Update();

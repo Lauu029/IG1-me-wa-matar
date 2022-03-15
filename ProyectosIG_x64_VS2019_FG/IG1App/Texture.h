@@ -31,6 +31,8 @@ public:
   //carga textura y color
   void load(const std::string& BMP_Name, glm::u8vec3 color, GLubyte alpha);
 
+  void loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer = GL_FRONT);
+
 protected:
 
   void init();

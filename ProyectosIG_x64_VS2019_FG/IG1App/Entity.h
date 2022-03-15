@@ -168,4 +168,13 @@ public:
 	virtual void update() override;
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
+//-------------------------------------------------------------
+class Foto : public Abs_Entity
+{
+public:
+	explicit Foto(GLdouble w);
+	~Foto();
+	virtual void update() override;
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
 #endif //_H_Entities_H_

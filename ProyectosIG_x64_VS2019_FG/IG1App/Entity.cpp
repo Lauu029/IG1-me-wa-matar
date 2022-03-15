@@ -3,6 +3,7 @@
 #include <gtc/matrix_transform.hpp>  
 #include <gtc/type_ptr.hpp>
 
+#include "IG1App.h"
 using namespace glm;
 
 //-------------------------------------------------------------------------
@@ -451,5 +452,37 @@ void Hierba::render(glm::dmat4 const& modelViewMat) const
 
 		mTexture->unbind();
 		glDisable(GL_ALPHA_TEST);
+	}
+}
+//------------------------------------------------------------
+Foto::Foto(GLdouble w)
+{
+	mMesh = Mesh::generaRectanguloTexCor(w, w, 1, 1);
+	mModelMat = translate(dmat4(1), dvec3(0,1, 0));
+	mModelMat = rotate(mModelMat, radians(-90.0), dvec3(1, 0, 0));
+}
+
+Foto::~Foto()
+{
+	delete mMesh; mMesh = nullptr;
+}
+
+void Foto::update()
+{
+	mTexture->loadColorBuffer(IG1App::s_ig1app.getWidht(), IG1App::s_ig1app.getHeigth(), GL_FRONT);
+}
+
+
+void Foto::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		dmat4 aMat = modelViewMat * mModelMat;
+		upload(aMat);
+		
+		mTexture->bind(GL_REPLACE);
+
+		mMesh->render();
+
+		mTexture->unbind();
 	}
 }
