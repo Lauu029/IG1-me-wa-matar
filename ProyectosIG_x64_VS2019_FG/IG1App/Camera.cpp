@@ -2,7 +2,7 @@
 
 #include <gtc/matrix_transform.hpp>  
 #include <gtc/type_ptr.hpp>
-//#include <gtc/matrix_access.hpp>
+#include <gtc/matrix_access.hpp>
 
 using namespace glm;
 
@@ -16,7 +16,14 @@ Camera::Camera(Viewport* vp): mViewPort(vp), mViewMat(1.0), mProjMat(1.0),
 }
 //-------------------------------------------------------------------------
 
-void Camera::uploadVM() const 
+void Camera::setAxes()
+{
+	mRight = row(mViewMat, 0);
+	mUpward = row(mViewMat, 1);
+	mFront = -row(mViewMat, 2);
+}
+
+void Camera::uploadVM() const
 {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixd(value_ptr(mViewMat)); // transfers view matrix to the GPU 
