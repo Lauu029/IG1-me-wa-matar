@@ -33,10 +33,11 @@ void Camera::uploadVM() const
 void Camera::setVM() 
 {
 	mViewMat = lookAt(mEye, mLook, mUp);  // glm::lookAt defines the view matrix 
+	setAxes();
 }
 //-------------------------------------------------------------------------
 
-void Camera::set2D() 
+void Camera::set2D()
 {
 	mEye = dvec3(0,0,500);
 	mLook = dvec3(0, 0, 0);
