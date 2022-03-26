@@ -92,6 +92,27 @@ void Camera::setScale(GLdouble s)
 	if (mScaleFact < 0) mScaleFact = 0.01;
 	setPM();
 }
+
+void Camera::moveLR(GLdouble cs)
+{
+	mEye = mEye + mRight * cs;
+	mLook = mLook + mRight * cs;
+	setVM();
+}
+
+void Camera::moveFB(GLdouble cs)
+{
+	mEye = mEye + mFront * cs;
+	mLook = mLook + mFront * cs;
+	setVM();
+}
+
+void Camera::moveUD(GLdouble cs)
+{
+	mEye = mEye + mUpward * cs;
+	mLook = mLook + mUpward * cs;
+	setVM();
+}
 //-------------------------------------------------------------------------
 
 void Camera::setPM() 

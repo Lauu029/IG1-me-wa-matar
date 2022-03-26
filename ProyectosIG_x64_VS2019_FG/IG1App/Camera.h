@@ -39,6 +39,9 @@ public:
 	void upload() const { mViewPort->upload();  uploadVM(); uploadPM(); }; 
 
 protected:
+	void moveLR(GLdouble cs); // A izquierda/A derecha
+	void moveFB(GLdouble cs); // Adelante/Atrás
+	void moveUD(GLdouble cs); // Arriba/Abajo
 	
 	glm::dvec3 mEye = { 0.0, 0.0, 500.0 };  // camera's position
 	glm::dvec3 mLook = { 0.0, 0.0, 0.0 };   // target's position
