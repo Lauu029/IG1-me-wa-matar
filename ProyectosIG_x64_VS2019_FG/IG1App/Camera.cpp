@@ -93,6 +93,12 @@ void Camera::setScale(GLdouble s)
 	setPM();
 }
 
+void Camera::changePrj()
+{
+	bOrto = !bOrto;
+	setPM();
+}
+
 void Camera::moveLR(GLdouble cs)
 {
 	mEye = mEye + mRight * cs;
@@ -121,6 +127,10 @@ void Camera::setPM()
 		mProjMat = ortho(xLeft*mScaleFact, xRight*mScaleFact, yBot*mScaleFact, yTop*mScaleFact, mNearVal, mFarVal);
 		// glm::ortho defines the orthogonal projection matrix
 	}
+	else {
+		mProjMat = frustum(xLeft * mScaleFact, xRight * mScaleFact, yBot * mScaleFact, yTop * mScaleFact, yTop * 2, mFarVal);
+	}
+	uploadPM();
 }
 //-------------------------------------------------------------------------
 

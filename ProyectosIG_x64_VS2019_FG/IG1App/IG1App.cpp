@@ -130,6 +130,9 @@ void IG1App::key(unsigned char key, int x, int y)
 	case 'o':
 		mCamera->set2D();
 		break;
+	case'p':
+		mCamera->changePrj();
+		break;
 	case '0':
 		mScene->setScene(0);
 		break;

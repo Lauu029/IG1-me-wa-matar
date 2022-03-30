@@ -38,6 +38,8 @@ public:
 	// transfers its viewport, the view matrix and projection matrix to the GPU
 	void upload() const { mViewPort->upload();  uploadVM(); uploadPM(); }; 
 
+	void changePrj();
+
 protected:
 	void moveLR(GLdouble cs); // A izquierda/A derecha
 	void moveFB(GLdouble cs); // Adelante/Atrás
