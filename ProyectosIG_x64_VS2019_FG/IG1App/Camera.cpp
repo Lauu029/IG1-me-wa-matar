@@ -101,23 +101,34 @@ void Camera::changePrj()
 
 void Camera::moveLR(GLdouble cs)
 {
-	mEye = mEye + mRight * cs;
-	mLook = mLook + mRight * cs;
+	mEye += mRight * cs;
+	mLook += mRight * cs;
 	setVM();
 }
 
 void Camera::moveFB(GLdouble cs)
 {
-	mEye = mEye + mFront * cs;
-	mLook = mLook + mFront * cs;
+	mEye += mFront * cs;
+	mLook += mFront * cs;
 	setVM();
 }
 
 void Camera::moveUD(GLdouble cs)
 {
-	mEye = mEye + mUpward * cs;
-	mLook = mLook + mUpward * cs;
+	mEye +=mUpward * cs;
+	mLook += mUpward * cs;
 	setVM();
+}
+void Camera::pitchReal(GLdouble cs)
+{
+	
+}
+void Camera::yawReal(GLdouble cs)
+{
+	//mViewMat = rotate(, glm::radians(a), glm::dvec3(0, 1.0, 0));
+}
+void Camera::rollReal(GLdouble cs)
+{
 }
 //-------------------------------------------------------------------------
 

@@ -43,6 +43,11 @@ public:
 	void moveLR(GLdouble cs); // A izquierda/A derecha
 	void moveFB(GLdouble cs); // Adelante/Atrás
 	void moveUD(GLdouble cs); // Arriba/Abajo
+
+	void pitchReal(GLdouble cs);
+	void yawReal(GLdouble cs);
+	void rollReal(GLdouble cs);
+
 protected:
 	
 	glm::dvec3 mEye = { 0.0, 0.0, 500.0 };  // camera's position
