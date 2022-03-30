@@ -47,6 +47,7 @@ void Scene::init()
 		Texture* cajaDentro = new Texture();
 		cajaDentro->load("..//Bmps//papelE.bmp");
 		gTextures.push_back(cajaFuera);
+		gTextures.push_back(cajaDentro);
 		ContornoCaja* cajaCont = new ContornoCaja(100);
 		gObjects.push_back(cajaCont);
 		cajaCont->setTexturesCaja(cajaFuera, cajaDentro);
@@ -80,13 +81,14 @@ void Scene::init()
 	else if (id == 7) {
 		Texture* hText = new Texture();
 		hText->load("..//Bmps//grass.bmp", glm::u8vec3(0, 0, 0), 0);
-
+		gTextures.push_back(hText);
 		gObjects.push_back(new Hierba(100));
 		gObjects.back()->setTexture(hText);
 	}
 	else if (id == 8) {
 
 		Texture* fotoText = new Texture();
+		gTextures.push_back(fotoText);
 		fotoText->loadColorBuffer(IG1App::s_ig1app.getWidht(), IG1App::s_ig1app.getHeigth(), GL_FRONT);
 
 		gObjects.push_back(new Foto(100));
@@ -128,6 +130,7 @@ void Scene::init()
 		gTranslucidObjects.back()->setTexture(texCristalera);
 		//hierba
 		Texture* hText = new Texture();
+		gTextures.push_back(hText);
 		hText->load("..//Bmps//grass.bmp", glm::u8vec3(0, 0, 0), 0);
 
 		gObjects.push_back(new Hierba(100,80,50,-80));
@@ -135,6 +138,7 @@ void Scene::init()
 		
 		//Foto
 		Texture* fotoText = new Texture();
+		gTextures.push_back(fotoText);
 		fotoText->loadColorBuffer(IG1App::s_ig1app.getWidht(), IG1App::s_ig1app.getHeigth(), GL_FRONT);
 
 		gObjects.push_back(new Foto(100));
