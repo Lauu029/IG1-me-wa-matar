@@ -132,6 +132,7 @@ void Camera::yawReal(GLdouble cs)
 	mViewMat = rotate(mViewMat, radians(cs), mUp);
 	mViewMat = translate(mViewMat, mLook - mEye);
 	setAxes();
+	
 }
 void Camera::rollReal(GLdouble cs)
 {
@@ -140,15 +141,30 @@ void Camera::rollReal(GLdouble cs)
 	mViewMat = translate(mViewMat, mLook - mEye);
 	setAxes();
 }
-//void Camera::update()
-//{
-//	mViewMat = translate(dmat4(1.0), dvec3(250 * cos(radians(alpha)),
-//		250 * sin(radians(alpha)), 0.0));
-//	alpha++;
-//	mViewMat = rotate(mViewMat, radians(angle), dvec3(0, 0, 1));
-//	angle -= 15;
-//	setVM();
-//}
+
+void Camera::update()
+{
+	
+	mViewMat = translate(dmat4(1.0), dvec3(250 * cos(radians(alpha)), 250 * sin(radians(alpha)), 0.0));
+	alpha++;
+	mViewMat = rotate(mViewMat, radians(mAng), dvec3(0, 0, 1));
+	mAng -= 15;
+	setAxes();
+}
+//-------------------------------------------------------------------------
+void Camera::orbit(GLdouble incAng, GLdouble incY)
+{
+	//dmat4 mModelMat = translate(dmat4(1.0), dvec3(250 * cos(radians(alpha)), 250 * sin(radians(alpha)), 0.0));
+	//mModelMat = rotate(mModelMat, radians(mAng), dvec3(0, 0, 1));
+	mViewMat = translate(mViewMat, mEye - mLook);
+	mViewMat = rotate(mViewMat, radians(mAng), mRight);
+	mViewMat = rotate(mViewMat, radians(mAng), mFront);
+	mEye.y += incY;
+	mAng += incAng;
+	setVM();
+	setAxes();
+
+}
 //-------------------------------------------------------------------------
 
 void Camera::setPM()
@@ -171,5 +187,3 @@ void Camera::uploadPM() const
 	glMatrixMode(GL_MODELVIEW);
 }
 //-------------------------------------------------------------------------
-
-

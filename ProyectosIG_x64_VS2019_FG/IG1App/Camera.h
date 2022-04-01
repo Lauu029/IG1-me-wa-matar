@@ -47,12 +47,13 @@ public:
 	void pitchReal(GLdouble cs);
 	void yawReal(GLdouble cs);
 	void rollReal(GLdouble cs);
+	void orbit(GLdouble incAng, GLdouble incY);
 
-	//void update();
+	void update();
 
 protected:
 	
-	glm::dvec3 mEye = { 0.0, 0.0, 500.0 };  // camera's position
+	glm::dvec3 mEye = { 50, 250, 500.0 };  // camera's position
 	glm::dvec3 mLook = { 0.0, 0.0, 0.0 };   // target's position
 	glm::dvec3 mUp = { 0.0, 1.0, 0.0 };     // the up vector 
 
@@ -61,7 +62,7 @@ protected:
 	glm::dvec3 mFront;
 
 	GLdouble alpha = 0.0;
-
+	GLdouble mAng = 0.0;
 	void setAxes();
 
 	glm::dmat4 mViewMat;    // view matrix = inverse of modeling matrix 

@@ -172,6 +172,9 @@ void IG1App::key(unsigned char key, int x, int y)
 	case'U':
 		activeMovement = !activeMovement;
 		break;
+	case'b':
+		mCamera->orbit(15,15); // para pruebas
+		break;
 	default:
 		need_redisplay = false;
 		break;
@@ -232,6 +235,7 @@ void IG1App::update()
 	if (glutGet(GLUT_ELAPSED_TIME) - mLastUpdateTime >= 30 && activeMovement)
 	{
 		mScene->Update();
+		mCamera->update();
 		mLastUpdateTime = glutGet(GLUT_ELAPSED_TIME);
 		//mLastUpdateTime = 0;
 		glutPostRedisplay();
