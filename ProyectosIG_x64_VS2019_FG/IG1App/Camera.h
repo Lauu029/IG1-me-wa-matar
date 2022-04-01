@@ -48,6 +48,8 @@ public:
 	void yawReal(GLdouble cs);
 	void rollReal(GLdouble cs);
 
+	//void update();
+
 protected:
 	
 	glm::dvec3 mEye = { 0.0, 0.0, 500.0 };  // camera's position
@@ -57,6 +59,8 @@ protected:
 	glm::dvec3 mRight;
 	glm::dvec3 mUpward;
 	glm::dvec3 mFront;
+
+	GLdouble alpha = 0.0;
 
 	void setAxes();
 

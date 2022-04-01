@@ -140,6 +140,15 @@ void Camera::rollReal(GLdouble cs)
 	mViewMat = translate(mViewMat, mLook - mEye);
 	setAxes();
 }
+//void Camera::update()
+//{
+//	mViewMat = translate(dmat4(1.0), dvec3(250 * cos(radians(alpha)),
+//		250 * sin(radians(alpha)), 0.0));
+//	alpha++;
+//	mViewMat = rotate(mViewMat, radians(angle), dvec3(0, 0, 1));
+//	angle -= 15;
+//	setVM();
+//}
 //-------------------------------------------------------------------------
 
 void Camera::setPM()
