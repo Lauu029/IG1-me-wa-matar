@@ -144,12 +144,12 @@ void Camera::rollReal(GLdouble cs)
 
 void Camera::update()
 {
-	
-	mViewMat = translate(dmat4(1.0), dvec3(250 * cos(radians(alpha)), 250 * sin(radians(alpha)), 0.0));
+	rollReal(2);
+	/*mViewMat = translate(dmat4(1.0), dvec3(250 * cos(radians(alpha)), 250 * sin(radians(alpha)), 0.0));
 	alpha++;
 	mViewMat = rotate(mViewMat, radians(mAng), dvec3(0, 0, 1));
 	mAng -= 15;
-	setAxes();
+	setAxes();*/
 }
 //-------------------------------------------------------------------------
 void Camera::orbit(GLdouble incAng, GLdouble incY)
