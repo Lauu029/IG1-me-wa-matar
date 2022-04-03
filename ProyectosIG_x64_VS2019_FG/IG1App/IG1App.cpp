@@ -173,7 +173,10 @@ void IG1App::key(unsigned char key, int x, int y)
 		activeMovement = !activeMovement;
 		break;
 	case'b':
-		mCamera->orbit(15,15); // para pruebas
+		mCamera->orbit(15, 15); // para pruebas
+		break;
+	case 'k':
+		mCamera->setCenital();
 		break;
 	default:
 		need_redisplay = false;
@@ -198,8 +201,8 @@ void IG1App::specialKey(int key, int x, int y)
 		//mCamera->pitch(-1);   // rotates -1 on the X axis
 		else
 			mCamera->pitchReal(1);
-			//mCamera->moveLR(1);
-		//mCamera->pitch(1);    // rotates 1 on the X axis
+		//mCamera->moveLR(1);
+	//mCamera->pitch(1);    // rotates 1 on the X axis
 		break;
 	case GLUT_KEY_LEFT:
 		if (mdf == GLUT_ACTIVE_CTRL)
@@ -208,8 +211,8 @@ void IG1App::specialKey(int key, int x, int y)
 		//	mCamera->yaw(1);      // rotates 1 on the Y axis 
 		else
 			mCamera->yawReal(-1);
-			//mCamera->yaw(-1);     // rotate -1 on the Y axis 
-			//mCamera->moveFB(-1);
+		//mCamera->yaw(-1);     // rotate -1 on the Y axis 
+		//mCamera->moveFB(-1);
 		break;
 	case GLUT_KEY_UP:
 		mCamera->rollReal(1);

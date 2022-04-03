@@ -51,6 +51,8 @@ public:
 
 	void update();
 
+	void setCenital();
+
 protected:
 	
 	glm::dvec3 mEye = { 50, 250, 500.0 };  // camera's position
@@ -62,7 +64,9 @@ protected:
 	glm::dvec3 mFront;
 
 	GLdouble alpha = 0.0;
-	GLdouble mAng = 0.0;
+	GLdouble mAng;
+	GLdouble mRadio;
+
 	void setAxes();
 
 	glm::dmat4 mViewMat;    // view matrix = inverse of modeling matrix 

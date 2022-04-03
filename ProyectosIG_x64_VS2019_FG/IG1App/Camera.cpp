@@ -39,18 +39,22 @@ void Camera::setVM()
 
 void Camera::set2D()
 {
-	mEye = dvec3(0, 0, 500);
+	mRadio = 500;
+	mEye = dvec3(0, 0, mRadio);
 	mLook = dvec3(0, 0, 0);
 	mUp = dvec3(0, 1, 0);
+	mAng = -90;
 	setVM();
 }
 //-------------------------------------------------------------------------
 
 void Camera::set3D()
 {
-	mEye = dvec3(500, 500, 500);
+	mRadio = 500;
+	mEye = dvec3(mRadio, mRadio, mRadio);
 	mLook = dvec3(0, 10, 0);
 	mUp = dvec3(0, 1, 0);
+	mAng = -45;
 	setVM();
 }
 //-------------------------------------------------------------------------
@@ -132,7 +136,7 @@ void Camera::yawReal(GLdouble cs)
 	mViewMat = rotate(mViewMat, radians(cs), mUp);
 	mViewMat = translate(mViewMat, mLook - mEye);
 	setAxes();
-	
+
 }
 void Camera::rollReal(GLdouble cs)
 {
@@ -144,37 +148,46 @@ void Camera::rollReal(GLdouble cs)
 
 void Camera::update()
 {
-	rollReal(2);
-	/*mViewMat = translate(dmat4(1.0), dvec3(250 * cos(radians(alpha)), 250 * sin(radians(alpha)), 0.0));
-	alpha++;
-	mViewMat = rotate(mViewMat, radians(mAng), dvec3(0, 0, 1));
-	mAng -= 15;
-	setAxes();*/
+	/*moveUD(1);
+	moveLR(-1);
+	rollReal(1);
+	setVM();*/
+	;	/*mViewMat = translate(dmat4(1.0), dvec3(250 * cos(radians(alpha)), 250 * sin(radians(alpha)), 0.0));
+		alpha++;
+		mViewMat = rotate(mViewMat, radians(mAng), dvec3(0, 0, 1));
+		mAng -= 15;
+		setAxes();*/
+}
+void Camera::setCenital()
+{
+	mEye = dvec3(0, mRadio, 0);
+	mAng = -90;
+	mUp = dvec3(0, 0, -1);
+	setVM();
 }
 //-------------------------------------------------------------------------
 void Camera::orbit(GLdouble incAng, GLdouble incY)
 {
-	//dmat4 mModelMat = translate(dmat4(1.0), dvec3(250 * cos(radians(alpha)), 250 * sin(radians(alpha)), 0.0));
-	//mModelMat = rotate(mModelMat, radians(mAng), dvec3(0, 0, 1));
-	mViewMat = translate(mViewMat, mEye - mLook);
-	mViewMat = rotate(mViewMat, radians(mAng), mRight);
-	mViewMat = rotate(mViewMat, radians(mAng), mFront);
-	mEye.y += incY;
 	mAng += incAng;
+	mEye.x = mLook.x + cos(radians(mAng)) * mRadio;
+	mEye.z = mLook.z - sin(radians(mAng)) * mRadio;
+	mEye.y += incY;
 	setVM();
-	setAxes();
-
 }
 //-------------------------------------------------------------------------
 
 void Camera::setPM()
 {
 	if (bOrto) { //  if orthogonal projection
+		mNearVal = 1;
 		mProjMat = ortho(xLeft * mScaleFact, xRight * mScaleFact, yBot * mScaleFact, yTop * mScaleFact, mNearVal, mFarVal);
 		// glm::ortho defines the orthogonal projection matrix
 	}
 	else {
-		mProjMat = frustum(xLeft * mScaleFact, xRight * mScaleFact, yBot * mScaleFact, yTop * mScaleFact, yTop * 2, mFarVal);
+		GLfloat aux = 90;
+		mNearVal = yTop / tan(aux / 2.0);
+		mProjMat = frustum(-yTop * (xRight / yTop) * mScaleFact, yTop * (xRight / yTop) * mScaleFact,
+			-mNearVal * tan(aux / 2.0) * mScaleFact, mNearVal * tan(aux / 2.0) * mScaleFact,mNearVal, mFarVal);
 	}
 	uploadPM();
 }
