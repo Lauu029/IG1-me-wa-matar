@@ -39,7 +39,16 @@ public:
 	GLdouble getWidht() { return mWinW; }
 	GLdouble getHeigth() { return mWinH; }
 
+	void display2Views()const;
+
+	void change2Views();
+
 protected:
+
+	bool set2Views = false;
+
+	dvec2 mMouseCoord;
+	int mMouseButt;
 
 	IG1App() {};
 	~IG1App() { close(); };
@@ -60,6 +69,15 @@ protected:
 	static void s_key(unsigned char key, int x, int y) { s_ig1app.key(key, x, y); };
 	static void s_specialKey(int key, int x, int y) { s_ig1app.specialKey(key, x, y); };
 	static void s_update() { s_ig1app.update(); };
+
+	static void s_mouse(int button, int state, int x, int y);
+	static void s_motion(int x, int y);
+	static void s_mouseWheel(int n, int d, int x, int y);
+
+	void mouse(int button, int state, int x, int y);
+	void motion(int x, int y);
+	void mouseWheel(int wheelButtonNumber, int direction, int x, int y);
+
 	// Viewport position and size
 	Viewport* mViewPort = nullptr;
 	// Camera position, view volume and projection

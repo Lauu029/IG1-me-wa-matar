@@ -73,6 +73,10 @@ void IG1App::iniWinOpenGL()
 	glutSpecialFunc(s_specialKey);
 	glutDisplayFunc(s_display);
 	glutIdleFunc(s_update);
+
+	glutMouseFunc(s_mouse);
+	glutMotionFunc(s_motion);
+	glutMouseWheelFunc(s_mouseWheel);
 	cout << glGetString(GL_VERSION) << '\n';
 	cout << glGetString(GL_VENDOR) << '\n';
 }
@@ -90,8 +94,13 @@ void IG1App::display() const
 {  // double buffering
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // clears the back buffer
+	if (set2Views) {
+		display2Views();
+	}
+	else {
 
-	mScene->render(*mCamera);  // uploads the viewport and camera to the GPU
+		mScene->render(*mCamera);  // uploads the viewport and camera to the GPU
+	}
 
 	glutSwapBuffers();	// swaps the front and back buffer
 }
@@ -176,7 +185,7 @@ void IG1App::key(unsigned char key, int x, int y)
 		mCamera->orbit(15, 15); // para pruebas
 		break;
 	case 'k':
-		mCamera->setCenital();
+		change2Views();
 		break;
 	default:
 		need_redisplay = false;
@@ -232,6 +241,47 @@ void IG1App::specialKey(int key, int x, int y)
 	if (need_redisplay)
 		glutPostRedisplay(); // marks the window as needing to be redisplayed -> calls to display()
 }
+void IG1App::s_mouse(int button, int state, int x, int y)
+{
+	s_ig1app.mouse(button, state, x, y);
+}
+void IG1App::s_motion(int x, int y)
+{
+	s_ig1app.motion(x, y);
+}
+void IG1App::s_mouseWheel(int n, int d, int x, int y)
+{
+	s_ig1app.mouseWheel(n, d, x, y);
+}
+void IG1App::mouse(int button, int state, int x, int y)
+{
+	mMouseButt = button;
+	mMouseCoord = dvec2(x, glutGet(GLUT_WINDOW_HEIGHT) - y);
+}
+void IG1App::motion(int x, int y)
+{
+	dvec2 mp = mMouseCoord - dvec2(x, glutGet(GLUT_WINDOW_HEIGHT) - y);
+	mMouseCoord = dvec2(x, glutGet(GLUT_WINDOW_HEIGHT) - y);
+	if (mMouseButt == GLUT_LEFT_BUTTON) {
+		mCamera->orbit(mp.x * 0.05, mp.y);
+	}
+	else {
+		mCamera->moveUD(mp.y);
+		mCamera->moveLR(mp.x);
+	}
+	glutPostRedisplay();
+}
+void IG1App::mouseWheel(int wheelButtonNumber, int direction, int x, int y)
+{
+	int tics=glutGetModifiers();
+	if (tics == GLUT_ACTIVE_CTRL) {
+		mCamera->setScale(direction*0.05);
+	}
+	else {
+		mCamera->moveFB(direction);
+	}
+	glutPostRedisplay();
+}
 void IG1App::update()
 {
 
@@ -243,6 +293,33 @@ void IG1App::update()
 		//mLastUpdateTime = 0;
 		glutPostRedisplay();
 	}
+}
+void IG1App::display2Views()const
+{
+
+	Camera auxCam = *mCamera;
+
+	Viewport auxVP = *mViewPort;
+
+	mViewPort->setSize(mWinW / 2, mWinH);
+
+	auxCam.setSize(mViewPort->width(), mViewPort->height());
+
+	//Escena 3d
+	mViewPort->setPos(0, 0);
+	auxCam.set3D();
+	mScene->render(auxCam);
+
+	//Escena cenital
+	mViewPort->setPos(mWinW / 2, 0);
+	auxCam.setCenital();
+	mScene->render(auxCam);
+
+	*mViewPort = auxVP;
+}
+void IG1App::change2Views()
+{
+	set2Views = !set2Views;
 }
 //-------------------------------------------------------------------------
 
