@@ -273,9 +273,9 @@ void IG1App::motion(int x, int y)
 }
 void IG1App::mouseWheel(int wheelButtonNumber, int direction, int x, int y)
 {
-	int tics=glutGetModifiers();
+	int tics = glutGetModifiers();
 	if (tics == GLUT_ACTIVE_CTRL) {
-		mCamera->setScale(direction*0.05);
+		mCamera->setScale(direction * 0.05);
 	}
 	else {
 		mCamera->moveFB(direction);
