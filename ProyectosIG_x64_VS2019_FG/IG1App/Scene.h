@@ -31,6 +31,7 @@ public:
 	void setId(int _id);
 	void Update();
 	void savePhoto();
+	void sceneDirLight(Camera const& cam)const;
 protected:
 	void free();
 	void setGL();

@@ -496,3 +496,12 @@ void Foto::render(glm::dmat4 const& modelViewMat) const
 		mTexture->unbind();
 	}
 }
+
+Sphere::Sphere(GLdouble w)
+{
+	glutSolidSphere(w);
+}
+
+QuadricEntity::QuadricEntity(GLdouble w)
+{
+}

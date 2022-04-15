@@ -40,20 +40,20 @@ void IG1App::init()
 	// create the scene after creating the context 
 	// allocate memory and resources
 	mViewPort1 = new Viewport(mWinW / 2, mWinH); //glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT)
-	mViewPort2 = new Viewport(mWinW / 2, mWinH); //glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT)
+	//mViewPort2 = new Viewport(mWinW / 2, mWinH); //glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT)
 	mCamera1 = new Camera(mViewPort1);
-	mCamera2 = new Camera(mViewPort2);
+	//mCamera2 = new Camera(mViewPort2);
 	mScene1 = new Scene;
-	mScene2 = new Scene;
+	//mScene2 = new Scene;
 
 
 	mViewPort1->setPos(0, 0);
 	mCamera1->set3D();
 	mScene1->setScene(9);
 
-	mViewPort2->setPos(mWinW / 2, 0);
-	mCamera2->set2D();
-	mScene2->setScene(0);
+	//mViewPort2->setPos(mWinW / 2, 0);
+	//mCamera2->set2D();
+	//mScene2->setScene(0);
 
 	mLastUpdateTime = glutGet(GLUT_ELAPSED_TIME);
 }
@@ -95,11 +95,11 @@ void IG1App::iniWinOpenGL()
 void IG1App::free()
 {  // release memory and resources
 	delete mScene1; mScene1 = nullptr;
-	delete mScene2; mScene2 = nullptr;
+	//delete mScene2; mScene2 = nullptr;
 	delete mCamera1; mCamera1 = nullptr;
-	delete mCamera2; mCamera2 = nullptr;
+	//delete mCamera2; mCamera2 = nullptr;
 	delete mViewPort1; mViewPort1 = nullptr;
-	delete mViewPort2; mViewPort2 = nullptr;
+	//delete mViewPort2; mViewPort2 = nullptr;
 }
 //-------------------------------------------------------------------------
 
@@ -117,7 +117,7 @@ void IG1App::display() const
 	else {
 
 		mScene1->render(*mCamera1);  // uploads the viewport and camera to the GPU
-		mScene2->render(*mCamera2);  // uploads the viewport and camera to the GPU
+		//mScene2->render(*mCamera2);  // uploads the viewport and camera to the GPU
 	}
 
 	glutSwapBuffers();	// swaps the front and back buffer
@@ -129,13 +129,13 @@ void IG1App::resize(int newWidth, int newHeight)
 	mWinW = newWidth; mWinH = newHeight;
 
 	// Resize Viewport to the new window size
-	mViewPort1->setSize(newWidth / 2, newHeight);
-	mViewPort2->setSize(newWidth / 2, newHeight);
+	mViewPort1->setSize(newWidth , newHeight);
+	//mViewPort2->setSize(newWidth / 2, newHeight);
 
-	mViewPort2->setPos(newWidth / 2, 0);
+	//mViewPort2->setPos(newWidth / 2, 0);
 	// Resize Scene Visible Area such that the scale is not modified
 	mCamera1->setSize(mViewPort1->width(), mViewPort1->height());
-	mCamera2->setSize(mViewPort2->width(), mViewPort2->height());
+	//mCamera2->setSize(mViewPort2->width(), mViewPort2->height());
 }
 //-------------------------------------------------------------------------
 
@@ -149,103 +149,103 @@ void IG1App::key(unsigned char key, int x, int y)
 	case 27:  // Escape key 
 		glutLeaveMainLoop();  // stops main loop and destroy the OpenGL context
 	case '+':
-		if (posRaton)
+		//if (posRaton)
+		//	mCamera1->setScale(+0.01);  // zoom in  (increases the scale)
+		//else
 			mCamera1->setScale(+0.01);  // zoom in  (increases the scale)
-		else
-			mCamera2->setScale(+0.01);  // zoom in  (increases the scale)
 		break;
 	case '-':
-		if (posRaton)
+		//if (posRaton)
+		//	mCamera1->setScale(-0.01);  // zoom out (decreases the scale)
+		//else
 			mCamera1->setScale(-0.01);  // zoom out (decreases the scale)
-		else
-			mCamera2->setScale(-0.01);  // zoom out (decreases the scale)
 		break;
 	case 'l':
-		if (posRaton)
+		/*if (posRaton)
 			mCamera1->set3D();
-		else
-			mCamera2->set3D();
+		else*/
+			mCamera1->set3D();
 		break;
 	case 'o':
-		if (posRaton)
+		/*if (posRaton)
 			mCamera1->set2D();
-		else
-			mCamera2->set2D();
+		else*/
+			mCamera1->set2D();
 		break;
 	case'p':
-		if (posRaton)
+		/*if (posRaton)
 			mCamera1->changePrj();
-		else
-			mCamera2->changePrj();
+		else*/
+			mCamera1->changePrj();
 		break;
 	case '0':
-		if (posRaton)
+		//if (posRaton)
 			mScene1->setScene(0);
 		break;
 	case '1':
-		if (posRaton)
+		/*if (posRaton)
 			mScene1->setScene(1);
-		else
-			mScene2->setScene(1);
+		else*/
+			mScene1->setScene(1);
 		break;
 	case '2':
-		if (posRaton)
+		/*if (posRaton)
 			mScene1->setScene(2);
-		else
-			mScene2->setScene(2);
+		else*/
+			mScene1->setScene(2);
 		break;
 	case '3':
-		if (posRaton)
+		/*if (posRaton)
 			mScene1->setScene(3);
-		else
-			mScene2->setScene(3);
+		else*/
+			mScene1->setScene(3);
 		break;
 	case '4':
-		if (posRaton)
+		/*if (posRaton)
 			mScene1->setScene(4);
-		else
-			mScene2->setScene(4);
+		else*/
+			mScene1->setScene(4);
 		break;
 	case '5':
-		if (posRaton)
+		/*if (posRaton)
 			mScene1->setScene(5);
-		else
-			mScene2->setScene(5);
+		else*/
+			mScene1->setScene(5);
 		break;
 	case '6':
-		if (posRaton)
+		/*if (posRaton)
 			mScene1->setScene(6);
-		else
-			mScene2->setScene(6);
+		else*/
+			mScene1->setScene(6);
 		break;
 	case'7':
-		if (posRaton)
+		/*if (posRaton)
 			mScene1->setScene(7);
-		else
-			mScene2->setScene(7);
+		else*/
+			mScene1->setScene(7);
 		break;
 	case '8':
-		if (posRaton)
+		//if (posRaton)
 			mScene1->setScene(8);
 		break;
 	case '9':
-		if (posRaton)
+		/*if (posRaton)
 			mScene1->setScene(9);
-		else
-			mScene2->setScene(9);
+		else*/
+			mScene1->setScene(9);
 		break;
 	case 'f':
-		if (posRaton)
+		/*if (posRaton)
 			mScene1->savePhoto();
-		else
-			mScene2->savePhoto();
+		else*/
+			mScene1->savePhoto();
 
 		break;
 	case 'u':
-		if (posRaton)
+		/*if (posRaton)
 			mScene1->Update();
-		else
-			mScene2->Update();
+		else*/
+			mScene1->Update();
 		break;
 	case'U':
 		activeMovement = !activeMovement;
@@ -270,50 +270,50 @@ void IG1App::specialKey(int key, int x, int y)
 	switch (key) {
 	case GLUT_KEY_RIGHT:
 		if (mdf == GLUT_ACTIVE_CTRL)
-			if (posRaton)
+			/*if (posRaton)
 				mCamera1->pitchReal(-1);
-			else
+			else*/
 				mCamera1->pitchReal(-1);
 		//mCamera->moveLR(-1);//Movimiento en x
 		//mCamera->pitch(-1);   // rotates -1 on the X axis
 		else
-			if (posRaton)
+			/*if (posRaton)
 				mCamera1->pitchReal(1);
-			else
-				mCamera2->pitchReal(1);
+			else*/
+				mCamera1->pitchReal(1);
 		//mCamera->moveLR(1);
 	//mCamera->pitch(1);    // rotates 1 on the X axis
 		break;
 	case GLUT_KEY_LEFT:
 		if (mdf == GLUT_ACTIVE_CTRL)
-			if (posRaton)
+			/*if (posRaton)
 				mCamera1->yawReal(1);
-			else
-				mCamera2->yawReal(1);
+			else*/
+				mCamera1->yawReal(1);
 		//mCamera->moveFB(1);//Movimiento en y
 		//	mCamera->yaw(1);      // rotates 1 on the Y axis 
 		else
-			if (posRaton)
+			/*if (posRaton)
 				mCamera1->yawReal(-1);
-			else
-				mCamera2->yawReal(-1);
+			else*/
+				mCamera1->yawReal(-1);
 
 		//mCamera->yaw(-1);     // rotate -1 on the Y axis 
 		//mCamera->moveFB(-1);
 		break;
 	case GLUT_KEY_UP:
-		if (posRaton)
+		//if (posRaton)
 			mCamera1->rollReal(1);
-		else
-			mCamera2->rollReal(1);
+		//else
+			//mCamera2->rollReal(1);
 		//mCamera->moveUD(1);//Movimiento en z
 		//mCamera->roll(1);    // rotates 1 on the Z axis
 		break;
 	case GLUT_KEY_DOWN:
-		if (posRaton)
+		//if (posRaton)
 			mCamera1->rollReal(-1);
-		else
-			mCamera2->rollReal(-1);
+		//else
+		//	mCamera2->rollReal(-1);
 		//mCamera->moveUD(-1);
 		//mCamera->roll(-1);   // rotates -1 on the Z axis
 		break;
@@ -348,20 +348,20 @@ void IG1App::motion(int x, int y)
 	dvec2 mp = mMouseCoord - dvec2(x, glutGet(GLUT_WINDOW_HEIGHT) - y);
 	mMouseCoord = dvec2(x, glutGet(GLUT_WINDOW_HEIGHT) - y);
 	if (mMouseButt == GLUT_LEFT_BUTTON) {
-		if (posRaton)
+		//if (posRaton)
 			mCamera1->orbit(mp.x * 0.05, mp.y);
-		else
-			mCamera2->orbit(mp.x * 0.05, mp.y);
+		//else
+		//	mCamera2->orbit(mp.x * 0.05, mp.y);
 	}
 	else {
-		if (posRaton) {
+		//if (posRaton) {
 			mCamera1->moveUD(mp.y);
 			mCamera1->moveLR(mp.x);
-		}
-		else {
+		//}
+		/*else {
 			mCamera2->moveUD(mp.y);
 			mCamera2->moveLR(mp.x);
-		}
+		}*/
 	}
 	glutPostRedisplay();
 }
@@ -370,16 +370,16 @@ void IG1App::mouseWheel(int wheelButtonNumber, int direction, int x, int y)
 	bool posRaton = x <= mWinW / 2;
 	int tics = glutGetModifiers();
 	if (tics == GLUT_ACTIVE_CTRL) {
-		if (posRaton)
+		//if (posRaton)
 			mCamera1->setScale(direction * 0.05);
-		else
-			mCamera2->setScale(direction * 0.05);
+		/*else
+			mCamera2->setScale(direction * 0.05);*/
 	}
 	else {
-		if (posRaton)
+		//if (posRaton)
 			mCamera1->moveFB(direction);
-		else
-			mCamera2->moveFB(direction);
+		/*else
+			mCamera2->moveFB(direction);*/
 	}
 	glutPostRedisplay();
 }
@@ -389,7 +389,7 @@ void IG1App::update()
 	if (glutGet(GLUT_ELAPSED_TIME) - mLastUpdateTime >= 30 && activeMovement)
 	{
 		mScene1->Update();
-		mScene2->Update();
+		//mScene2->Update();
 		//mCamera1->update();
 		mLastUpdateTime = glutGet(GLUT_ELAPSED_TIME);
 		//mLastUpdateTime = 0;
