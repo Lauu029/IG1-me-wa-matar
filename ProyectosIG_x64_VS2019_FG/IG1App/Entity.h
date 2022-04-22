@@ -233,4 +233,10 @@ public:
 protected:
 	std::vector<Abs_Entity*> gObjects;
 };
+//--------------------------------------------------------------
+class TIEavanzado : public CompoundEntity {
+public:
+	explicit TIEavanzado();
+protected:
+};
 #endif //_H_Entities_H_

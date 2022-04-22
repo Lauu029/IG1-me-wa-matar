@@ -663,3 +663,8 @@ void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 		o->render(aMat);
 	}
 }
+
+TIEavanzado::TIEavanzado()
+{
+	CompoundEntity *
+}
