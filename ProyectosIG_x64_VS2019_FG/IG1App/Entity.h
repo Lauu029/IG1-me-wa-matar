@@ -224,4 +224,13 @@ public:
 protected:
 	GLdouble ird, ord, stan, swan;
 };
+//--------------------------------------------------------------
+class CompoundEntity : public Abs_Entity {
+public:
+	~CompoundEntity();
+	void addEntity(Abs_Entity* ae);
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+protected:
+	std::vector<Abs_Entity*> gObjects;
+};
 #endif //_H_Entities_H_
