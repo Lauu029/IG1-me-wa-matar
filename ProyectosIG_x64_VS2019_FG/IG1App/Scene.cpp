@@ -85,16 +85,63 @@ void Scene::init()
 		gObjects.push_back(new Hierba(100));
 		gObjects.back()->setTexture(hText);*/
 
-		//Escena de la esfera
-		PartialDisk* esfera = new PartialDisk(50.0, 100.0, 90.0, 180.0);
+		//Esfera
+		Sphere* esfera = new Sphere(100.0);
 		dvec4 colorEsfera;
-
 		colorEsfera.r = 1.0;
-		colorEsfera.g = 0.0;
-		colorEsfera.b = 1.0;
+		colorEsfera.g = 0.5;
+		colorEsfera.b = 0.0;
 		colorEsfera.a = 1.0;
 		esfera->setColor(colorEsfera);
 		gObjects.push_back(esfera);
+
+		//disco
+		Disk* disco = new Disk(50.0, 100.0);
+		dvec4 colorDisco;
+		colorDisco.r = 1.0;
+		colorDisco.g = 0.0;
+		colorDisco.b = 0.0;
+		colorDisco.a = 1.0;
+		disco->setColor(colorDisco);
+		dmat4 discTrans = translate(disco->modelMat(), dvec3(0.0, 80.0, 0.0));
+		discTrans = rotate(discTrans, radians(90.0), dvec3(1.0, 0.0, 0.0));
+		disco->setModelMat(discTrans);
+		gObjects.push_back(disco);
+
+		//Conos
+		Cylinder* ojo1 = new Cylinder(5.0, 0.0, 10.0);
+		dvec4 colorOjo1;
+		colorOjo1.r = 0.0;
+		colorOjo1.g = 0.0;
+		colorOjo1.b = 1.0;
+		colorOjo1.a = 1.0;
+		ojo1->setColor(colorOjo1);
+		dmat4 conTrans = translate(ojo1->modelMat(), dvec3(-30.0, 30.0, 90.0));
+		ojo1->setModelMat(conTrans);
+		gObjects.push_back(ojo1);
+
+		Cylinder* ojo2 = new Cylinder(5.0, 0.0, 10.0);
+		dvec4 colorOjo2;
+		colorOjo2.r = 0.0;
+		colorOjo2.g = 0.61;
+		colorOjo2.b =  0.55;
+		colorOjo2.a = 1.0;
+		ojo2->setColor(colorOjo2);
+		dmat4 conTrans2 = translate(ojo2->modelMat(), dvec3(30.0, 30.0, 90.0));
+		ojo2->setModelMat(conTrans2);
+		gObjects.push_back(ojo2);
+		//disco
+		PartialDisk* discoParcial = new PartialDisk(50.0, 100.0,90.0,180.0);
+		dvec4 colorDiscoP;
+		colorDiscoP.r = 0.0;
+		colorDiscoP.g = 1.0;
+		colorDiscoP.b = 0.0;
+		colorDiscoP.a = 1.0;
+		discoParcial->setColor(colorDiscoP);
+		dmat4 discPTrans = translate(discoParcial->modelMat(), dvec3(0.0, 0.0, 50.0));
+	
+		discoParcial->setModelMat(discPTrans);
+		gObjects.push_back(discoParcial);
 	}
 	else if (id == 8) {
 
