@@ -122,9 +122,9 @@ void Scene::init()
 
 		Cylinder* ojo2 = new Cylinder(5.0, 0.0, 10.0);
 		dvec4 colorOjo2;
-		colorOjo2.r = 0.0;
-		colorOjo2.g = 0.61;
-		colorOjo2.b =  0.55;
+		colorOjo2.r = 0.16;
+		colorOjo2.g = 0.19;
+		colorOjo2.b =  0.2;
 		colorOjo2.a = 1.0;
 		ojo2->setColor(colorOjo2);
 		dmat4 conTrans2 = translate(ojo2->modelMat(), dvec3(30.0, 30.0, 90.0));
