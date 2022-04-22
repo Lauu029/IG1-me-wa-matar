@@ -30,7 +30,7 @@ public:
 
 	void setColor(glm::dvec4 col);
 	glm::dvec4 getColor();
-	
+
 	void setPos(GLdouble x, GLdouble y, GLdouble z);
 protected:
 
@@ -124,7 +124,7 @@ protected:
 class Estrella3D : public Abs_Entity
 {
 public:
-	explicit Estrella3D(GLdouble re, GLuint np, GLdouble h, GLdouble x=0, GLdouble y=0, GLdouble z=0);
+	explicit Estrella3D(GLdouble re, GLuint np, GLdouble h, GLdouble x = 0, GLdouble y = 0, GLdouble z = 0);
 	~Estrella3D();
 	virtual void update() override;
 	virtual void render(glm::dmat4 const& modelViewMat) const;
@@ -135,7 +135,7 @@ protected:
 class Caja : public Abs_Entity
 {
 public:
-	explicit Caja(GLdouble l, GLdouble x=0, GLdouble y=0, GLdouble z=0);
+	explicit Caja(GLdouble l, GLdouble x = 0, GLdouble y = 0, GLdouble z = 0);
 	~Caja();
 	virtual void update() override;
 	void setTexureCaja(Texture* front, Texture* back);
@@ -196,25 +196,32 @@ protected:
 	GLdouble r;
 };
 //-------------------------------------------------------------
-//class Cylinder : public QuadricEntity
-//{
-//public:
-//	explicit Cylinder(GLdouble w);
-//	~Cylinder();
-//	virtual void render(glm::dmat4 const& modelViewMat) const;
-//};//-------------------------------------------------------------
-//class Disk : public QuadricEntity
-//{
-//public:
-//	explicit Disk(GLdouble w);
-//	~Disk();
-//	virtual void render(glm::dmat4 const& modelViewMat) const;
-//};//-------------------------------------------------------------
-//class PartialDisk : public QuadricEntity
-//{
-//public:
-//	explicit PartialDisk(GLdouble w);
-//	~PartialDisk();
-//	virtual void render(glm::dmat4 const& modelViewMat) const;
-//};
+class Cylinder : public QuadricEntity
+{
+public:
+	explicit Cylinder(GLdouble br_, GLdouble tr_, GLdouble h_);
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+protected:
+	GLdouble br, tr, h;
+
+};
+//-------------------------------------------------------------
+class Disk : public QuadricEntity
+{
+public:
+	explicit Disk(GLdouble ird_, GLdouble ord_);
+	
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+protected:
+	GLdouble ird, ord ;
+};
+//-------------------------------------------------------------
+class PartialDisk : public QuadricEntity
+{
+public:
+	explicit PartialDisk(GLdouble ird_,GLdouble ord_, GLdouble stan_,GLdouble swan_);
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+protected:
+	GLdouble ird, ord, stan, swan;
+};
 #endif //_H_Entities_H_

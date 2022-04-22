@@ -84,9 +84,16 @@ void Scene::init()
 		gTextures.push_back(hText);
 		gObjects.push_back(new Hierba(100));
 		gObjects.back()->setTexture(hText);*/
-		
-		//Escena de la esfera 
-		Sphere* esfera = new Sphere(100.0);
+
+		//Escena de la esfera
+		PartialDisk* esfera = new PartialDisk(50.0, 100.0, 90.0, 180.0);
+		dvec4 colorEsfera;
+
+		colorEsfera.r = 1.0;
+		colorEsfera.g = 0.0;
+		colorEsfera.b = 1.0;
+		colorEsfera.a = 1.0;
+		esfera->setColor(colorEsfera);
 		gObjects.push_back(esfera);
 	}
 	else if (id == 8) {
@@ -122,7 +129,7 @@ void Scene::init()
 		Texture* texEstrella = new Texture();
 		texEstrella->load("..//Bmps//baldosaP.bmp");
 		gTextures.push_back(texEstrella);
-		gObjects.push_back(new Estrella3D(80, 8, 150,-100, 150,-100));
+		gObjects.push_back(new Estrella3D(80, 8, 150, -100, 150, -100));
 		gObjects.back()->setTexture(texEstrella);
 
 		//Cristalera
@@ -137,9 +144,9 @@ void Scene::init()
 		gTextures.push_back(hText);
 		hText->load("..//Bmps//grass.bmp", glm::u8vec3(0, 0, 0), 0);
 
-		gObjects.push_back(new Hierba(100,80,50,-80));
+		gObjects.push_back(new Hierba(100, 80, 50, -80));
 		gObjects.back()->setTexture(hText);
-		
+
 		//Foto
 		Texture* fotoText = new Texture();
 		gTextures.push_back(fotoText);
@@ -233,7 +240,7 @@ void Scene::savePhoto()
 	photo->loadColorBuffer(IG1App::s_ig1app.getWidht(), IG1App::s_ig1app.getHeigth());
 	photo->save("..//Bmps//foto.bmp");
 	delete photo;
-	
+
 }
 
 

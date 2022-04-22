@@ -51,6 +51,7 @@ void EjesRGB::render(dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
 		dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+		glEnable(GL_COLOR_MATERIAL);
 		upload(aMat);
 		glLineWidth(2);
 		mMesh->render();
@@ -507,16 +508,135 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
 	// Aquí se puede fijar el color de la esfera así:
-	 glEnable(GL_COLOR_MATERIAL);
-	 glColor3f(1.0,0.0,0.0);
-	// Aquí se puede fijar el modo de dibujar la esfera:
-	// gluQuadricDrawStyle(q, ...);
+	if (mColor.r != 0.0 || mColor.g != 0.0 || mColor.b != 0.0 || mColor.a != 1.0) {
+
+		glEnable(GL_COLOR_MATERIAL);
+		glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	}
+	// Si tiene textura se renderiza tambien
+	if (mTexture != nullptr) {
+		mTexture->bind(GL_MODULATE);
+	}
+	gluQuadricTexture(q, GL_TRUE);
+	gluQuadricDrawStyle(q, GL_FILL);
 	gluSphere(q, r, 50, 50);
 	// Aquí se debe recuperar el color:
-	glColor3f(1.0, 1.0, 1.0);
+	if (mTexture != nullptr) {
+		mTexture->unbind();
+	}
+	glColor4d(1.0, 1.0, 1.0, 1.0);
+	glDisable(GL_BLEND);
 }
 
 QuadricEntity::QuadricEntity()
 {
 	q = gluNewQuadric();
+}
+
+Cylinder::Cylinder(GLdouble br_, GLdouble tr_, GLdouble h_)
+{
+	br = br_;
+	tr = tr_;
+	h = h_;
+}
+
+void Cylinder::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);
+	// Aquí se puede fijar el color de la esfera así:
+	if (mColor.r != 0.0 || mColor.g != 0.0 || mColor.b != 0.0 || mColor.a != 1.0) {
+
+		glEnable(GL_COLOR_MATERIAL);
+		glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	}
+	// Si tiene textura se renderiza tambien
+	if (mTexture != nullptr) {
+		mTexture->bind(GL_MODULATE);
+	}
+	gluQuadricTexture(q, GL_TRUE);
+	gluQuadricDrawStyle(q, GL_FILL);
+	gluCylinder(q, br, tr, h, 50, 50);
+	// Aquí se debe recuperar el color:
+	if (mTexture != nullptr) {
+		mTexture->unbind();
+	}
+	glColor4d(1.0, 1.0, 1.0, 1.0);
+	glDisable(GL_BLEND);
+}
+
+Disk::Disk(GLdouble ird_, GLdouble ord_)
+{
+	ird = ird_;
+	ord = ord_;
+}
+
+void Disk::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);
+	// Aquí se puede fijar el color de la esfera así:
+	if (mColor.r != 0.0 || mColor.g != 0.0 || mColor.b != 0.0 || mColor.a != 1.0) {
+
+		glEnable(GL_COLOR_MATERIAL);
+		glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	}
+	// Si tiene textura se renderiza tambien
+	if (mTexture != nullptr) {
+		mTexture->bind(GL_MODULATE);
+	}
+	gluQuadricTexture(q, GL_TRUE);
+	gluQuadricDrawStyle(q, GL_FILL);
+	gluDisk(q, ird, ord, 50, 50);
+	// Aquí se debe recuperar el color:
+	if (mTexture != nullptr) {
+		mTexture->unbind();
+	}
+	glColor4d(1.0, 1.0, 1.0, 1.0);
+	glDisable(GL_BLEND);
+}
+
+PartialDisk::PartialDisk(GLdouble ird_, GLdouble ord_, GLdouble stan_, GLdouble swan_)
+{
+	ird = ird_;
+	ord = ord_;
+	stan = stan_;
+	swan = swan_;
+}
+
+void PartialDisk::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);
+	// Aquí se puede fijar el color de la esfera así:
+	if (mColor.r != 0.0 || mColor.g != 0.0 || mColor.b != 0.0 || mColor.a != 1.0) {
+
+		glEnable(GL_COLOR_MATERIAL);
+		glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	}
+	// Si tiene textura se renderiza tambien
+	if (mTexture != nullptr) {
+		mTexture->bind(GL_MODULATE);
+	}
+	gluQuadricTexture(q, GL_TRUE);
+	gluQuadricDrawStyle(q, GL_FILL);
+	gluPartialDisk(q, ird, ord, 50, 50, stan, swan);
+	// Aquí se debe recuperar el color:
+	if (mTexture != nullptr) {
+		mTexture->unbind();
+	}
+	glColor4d(1.0, 1.0, 1.0, 1.0);
+	glDisable(GL_BLEND);
 }
