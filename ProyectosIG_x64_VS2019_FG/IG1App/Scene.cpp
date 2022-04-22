@@ -79,20 +79,24 @@ void Scene::init()
 		gTranslucidObjects.back()->setTexture(texCristalera);
 	}
 	else if (id == 7) {
-		Texture* hText = new Texture();
+		/*Texture* hText = new Texture();
 		hText->load("..//Bmps//grass.bmp", glm::u8vec3(0, 0, 0), 0);
 		gTextures.push_back(hText);
 		gObjects.push_back(new Hierba(100));
-		gObjects.back()->setTexture(hText);
+		gObjects.back()->setTexture(hText);*/
+		
+		//Escena de la esfera 
+		Sphere* esfera = new Sphere(100.0);
+		gObjects.push_back(esfera);
 	}
 	else if (id == 8) {
 
-		Texture* fotoText = new Texture();
+		/*Texture* fotoText = new Texture();
 		gTextures.push_back(fotoText);
 		fotoText->loadColorBuffer(IG1App::s_ig1app.getWidht(), IG1App::s_ig1app.getHeigth(), GL_FRONT);
 
 		gObjects.push_back(new Foto(100));
-		gObjects.back()->setTexture(fotoText);
+		gObjects.back()->setTexture(fotoText);*/
 	}
 	else if (id == 9) {
 		//Suelo

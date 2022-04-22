@@ -180,40 +180,41 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
 //-------------------------------------------------------------
-class QuadricEntity : public Abs_Entity
-{
+class QuadricEntity : public Abs_Entity {
 public:
-	explicit QuadricEntity(GLdouble w);
-	~QuadricEntity();
-	virtual void render(glm::dmat4 const& modelViewMat) const;
+	explicit QuadricEntity();
+	~QuadricEntity() { gluDeleteQuadric(q); };
+protected:
+	GLUquadricObj* q;
 };
 //-------------------------------------------------------------
-class Sphere : public QuadricEntity
-{
+class Sphere : public QuadricEntity {
 public:
-	explicit Sphere(GLdouble w);
-	~Sphere();
-	virtual void render(glm::dmat4 const& modelViewMat) const;
-};//-------------------------------------------------------------
-class Cylinder : public QuadricEntity
-{
-public:
-	explicit Cylinder(GLdouble w);
-	~Cylinder();
-	virtual void render(glm::dmat4 const& modelViewMat) const;
-};//-------------------------------------------------------------
-class Disk : public QuadricEntity
-{
-public:
-	explicit Disk(GLdouble w);
-	~Disk();
-	virtual void render(glm::dmat4 const& modelViewMat) const;
-};//-------------------------------------------------------------
-class PartialDisk : public QuadricEntity
-{
-public:
-	explicit PartialDisk(GLdouble w);
-	~PartialDisk();
-	virtual void render(glm::dmat4 const& modelViewMat) const;
+	Sphere(GLdouble rr); // r es el radio de la esfera
+	void render(glm::dmat4 const& modelViewMat) const;
+protected:
+	GLdouble r;
 };
+//-------------------------------------------------------------
+//class Cylinder : public QuadricEntity
+//{
+//public:
+//	explicit Cylinder(GLdouble w);
+//	~Cylinder();
+//	virtual void render(glm::dmat4 const& modelViewMat) const;
+//};//-------------------------------------------------------------
+//class Disk : public QuadricEntity
+//{
+//public:
+//	explicit Disk(GLdouble w);
+//	~Disk();
+//	virtual void render(glm::dmat4 const& modelViewMat) const;
+//};//-------------------------------------------------------------
+//class PartialDisk : public QuadricEntity
+//{
+//public:
+//	explicit PartialDisk(GLdouble w);
+//	~PartialDisk();
+//	virtual void render(glm::dmat4 const& modelViewMat) const;
+//};
 #endif //_H_Entities_H_
