@@ -210,16 +210,16 @@ class Disk : public QuadricEntity
 {
 public:
 	explicit Disk(GLdouble ird_, GLdouble ord_);
-	
+
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
-	GLdouble ird, ord ;
+	GLdouble ird, ord;
 };
 //-------------------------------------------------------------
 class PartialDisk : public QuadricEntity
 {
 public:
-	explicit PartialDisk(GLdouble ird_,GLdouble ord_, GLdouble stan_,GLdouble swan_);
+	explicit PartialDisk(GLdouble ird_, GLdouble ord_, GLdouble stan_, GLdouble swan_);
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
 	GLdouble ird, ord, stan, swan;
@@ -237,6 +237,13 @@ protected:
 class TIEavanzado : public CompoundEntity {
 public:
 	explicit TIEavanzado();
+protected:
+};
+//--------------------------------------------------------------
+class AlaTIEavanzado : public CompoundEntity {
+public:
+	explicit AlaTIEavanzado(GLdouble h, GLdouble w, GLdouble dist);
+	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
 };
 #endif //_H_Entities_H_

@@ -243,7 +243,7 @@ Mesh* Mesh::generaRectanguloTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh)
 	return m;
 }
 
-Mesh* Mesh::generaContornoCaja(GLdouble w,GLdouble h)
+Mesh* Mesh::generaContornoCaja(GLdouble w, GLdouble h)
 {
 	Mesh* mesh = new Mesh();
 
@@ -256,12 +256,12 @@ Mesh* Mesh::generaContornoCaja(GLdouble w,GLdouble h)
 
 	mesh->vVertices.emplace_back(-w / 2, h / 2, w / 2);
 	mesh->vVertices.emplace_back(-w / 2, -h / 2, w / 2);
-	mesh->vVertices.emplace_back(w / 2,  h/ 2, w / 2);
+	mesh->vVertices.emplace_back(w / 2, h / 2, w / 2);
 	mesh->vVertices.emplace_back(w / 2, -h / 2, w / 2);
-	mesh->vVertices.emplace_back(w / 2,  h/ 2, - w/ 2);
-	mesh->vVertices.emplace_back(w / 2, -h / 2, - w/ 2);
+	mesh->vVertices.emplace_back(w / 2, h / 2, -w / 2);
+	mesh->vVertices.emplace_back(w / 2, -h / 2, -w / 2);
 	mesh->vVertices.emplace_back(-w / 2, h / 2, -w / 2);
-	mesh->vVertices.emplace_back(-w / 2, -h / 2, - w/ 2);
+	mesh->vVertices.emplace_back(-w / 2, -h / 2, -w / 2);
 
 	mesh->vVertices.emplace_back(-w / 2, h / 2, w / 2);
 	mesh->vVertices.emplace_back(-w / 2, -h / 2, w / 2);
@@ -271,7 +271,7 @@ Mesh* Mesh::generaContornoCaja(GLdouble w,GLdouble h)
 
 Mesh* Mesh::generaCajaTexCor(GLdouble w, GLdouble h)
 {
-	Mesh* mesh = generaContornoCaja(w,h);
+	Mesh* mesh = generaContornoCaja(w, h);
 
 	mesh->vTexCoords.reserve(mesh->mNumVertices);
 
@@ -329,12 +329,59 @@ Mesh* Mesh::generaEstrella3DTexCor(GLdouble re, GLuint np, GLdouble h)
 	GLdouble angle = 0;
 	for (int i = 0; i < mesh->mNumVertices - 1; i++) {
 		if (i % 2 == 0) {
-			mesh->vTexCoords.emplace_back((cos(radians(angle)) / 2 * 0.5f + 0.5f),( sin(radians(angle)) / 2 * 0.5f + 0.5f));
+			mesh->vTexCoords.emplace_back((cos(radians(angle)) / 2 * 0.5f + 0.5f), (sin(radians(angle)) / 2 * 0.5f + 0.5f));
 		}
 		else {
-			mesh->vTexCoords.emplace_back((cos(radians(angle)) / 2 * 0.5f + 0.5f),(sin(radians(angle)) / 2 * 0.5f + 0.5f));
+			mesh->vTexCoords.emplace_back((cos(radians(angle)) / 2 * 0.5f + 0.5f), (sin(radians(angle)) / 2 * 0.5f + 0.5f));
 		}
 		angle += 360.0f / (np * 2.0f);
 	}
+	return mesh;
+}
+
+Mesh* Mesh::generaAlaTie(GLdouble h, GLdouble w, GLdouble dist)
+{
+	Mesh* mesh = new Mesh();
+
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+
+	mesh->mNumVertices = 8;
+
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	mesh->vVertices.emplace_back(-w / 2, -h , dist/2);
+	mesh->vVertices.emplace_back(w / 2, -h , dist / 2);
+
+	mesh->vVertices.emplace_back(-w / 2, -h / 2, dist);
+	mesh->vVertices.emplace_back(w / 2, -h / 2, dist );
+
+	mesh->vVertices.emplace_back(-w / 2,h / 2, dist);
+	mesh->vVertices.emplace_back(w / 2, h / 2, dist );
+
+	mesh->vVertices.emplace_back(-w / 2, h , dist/2);
+	mesh->vVertices.emplace_back(w / 2, h , dist/2 );
+
+	return mesh;
+}
+
+Mesh* Mesh::generaAlaTieTexCor(GLdouble h, GLdouble w, GLdouble dist)
+{
+	Mesh* mesh = generaAlaTie(h,w,dist);
+
+	mesh->vTexCoords.reserve(mesh->mNumVertices);
+
+
+	mesh->vTexCoords.emplace_back(0, 0);
+	mesh->vTexCoords.emplace_back(1, 0);
+
+	mesh->vTexCoords.emplace_back(0, 1);
+	mesh->vTexCoords.emplace_back(1, 1);
+
+	mesh->vTexCoords.emplace_back(2, 0);
+	mesh->vTexCoords.emplace_back(2, 1);
+
+	mesh->vTexCoords.emplace_back(3, 1);
+	mesh->vTexCoords.emplace_back(3, 0);
+
 	return mesh;
 }

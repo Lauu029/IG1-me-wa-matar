@@ -666,5 +666,22 @@ void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 
 TIEavanzado::TIEavanzado()
 {
-	CompoundEntity *
+	//CompoundEntity *
+}
+
+AlaTIEavanzado::AlaTIEavanzado(GLdouble h, GLdouble w,GLdouble dist)
+{
+	mMesh = Mesh::generaAlaTieTexCor(h, w,dist);
+}
+
+void AlaTIEavanzado::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mTexture != nullptr) {
+		dmat4 aMat = modelViewMat * mModelMat;
+		upload(aMat);
+		glEnable(GL_COLOR_MATERIAL);
+		mTexture->bind(GL_MODULATE);
+		mMesh->render();
+		mTexture->unbind();
+	}
 }

@@ -36,6 +36,8 @@ public:
 	static Mesh* generaCajaTexCor(GLdouble w,GLdouble h);
 	static Mesh* generaEstrella3D(GLdouble re, GLuint np, GLdouble h);
 	static Mesh* generaEstrella3DTexCor(GLdouble re, GLuint np, GLdouble h);
+	static Mesh* generaAlaTie(GLdouble h,GLdouble w, GLdouble dist);
+	static Mesh* generaAlaTieTexCor(GLdouble h,GLdouble w, GLdouble dist);
 protected:
 
 	GLuint mPrimitive = GL_TRIANGLES;   // graphic primitive: GL_POINTS, GL_LINES, GL_TRIANGLES, ...

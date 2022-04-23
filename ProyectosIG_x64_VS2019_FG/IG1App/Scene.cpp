@@ -151,6 +151,12 @@ void Scene::init()
 
 		gObjects.push_back(new Foto(100));
 		gObjects.back()->setTexture(fotoText);*/
+		AlaTIEavanzado* alaTie = new AlaTIEavanzado(100.0,150.0,100.0);
+		Texture* texAla = new Texture();
+		texAla->load("..//Bmps//noche.bmp",255/2);
+		alaTie->setTexture(texAla);
+		gTextures.push_back(texAla);
+		gTranslucidObjects.push_back(alaTie);
 	}
 	else if (id == 9) {
 		//Suelo
