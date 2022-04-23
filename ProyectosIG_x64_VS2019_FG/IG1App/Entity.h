@@ -229,14 +229,16 @@ class CompoundEntity : public Abs_Entity {
 public:
 	~CompoundEntity();
 	void addEntity(Abs_Entity* ae);
+	void addTranslucidEntity(Abs_Entity* ae);
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
 	std::vector<Abs_Entity*> gObjects;
+	std::vector<Abs_Entity*> gTranslucidObjects;
 };
 //--------------------------------------------------------------
 class TIEavanzado : public CompoundEntity {
 public:
-	explicit TIEavanzado();
+	explicit TIEavanzado(Texture* texAla);
 protected:
 };
 //--------------------------------------------------------------

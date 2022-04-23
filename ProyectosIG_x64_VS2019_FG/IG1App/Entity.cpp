@@ -648,11 +648,21 @@ CompoundEntity::~CompoundEntity()
 		delete el;  el = nullptr;
 	}
 	gObjects.clear();
+	for (Abs_Entity* el : gTranslucidObjects)
+	{
+		delete el;  el = nullptr;
+	}
+	gTranslucidObjects.clear();
 }
 
 void CompoundEntity::addEntity(Abs_Entity* ae)
 {
 	gObjects.push_back(ae);
+}
+
+void CompoundEntity::addTranslucidEntity(Abs_Entity* ae)
+{
+	gTranslucidObjects.push_back(ae);
 }
 
 void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
@@ -662,11 +672,28 @@ void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 	for (auto o : gObjects) {
 		o->render(aMat);
 	}
+	glDepthMask(GL_FALSE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	for (Abs_Entity* tr : gTranslucidObjects) {
+		tr->render(aMat);
+	}
+	glDepthMask(GL_TRUE);
+	glDisable(GL_BLEND);
 }
 
-TIEavanzado::TIEavanzado()
+TIEavanzado::TIEavanzado(Texture * texAla)
 {
-	//CompoundEntity *
+	
+	AlaTIEavanzado* alaTie1 = new AlaTIEavanzado(100.0, 150.0, 100.0);
+	alaTie1->setTexture(texAla);
+	AlaTIEavanzado* alaTie2 = new AlaTIEavanzado(100.0, 150.0, 100.0);
+	dmat4 alaTrans = translate(alaTie2->modelMat(), dvec3(0.0, 0.0, -100.0));
+	alaTrans = rotate(alaTrans, radians(180.0), dvec3(0.0, 1.0,0.0));
+	alaTie2->setTexture(texAla);
+	addTranslucidEntity(alaTie1);
+	addTranslucidEntity(alaTie2);
+
 }
 
 AlaTIEavanzado::AlaTIEavanzado(GLdouble h, GLdouble w,GLdouble dist)
