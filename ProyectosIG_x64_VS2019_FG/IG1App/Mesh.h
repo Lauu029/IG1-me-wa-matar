@@ -51,5 +51,12 @@ protected:
 	std::vector<glm::dvec2> vTexCoords;
 };
 //-------------------------------------------------------------------------
+class IndexMesh : public Mesh {
+public:
+	~IndexMesh();
+protected:
+	GLuint* vIndices = nullptr;
+	GLuint mNumIndices = 0;
+};
 
 #endif //_H_Scene_H_

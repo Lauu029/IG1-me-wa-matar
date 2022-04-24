@@ -391,3 +391,8 @@ Mesh* Mesh::generaAlaTieTexCor(GLdouble h, GLdouble w, GLdouble dist)
 
 	return mesh;
 }
+
+IndexMesh::~IndexMesh()
+{
+	delete vIndices; vIndices = nullptr;
+}
