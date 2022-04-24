@@ -27,8 +27,10 @@ void Scene::init()
 		gObjects.push_back(new RectanguloRGB(250 * 2, 250));
 		//gObjects.push_back(new TrianguloRGB(50, 250, 0));
 		CompoundEntity* nodoFicticio = new CompoundEntity();
+		CompoundEntity* nodoFicticio2 = new CompoundEntity();
 		TrianguloRGB* tr = new TrianguloRGB(50, 250, 0);
-		nodoFicticio->addEntity(tr);
+		nodoFicticio2->addEntity(tr);
+		nodoFicticio->addEntity(nodoFicticio2);
 		gObjects.push_back(nodoFicticio);
 
 	}

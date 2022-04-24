@@ -471,7 +471,7 @@ IndexMesh* IndexMesh::generaCuboConTapasIndexado(GLdouble l)
 	return Imesh;
 }
 
-void IndexMesh::render() const
+void IndexMesh::render() const 
 {
 	if (vVertices.size() > 0) {  // transfer data
 	  // transfer the coordinates of the vertices

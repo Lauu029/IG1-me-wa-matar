@@ -231,6 +231,7 @@ public:
 	void addEntity(Abs_Entity* ae);
 	void addTranslucidEntity(Abs_Entity* ae);
 	virtual void render(glm::dmat4 const& modelViewMat) const;
+	virtual void update()override;
 protected:
 	std::vector<Abs_Entity*> gObjects;
 	std::vector<Abs_Entity*> gTranslucidObjects;

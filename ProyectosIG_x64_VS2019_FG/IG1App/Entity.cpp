@@ -682,6 +682,15 @@ void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 	glDisable(GL_BLEND);
 }
 
+void CompoundEntity::update()
+{
+	//setModelMat(translate(mModelMat, dvec3(10, 10, 0)));
+	setModelMat(rotate(mModelMat, radians(3.0), dvec3(0, 0, 1)));
+	for (Abs_Entity* e : gObjects) {
+		e->update();
+	}
+}
+
 TIEavanzado::TIEavanzado(Texture * texAla,GLdouble h, GLdouble w)
 {
 	//CompoundEntity* tie = new CompoundEntity();
