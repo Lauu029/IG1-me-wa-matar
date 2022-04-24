@@ -399,7 +399,7 @@ IndexMesh::IndexMesh()
 
 IndexMesh::~IndexMesh()
 {
-	delete vIndices; vIndices = nullptr;
+	delete[] vIndices;;
 }
 
 void IndexMesh::draw() const
@@ -424,11 +424,23 @@ IndexMesh* IndexMesh::generaCuboConTapasIndexado(GLdouble l)
 	Imesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
 	Imesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
 	Imesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
+
 	Imesh->vVertices.emplace_back(l / 2, l / 2, -l / 2);
 	Imesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
 	Imesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
 	Imesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
 
+	Imesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	Imesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	Imesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	Imesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+
+	Imesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	Imesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	Imesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	Imesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+
+	
 	Imesh->mNumIndices = 36;
 
 	//Calculo los indices
@@ -453,10 +465,43 @@ IndexMesh* IndexMesh::generaCuboConTapasIndexado(GLdouble l)
 		Imesh->vNormals.push_back(glm::dvec3(0, 0, 0));
 	}
 
-	//Construye los vectores de normales
+	//Construye los vectores de normales con el método en lugar de manualmente
 	Imesh->buildNormalVectors();
 
 	return Imesh;
+}
+
+void IndexMesh::render() const
+{
+	if (vVertices.size() > 0) {  // transfer data
+	  // transfer the coordinates of the vertices
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glVertexPointer(3, GL_DOUBLE, 0, vVertices.data());  // number of coordinates per vertex, type of each coordinate, stride, pointer 
+		if (vColors.size() > 0) { // transfer colors
+			glEnableClientState(GL_COLOR_ARRAY);
+			glColorPointer(4, GL_DOUBLE, 0, vColors.data());  // components number (rgba=4), type of each component, stride, pointer  
+		}
+
+		if (vTexCoords.size() > 0) {
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
+		}
+		//comprueba las normales
+		if (vNormals.size() > 0) {
+			glEnableClientState(GL_NORMAL_ARRAY);
+			glNormalPointer(GL_DOUBLE, 0, vNormals.data());
+		}
+		if (vIndices != nullptr) {
+			glEnableClientState(GL_INDEX_ARRAY);
+			glIndexPointer(GL_UNSIGNED_INT, 0, vIndices);
+		}
+		draw();
+		glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_INDEX_ARRAY);
+	}
 }
 
 void IndexMesh::buildNormalVectors()
@@ -467,7 +512,7 @@ void IndexMesh::buildNormalVectors()
 		vNormals.push_back(dvec3(0, 0, 0));
 	}
 	//Recorre los indices de tres en tres
-	for (int i = 0; i < mNumIndices; i + 3)
+	for (int i = 0; i < mNumIndices; i += 3)
 	{
 		//Para almacenar los vertices
 		dvec3 v1, v2, v3;

@@ -249,4 +249,13 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
 };
+//--------------------------------------------------------------
+class Cubo : public Abs_Entity {
+public:
+	Cubo(GLdouble l);
+	~Cubo();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+protected:
+
+};
 #endif //_H_Entities_H_

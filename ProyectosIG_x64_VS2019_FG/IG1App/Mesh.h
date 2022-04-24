@@ -59,7 +59,8 @@ public:
 	virtual void draw() const;
 
 	static IndexMesh* generaCuboConTapasIndexado(GLdouble l);
-
+	//Cambia el render para tener en cuenta los indices
+	virtual void render()const;
 	void buildNormalVectors();
 protected:
 	GLuint* vIndices = nullptr;
