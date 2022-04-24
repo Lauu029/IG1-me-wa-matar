@@ -35,6 +35,7 @@ public:
 	void rota();
 	void orbita();
 protected:
+	CompoundEntity* rotacionTie;
 	void free();
 	void setGL();
 	void resetGL();

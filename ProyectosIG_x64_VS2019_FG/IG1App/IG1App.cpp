@@ -178,6 +178,12 @@ void IG1App::key(unsigned char key, int x, int y)
 		else*/
 			mCamera1->changePrj();
 		break;
+	case 'f':
+		mScene1->rota();
+		break;
+	case 'g':
+		mScene1->orbita();
+		break;
 	case '0':
 		//if (posRaton)
 			mScene1->setScene(0);
@@ -234,7 +240,7 @@ void IG1App::key(unsigned char key, int x, int y)
 		else*/
 			mScene1->setScene(9);
 		break;
-	case 'f':
+	case 'F':
 		/*if (posRaton)
 			mScene1->savePhoto();
 		else*/

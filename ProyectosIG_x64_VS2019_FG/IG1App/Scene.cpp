@@ -169,14 +169,14 @@ void Scene::init()
 		gObjects.push_back(esfera);
 
 		//nave
-		CompoundEntity* nodoNave = new CompoundEntity();
+		rotacionTie = new CompoundEntity();
 		Texture* texAla = new Texture();
 		texAla->load("..//Bmps//noche.bmp",255/2);
 		TIEavanzado* tie = new TIEavanzado(texAla,50,75);
 		tie->setModelMat(translate(tie->modelMat(),dvec3(0.0,250.0,0.0)));
 		gTextures.push_back(texAla);
-		nodoNave->addEntity(tie);
-		gObjects.push_back(nodoNave);
+		rotacionTie->addEntity(tie);
+		gObjects.push_back(rotacionTie);
 	}
 	else if (id == 9) {
 		//Suelo
@@ -330,6 +330,15 @@ void Scene::sceneDirLight(Camera const& cam) const {
 	glLightfv(GL_LIGHT0, GL_AMBIENT, value_ptr(ambient));
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, value_ptr(diffuse));
 	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
+}
+
+void Scene::rota()
+{
+	rotacionTie->setModelMat(rotate(rotacionTie->modelMat(), radians(3.0), dvec3(0.0, 1.0, 0.0)));
+}
+
+void Scene::orbita()
+{
 }
 
 
