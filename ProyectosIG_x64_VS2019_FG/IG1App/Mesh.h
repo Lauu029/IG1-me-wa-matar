@@ -53,7 +53,12 @@ protected:
 //-------------------------------------------------------------------------
 class IndexMesh : public Mesh {
 public:
+	IndexMesh();
 	~IndexMesh();
+
+	virtual void draw() const;
+
+	void buildNormalVectors();
 protected:
 	GLuint* vIndices = nullptr;
 	GLuint mNumIndices = 0;

@@ -355,24 +355,24 @@ Mesh* Mesh::generaAlaTie(GLdouble h, GLdouble w, GLdouble dist)
 
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
-	mesh->vVertices.emplace_back(-w / 2, -h , dist/2);
-	mesh->vVertices.emplace_back(w / 2, -h , dist / 2);
+	mesh->vVertices.emplace_back(-w / 2, -h, dist / 2);
+	mesh->vVertices.emplace_back(w / 2, -h, dist / 2);
 
 	mesh->vVertices.emplace_back(-w / 2, -h / 2, dist);
-	mesh->vVertices.emplace_back(w / 2, -h / 2, dist );
+	mesh->vVertices.emplace_back(w / 2, -h / 2, dist);
 
-	mesh->vVertices.emplace_back(-w / 2,h / 2, dist);
-	mesh->vVertices.emplace_back(w / 2, h / 2, dist );
+	mesh->vVertices.emplace_back(-w / 2, h / 2, dist);
+	mesh->vVertices.emplace_back(w / 2, h / 2, dist);
 
-	mesh->vVertices.emplace_back(-w / 2, h , dist/2);
-	mesh->vVertices.emplace_back(w / 2, h , dist/2 );
+	mesh->vVertices.emplace_back(-w / 2, h, dist / 2);
+	mesh->vVertices.emplace_back(w / 2, h, dist / 2);
 
 	return mesh;
 }
 
 Mesh* Mesh::generaAlaTieTexCor(GLdouble h, GLdouble w, GLdouble dist)
 {
-	Mesh* mesh = generaAlaTie(h,w,dist);
+	Mesh* mesh = generaAlaTie(h, w, dist);
 
 	mesh->vTexCoords.reserve(mesh->mNumVertices);
 
@@ -392,7 +392,55 @@ Mesh* Mesh::generaAlaTieTexCor(GLdouble h, GLdouble w, GLdouble dist)
 	return mesh;
 }
 
+IndexMesh::IndexMesh()
+{
+	mPrimitive = GL_TRIANGLE_STRIP;
+}
+
 IndexMesh::~IndexMesh()
 {
 	delete vIndices; vIndices = nullptr;
+}
+
+void IndexMesh::draw() const
+{
+	glDrawElements(mPrimitive, mNumIndices, GL_UNSIGNED_INT, vIndices);
+}
+
+void IndexMesh::buildNormalVectors()
+{
+	vNormals.reserve(mNumVertices);
+	for (int i = 0; i < mNumVertices; i++)
+	{
+		vNormals.push_back(dvec3(0, 0, 0));
+	}
+	//Recorre los indices de tres en tres
+	for (int i = 0; i < mNumIndices; i + 3)
+	{
+		//Para almacenar los vertices
+		dvec3 v1, v2, v3;
+		v1 = vVertices.at(vIndices[i]);
+		v2 = vVertices.at(vIndices[i + 1]);
+		v3 = vVertices.at(vIndices[i + 2]);
+
+		//Calculo los vectores
+		dvec3 u1, u2;
+
+		u1 = v2 - v1;
+		u2 = v3 - v1;
+
+		//Calculo la normal
+		dvec3 n = cross(u1, u2);
+
+		//sumo las normales
+		vNormals[vIndices[i]] += n;
+		vNormals[vIndices[i + 1]] += n;
+		vNormals[vIndices[i + 2]] += n;
+	}
+
+	//normalizo el vector
+	for (int i = 0; i < vNormals.size(); i++)
+	{
+		vNormals[i] = normalize(vNormals[i]);
+	}
 }
