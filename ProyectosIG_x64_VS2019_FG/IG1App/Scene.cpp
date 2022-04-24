@@ -155,6 +155,7 @@ void Scene::init()
 		texAla->load("..//Bmps//noche.bmp",255/2);
 		TIEavanzado* tie = new TIEavanzado(texAla);
 		gTextures.push_back(texAla);
+		gObjects.push_back(tie);
 	}
 	else if (id == 9) {
 		//Suelo

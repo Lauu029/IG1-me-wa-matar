@@ -669,7 +669,7 @@ void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 {
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);
-	for (auto o : gObjects) {
+	for (Abs_Entity* o : gObjects) {
 		o->render(aMat);
 	}
 	glDepthMask(GL_FALSE);
@@ -684,21 +684,53 @@ void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 
 TIEavanzado::TIEavanzado(Texture * texAla)
 {
-	
+	//CompoundEntity* tie = new CompoundEntity();
+	//Alas
 	AlaTIEavanzado* alaTie1 = new AlaTIEavanzado(100.0, 150.0, 100.0);
 	alaTie1->setTexture(texAla);
-	AlaTIEavanzado* alaTie2 = new AlaTIEavanzado(100.0, 150.0, 100.0);
-	dmat4 alaTrans = translate(alaTie2->modelMat(), dvec3(0.0, 0.0, -100.0));
-	alaTrans = rotate(alaTrans, radians(180.0), dvec3(0.0, 1.0,0.0));
-	alaTie2->setTexture(texAla);
 	addTranslucidEntity(alaTie1);
+	AlaTIEavanzado* alaTie2 = new AlaTIEavanzado(100.0, 150.0, -100.0);
+
+	alaTie2->setTexture(texAla);
 	addTranslucidEntity(alaTie2);
 
+	//eje
+	Cylinder* eje = new Cylinder(20.0, 20.0, 200.0);
+	dmat4 ejeTrans = translate(eje->modelMat(), dvec3(0.0, 0.0, -100.0));
+	eje->setModelMat(ejeTrans);
+	eje->setColor(dvec4(0.0, 0.26, 0.42, 1.0));
+	addEntity(eje);
+
+	//nucleo
+	Sphere* nucleo = new Sphere(60.0);
+	nucleo->setColor(dvec4(0.0, 0.26, 0.42, 1.0));
+	addEntity(nucleo);
+
+	//morro
+	Cylinder* morro = new Cylinder(40.0, 40.0, 20.0);
+	dmat4 morroTrans = translate(morro->modelMat(), dvec3(40.0, 0.0, 0.0));
+	morroTrans = rotate(morroTrans, radians(90.0), dvec3(0.0, 1.0, 0.0));
+	morro->setColor(dvec4(0.0, 0.26, 0.42, 1.0));
+	morro->setModelMat(morroTrans);
+	addEntity(morro);
+
+	//tapa
+	Disk* tapa = new Disk(0, 40.0);
+	dmat4 tapaTrans = translate(tapa->modelMat(), dvec3(60.0, 0.0, 0.0));
+	tapaTrans = rotate(tapaTrans, radians(90.0), dvec3(0.0, 1.0, 0.0));
+	tapa->setColor(dvec4(0.0, 0.26, 0.42, 1.0));
+	tapa->setModelMat(tapaTrans);
+	addEntity(tapa);
 }
 
 AlaTIEavanzado::AlaTIEavanzado(GLdouble h, GLdouble w,GLdouble dist)
 {
 	mMesh = Mesh::generaAlaTieTexCor(h, w,dist);
+}
+
+AlaTIEavanzado::~AlaTIEavanzado()
+{
+	delete mMesh; mMesh = nullptr;
 }
 
 void AlaTIEavanzado::render(glm::dmat4 const& modelViewMat) const

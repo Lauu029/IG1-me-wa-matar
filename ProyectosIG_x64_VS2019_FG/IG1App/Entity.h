@@ -245,6 +245,7 @@ protected:
 class AlaTIEavanzado : public CompoundEntity {
 public:
 	explicit AlaTIEavanzado(GLdouble h, GLdouble w, GLdouble dist);
+	~AlaTIEavanzado();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
 };
