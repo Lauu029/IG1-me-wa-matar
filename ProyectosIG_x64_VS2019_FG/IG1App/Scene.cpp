@@ -163,7 +163,8 @@ void Scene::init()
 		glClearColor(0.0, 0.0, 0.0,0.0);
 		
 		//planeta
-		Sphere* esfera = new Sphere(200.0);
+		radioPlaneta = 250.0;
+		Sphere* esfera = new Sphere(radioPlaneta);
 
 		esfera->setColor(dvec4(1.0,0.91,0.0,1.0));
 		gObjects.push_back(esfera);
@@ -173,7 +174,7 @@ void Scene::init()
 		Texture* texAla = new Texture();
 		texAla->load("..//Bmps//noche.bmp",255/2);
 		TIEavanzado* tie = new TIEavanzado(texAla,50,75);
-		tie->setModelMat(translate(tie->modelMat(),dvec3(0.0,250.0,0.0)));
+		tie->setModelMat(translate(tie->modelMat(),dvec3(0.0,radioPlaneta+50.0,0.0)));
 		gTextures.push_back(texAla);
 		rotacionTie->addEntity(tie);
 		gObjects.push_back(rotacionTie);
@@ -339,6 +340,6 @@ void Scene::rota()
 
 void Scene::orbita()
 {
+	//rota en la direccion del morro
+	rotacionTie->setModelMat(rotate(rotacionTie->modelMat(), radians(1.0), dvec3(0.0, 0.0, -1.0)));
 }
-
-

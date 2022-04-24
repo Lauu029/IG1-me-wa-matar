@@ -36,6 +36,7 @@ public:
 	void orbita();
 protected:
 	CompoundEntity* rotacionTie;
+	GLdouble radioPlaneta;
 	void free();
 	void setGL();
 	void resetGL();
