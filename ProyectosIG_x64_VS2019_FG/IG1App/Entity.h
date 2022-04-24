@@ -238,7 +238,7 @@ protected:
 //--------------------------------------------------------------
 class TIEavanzado : public CompoundEntity {
 public:
-	explicit TIEavanzado(Texture* texAla);
+	explicit TIEavanzado(Texture* texAla, GLdouble h, GLdouble w);
 protected:
 };
 //--------------------------------------------------------------

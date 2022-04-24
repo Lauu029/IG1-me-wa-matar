@@ -682,41 +682,41 @@ void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 	glDisable(GL_BLEND);
 }
 
-TIEavanzado::TIEavanzado(Texture * texAla)
+TIEavanzado::TIEavanzado(Texture * texAla,GLdouble h, GLdouble w)
 {
 	//CompoundEntity* tie = new CompoundEntity();
 	//Alas
-	AlaTIEavanzado* alaTie1 = new AlaTIEavanzado(100.0, 150.0, 100.0);
+	AlaTIEavanzado* alaTie1 = new AlaTIEavanzado(h, w, h);
 	alaTie1->setTexture(texAla);
 	addTranslucidEntity(alaTie1);
-	AlaTIEavanzado* alaTie2 = new AlaTIEavanzado(100.0, 150.0, -100.0);
+	AlaTIEavanzado* alaTie2 = new AlaTIEavanzado(h, w, -h);
 
 	alaTie2->setTexture(texAla);
 	addTranslucidEntity(alaTie2);
 
 	//eje
-	Cylinder* eje = new Cylinder(20.0, 20.0, 200.0);
-	dmat4 ejeTrans = translate(eje->modelMat(), dvec3(0.0, 0.0, -100.0));
+	Cylinder* eje = new Cylinder(h/5, h / 5, h *2);
+	dmat4 ejeTrans = translate(eje->modelMat(), dvec3(0.0, 0.0, -h ));
 	eje->setModelMat(ejeTrans);
 	eje->setColor(dvec4(0.0, 0.26, 0.42, 1.0));
 	addEntity(eje);
 
 	//nucleo
-	Sphere* nucleo = new Sphere(60.0);
+	Sphere* nucleo = new Sphere(h/5 * 3);
 	nucleo->setColor(dvec4(0.0, 0.26, 0.42, 1.0));
 	addEntity(nucleo);
 
 	//morro
-	Cylinder* morro = new Cylinder(40.0, 40.0, 20.0);
-	dmat4 morroTrans = translate(morro->modelMat(), dvec3(40.0, 0.0, 0.0));
+	Cylinder* morro = new Cylinder(h/5*2, h / 5 * 2, h / 5 );
+	dmat4 morroTrans = translate(morro->modelMat(), dvec3(h / 5 * 2, 0.0, 0.0));
 	morroTrans = rotate(morroTrans, radians(90.0), dvec3(0.0, 1.0, 0.0));
 	morro->setColor(dvec4(0.0, 0.26, 0.42, 1.0));
 	morro->setModelMat(morroTrans);
 	addEntity(morro);
 
 	//tapa
-	Disk* tapa = new Disk(0, 40.0);
-	dmat4 tapaTrans = translate(tapa->modelMat(), dvec3(60.0, 0.0, 0.0));
+	Disk* tapa = new Disk(0, h / 5 * 2);
+	dmat4 tapaTrans = translate(tapa->modelMat(), dvec3(h / 5 * 3, 0.0, 0.0));
 	tapaTrans = rotate(tapaTrans, radians(90.0), dvec3(0.0, 1.0, 0.0));
 	tapa->setColor(dvec4(0.0, 0.26, 0.42, 1.0));
 	tapa->setModelMat(tapaTrans);

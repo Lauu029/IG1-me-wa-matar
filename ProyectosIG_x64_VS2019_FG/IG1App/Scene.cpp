@@ -25,7 +25,12 @@ void Scene::init()
 
 		gObjects.push_back(circulo);
 		gObjects.push_back(new RectanguloRGB(250 * 2, 250));
-		gObjects.push_back(new TrianguloRGB(50, 250, 0));
+		//gObjects.push_back(new TrianguloRGB(50, 250, 0));
+		CompoundEntity* nodoFicticio = new CompoundEntity();
+		TrianguloRGB* tr = new TrianguloRGB(50, 250, 0);
+		nodoFicticio->addEntity(tr);
+		gObjects.push_back(nodoFicticio);
+
 	}
 	else if (id == 1)
 	{
@@ -153,9 +158,17 @@ void Scene::init()
 
 		gObjects.push_back(new Foto(100));
 		gObjects.back()->setTexture(fotoText);*/
+		glClearColor(0.0, 0.0, 0.0,0.0);
+		
+		Sphere* esfera = new Sphere(200.0);
+
+		esfera->setColor(dvec4(1.0,0.91,0.0,1.0));
+		gObjects.push_back(esfera);
+
 		Texture* texAla = new Texture();
 		texAla->load("..//Bmps//noche.bmp",255/2);
-		TIEavanzado* tie = new TIEavanzado(texAla);
+		TIEavanzado* tie = new TIEavanzado(texAla,50,75);
+		tie->setModelMat(translate(tie->modelMat(),dvec3(0.0,250.0,0.0)));
 		gTextures.push_back(texAla);
 		gObjects.push_back(tie);
 	}
