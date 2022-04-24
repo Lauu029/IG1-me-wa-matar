@@ -163,18 +163,19 @@ void Scene::init()
 		glClearColor(0.0, 0.0, 0.0,0.0);
 		
 		//planeta
-		radioPlaneta = 250.0;
+		GLdouble radioPlaneta = 250.0;
 		Sphere* esfera = new Sphere(radioPlaneta);
 
 		esfera->setColor(dvec4(1.0,0.91,0.0,1.0));
 		gObjects.push_back(esfera);
 
 		//nave
+		GLdouble altoNave=50.0;
 		rotacionTie = new CompoundEntity();
 		Texture* texAla = new Texture();
 		texAla->load("..//Bmps//noche.bmp",255/2);
-		TIEavanzado* tie = new TIEavanzado(texAla,50,75);
-		tie->setModelMat(translate(tie->modelMat(),dvec3(0.0,radioPlaneta+50.0,0.0)));
+		TIEavanzado* tie = new TIEavanzado(texAla,altoNave,75);
+		tie->setModelMat(translate(tie->modelMat(),dvec3(0.0,radioPlaneta+altoNave,0.0)));
 		gTextures.push_back(texAla);
 		rotacionTie->addEntity(tie);
 		gObjects.push_back(rotacionTie);
