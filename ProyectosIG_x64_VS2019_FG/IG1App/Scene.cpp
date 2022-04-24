@@ -162,17 +162,21 @@ void Scene::init()
 		gObjects.back()->setTexture(fotoText);*/
 		glClearColor(0.0, 0.0, 0.0,0.0);
 		
+		//planeta
 		Sphere* esfera = new Sphere(200.0);
 
 		esfera->setColor(dvec4(1.0,0.91,0.0,1.0));
 		gObjects.push_back(esfera);
 
+		//nave
+		CompoundEntity* nodoNave = new CompoundEntity();
 		Texture* texAla = new Texture();
 		texAla->load("..//Bmps//noche.bmp",255/2);
 		TIEavanzado* tie = new TIEavanzado(texAla,50,75);
 		tie->setModelMat(translate(tie->modelMat(),dvec3(0.0,250.0,0.0)));
 		gTextures.push_back(texAla);
-		gObjects.push_back(tie);
+		nodoNave->addEntity(tie);
+		gObjects.push_back(nodoNave);
 	}
 	else if (id == 9) {
 		//Suelo

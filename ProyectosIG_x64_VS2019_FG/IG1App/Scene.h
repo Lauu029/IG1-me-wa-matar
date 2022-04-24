@@ -32,6 +32,8 @@ public:
 	void Update();
 	void savePhoto();
 	void sceneDirLight(Camera const& cam)const;
+	void rota();
+	void orbita();
 protected:
 	void free();
 	void setGL();
