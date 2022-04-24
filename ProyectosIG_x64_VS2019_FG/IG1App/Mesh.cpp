@@ -407,6 +407,58 @@ void IndexMesh::draw() const
 	glDrawElements(mPrimitive, mNumIndices, GL_UNSIGNED_INT, vIndices);
 }
 
+IndexMesh* IndexMesh::generaCuboConTapasIndexado(GLdouble l)
+{
+	IndexMesh* Imesh = new IndexMesh();
+
+	Imesh->mPrimitive = GL_TRIANGLES;
+
+	Imesh->mNumVertices = 8;
+
+	Imesh->vVertices.reserve(Imesh->mNumVertices);
+
+	Imesh->vColors.reserve(Imesh->mNumVertices);
+	
+
+	Imesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
+	Imesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
+	Imesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
+	Imesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
+	Imesh->vVertices.emplace_back(l / 2, l / 2, -l / 2);
+	Imesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
+	Imesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
+	Imesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
+
+	Imesh->mNumIndices = 36;
+
+	//Calculo los indices
+	Imesh ->vIndices = 
+		new GLuint[Imesh->mNumIndices]{ 0,1,2,
+										2,1,3,
+										2,3,4,
+										4,3,5,
+										5,6,4,
+										5,7,6,
+										6,7,1,
+										0,6,1,
+										6,0,4,
+										4,0,2,
+										7,1,5,
+										5,1,3 };
+
+	Imesh->vNormals.reserve(Imesh->mNumVertices);
+	
+	//Inicializo el vector de normales
+	for (int i = 0; i < Imesh->mNumVertices; i++) {
+		Imesh->vNormals.push_back(glm::dvec3(0, 0, 0));
+	}
+
+	//Construye los vectores de normales
+	Imesh->buildNormalVectors();
+
+	return Imesh;
+}
+
 void IndexMesh::buildNormalVectors()
 {
 	vNormals.reserve(mNumVertices);
