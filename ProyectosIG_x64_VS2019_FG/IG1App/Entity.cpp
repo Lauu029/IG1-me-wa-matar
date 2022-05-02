@@ -804,3 +804,30 @@ Esfera::~Esfera()
 {
 	delete mMesh; mMesh = nullptr;
 }
+
+Toro::Toro(GLdouble r, GLdouble R, GLdouble p, GLdouble m)
+{
+	dvec3* perfil = new dvec3[p];
+
+	//generación de los vértices del perfil
+
+	//angulo inicial
+	float angle = 270.0;
+	//añadido
+	float alpha = (360.0 / (p - 1));
+
+	//vector auxiliar
+	vec2 aux(R, 0);
+
+	for (int i = 0; i < p; i++)
+	{
+		perfil[i] = dvec3(aux.x + r * cos(radians(angle)), aux.y + r * sin(radians(angle)), 0);
+		angle += alpha;
+	}
+	mMesh = MbR::generaIndexMbR(m, p, perfil);
+}
+
+Toro::~Toro()
+{
+	delete mMesh; mMesh = nullptr;
+}

@@ -268,4 +268,13 @@ public:
 protected:
 
 };
+//--------------------------------------------------------------
+class Toro : public Abs_Entity {
+public:
+	Toro(GLdouble r, GLdouble R, GLdouble p, GLdouble m);
+	~Toro();
+	
+protected:
+
+};
 #endif //_H_Entities_H_
