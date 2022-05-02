@@ -259,4 +259,13 @@ public:
 protected:
 
 };
+//--------------------------------------------------------------
+class Esfera : public Abs_Entity {
+public:
+	Esfera(GLdouble r, GLdouble p, GLdouble m);
+	~Esfera();
+	
+protected:
+
+};
 #endif //_H_Entities_H_

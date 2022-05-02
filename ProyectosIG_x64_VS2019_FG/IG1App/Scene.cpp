@@ -39,12 +39,15 @@ void Scene::init()
 		gObjects.push_back(new CuboRGB(90));
 	}
 	else if (id == 2) {
-		Texture* texSuelo = new Texture();
+		/*Texture* texSuelo = new Texture();
 		texSuelo->load("..//Bmps//baldosaC.bmp");
 		gTextures.push_back(texSuelo);
 		Suelo* suelo_ = new Suelo(100, 5);
 		gObjects.push_back(suelo_);
-		suelo_->setTextureSuelo(texSuelo, texSuelo);
+		suelo_->setTextureSuelo(texSuelo, texSuelo);*/
+
+		Esfera* e = new Esfera(50.0, 10.0, 10.0);
+		gObjects.push_back(e);
 
 	}
 	else if (id == 3) {

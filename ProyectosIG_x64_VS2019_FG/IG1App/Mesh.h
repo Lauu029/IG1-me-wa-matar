@@ -70,7 +70,7 @@ protected:
 class  MbR : public IndexMesh {
 public:
 	MbR(int n_, int m_, glm::dvec3* p_);
-	~MbR();
+
 
 	static MbR* generaIndexMbR(int nn, int mm, glm::dvec3* perfil);
 protected:
