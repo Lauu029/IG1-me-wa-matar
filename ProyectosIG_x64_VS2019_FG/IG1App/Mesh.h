@@ -66,5 +66,20 @@ protected:
 	GLuint* vIndices = nullptr;
 	GLuint mNumIndices = 0;
 };
+//-------------------------------------------------------------------------
+class  MbR : public IndexMesh {
+public:
+	MbR(int n_, int m_, glm::dvec3* p_);
+	~MbR();
+
+	static MbR* generaIndexMbR(int nn, int mm, glm::dvec3* perfil);
+protected:
+	//numero de muestras
+	int n;
+	//numero de puntos del perfil
+	int m;
+	//array de vertices que define el perfil
+	glm::dvec3* perfil;
+};
 
 #endif //_H_Scene_H_

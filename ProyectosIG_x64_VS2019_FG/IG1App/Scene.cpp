@@ -32,7 +32,7 @@ void Scene::init()
 		nodoFicticio2->addEntity(tr);
 		nodoFicticio->addEntity(nodoFicticio2);
 		gObjects.push_back(nodoFicticio);
-
+		
 	}
 	else if (id == 1)
 	{

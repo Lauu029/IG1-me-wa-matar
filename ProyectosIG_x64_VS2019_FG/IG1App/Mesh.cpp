@@ -418,7 +418,7 @@ IndexMesh* IndexMesh::generaCuboConTapasIndexado(GLdouble l)
 	Imesh->vVertices.reserve(Imesh->mNumVertices);
 
 	Imesh->vColors.reserve(Imesh->mNumVertices);
-	
+
 
 	Imesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
 	Imesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
@@ -440,11 +440,11 @@ IndexMesh* IndexMesh::generaCuboConTapasIndexado(GLdouble l)
 	Imesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
 	Imesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
 
-	
+
 	Imesh->mNumIndices = 36;
 
 	//Calculo los indices
-	Imesh ->vIndices = 
+	Imesh->vIndices =
 		new GLuint[Imesh->mNumIndices]{ 0,1,2,
 										2,1,3,
 										2,3,4,
@@ -459,7 +459,7 @@ IndexMesh* IndexMesh::generaCuboConTapasIndexado(GLdouble l)
 										5,1,3 };
 
 	Imesh->vNormals.reserve(Imesh->mNumVertices);
-	
+
 	//Inicializo el vector de normales
 	for (int i = 0; i < Imesh->mNumVertices; i++) {
 		Imesh->vNormals.push_back(glm::dvec3(0, 0, 0));
@@ -471,7 +471,7 @@ IndexMesh* IndexMesh::generaCuboConTapasIndexado(GLdouble l)
 	return Imesh;
 }
 
-void IndexMesh::render() const 
+void IndexMesh::render() const
 {
 	if (vVertices.size() > 0) {  // transfer data
 	  // transfer the coordinates of the vertices
@@ -540,4 +540,64 @@ void IndexMesh::buildNormalVectors()
 	{
 		vNormals[i] = normalize(vNormals[i]);
 	}
+}
+
+MbR::MbR(int n_, int m_, glm::dvec3* p_)
+{
+	n = n_;
+	m = m_;
+	perfil = p_;
+}
+
+MbR* MbR::generaIndexMbR(int nn, int mm, glm::dvec3* perfil)
+{
+	MbR* mesh = new MbR(nn, mm, perfil);
+	mesh->mPrimitive = GL_TRIANGLES;
+
+	mesh->mNumVertices = nn * mm;
+
+	// Usar un vector auxiliar de vértices
+	dvec3* vertices = new dvec3[mesh->mNumVertices];
+	for (int i = 0; i < nn; i++) {
+		// Generar la muestra i-ésima de vértices
+		GLdouble theta = i * 360 / nn;
+		GLdouble c = cos(radians(theta));
+		GLdouble s = sin(radians(theta));
+		// R_y(theta) es la matriz de rotación alrededor del eje Y
+		for (int j = 0; j < mm; j++) {
+			int indice = i * mm + j;
+			GLdouble x = c * perfil[j].x + s * perfil[j].z;
+			GLdouble z = -s * perfil[j].x + c * perfil[j].z;
+			vertices[indice] = dvec3(x, perfil[j].y, z);
+		}
+	}
+	for (int i = 0; i < vertices->length(); i++)
+		mesh->vVertices.push_back(vertices[i]);
+
+
+	mesh->mNumIndices = 6 * nn * (mm - 1);
+	mesh->vIndices = new GLuint[mesh->mNumIndices];
+	int indiceMayor = 0;
+	// El contador i recorre las muestras alrededor del eje Y
+	for (int i = 0; i < nn; i++) {
+		// El contador j recorre los vértices del perfil,
+		// de abajo arriba. Las caras cuadrangulares resultan
+		// al unir la muestra i-ésima con la (i+1)%nn-ésima
+		for (int j = 0; j < mm - 1; j++) {
+			/* El contador indice sirve para llevar cuenta de los índices generados hasta ahora.
+			Se recorre la cara desde la esquina inferior izquierda*/
+			int indice = i * mm + j;
+			// Los cuatro índices son entonces:
+			mesh->vIndices[indiceMayor++] = indice;
+			mesh->vIndices[indiceMayor++] = (indice + mm) % (nn * mm);
+			mesh->vIndices[indiceMayor++] = (indice + mm + 1) % (nn * mm);
+			mesh->vIndices[indiceMayor++] = indice + 1;
+
+			mesh->vIndices[indiceMayor++] = indice;
+			mesh->vIndices[indiceMayor++] = (indice + mm) % (nn * mm);
+			mesh->vIndices[indiceMayor++] = (indice + mm + 1) % (nn * mm);
+		}
+	}
+	mesh->buildNormalVectors();
+	return mesh;
 }
