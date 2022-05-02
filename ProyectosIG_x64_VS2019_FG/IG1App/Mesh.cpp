@@ -574,7 +574,7 @@ MbR* MbR::generaIndexMbR(int nn, int mm, glm::dvec3* perfil)
 	for (int i = 0; i < mesh->mNumVertices; i++)
 		mesh->vVertices.emplace_back(vertices[i]);
 
-
+	
 	mesh->mNumIndices = 6 * nn * (mm - 1);
 	mesh->vIndices = new GLuint[mesh->mNumIndices];
 	int indiceMayor = 0;
@@ -598,6 +598,7 @@ MbR* MbR::generaIndexMbR(int nn, int mm, glm::dvec3* perfil)
 			//mesh->vIndices[indiceMayor++] = (indice + mm) % (nn * mm);
 		}
 	}
+	delete vertices; vertices = nullptr;
 	mesh->buildNormalVectors();
 	return mesh;
 }

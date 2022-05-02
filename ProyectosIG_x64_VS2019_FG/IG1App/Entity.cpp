@@ -4,6 +4,7 @@
 #include <gtc/type_ptr.hpp>
 
 #include "IG1App.h"
+#include "CheckML.h"
 using namespace glm;
 
 //-------------------------------------------------------------------------
@@ -798,6 +799,7 @@ Esfera::Esfera(GLdouble r, GLdouble p, GLdouble m)
 		angle += alpha;
 	}
 	mMesh = MbR::generaIndexMbR(m, p, perfil);
+	delete perfil; perfil = nullptr;
 }
 
 Esfera::~Esfera()
@@ -847,6 +849,7 @@ Toro::Toro(GLdouble r, GLdouble R, GLdouble p, GLdouble m)
 		angle += alpha;
 	}
 	mMesh = MbR::generaIndexMbR(m, p, perfil);
+	delete perfil; perfil = nullptr;
 }
 
 Toro::~Toro()

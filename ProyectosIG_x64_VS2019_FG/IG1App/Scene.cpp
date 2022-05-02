@@ -50,6 +50,7 @@ void Scene::init()
 		Material* mat = new Material();
 		mat->setGold();
 		e->setMaterial(mat);
+		gMaterials.push_back(mat);
 		dmat4 esfTr = translate(e->modelMat(), dvec3(0.0, 0.0, 200.0));
 		e->setModelMat(esfTr);
 		gObjects.push_back(e);
@@ -265,6 +266,10 @@ void Scene::free()
 		delete t; t = nullptr;
 	}
 	gTextures.clear();
+	for (Material* m : gMaterials) {
+		delete m; m = nullptr;
+	}
+	gMaterials.clear();
 }
 //-------------------------------------------------------------------------
 void Scene::setGL()
