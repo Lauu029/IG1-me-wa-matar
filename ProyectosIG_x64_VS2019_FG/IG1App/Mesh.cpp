@@ -512,7 +512,7 @@ void IndexMesh::buildNormalVectors()
 		vNormals.push_back(dvec3(0, 0, 0));
 	}
 	//Recorre los indices de tres en tres
-	for (int i = 0; i < mNumIndices; i += 3)
+	for (int i = 0; i < mNumIndices ; i += 3)
 	{
 		//Para almacenar los vertices
 		dvec3 v1, v2, v3;
@@ -571,8 +571,8 @@ MbR* MbR::generaIndexMbR(int nn, int mm, glm::dvec3* perfil)
 			vertices[indice] = dvec3(x, perfil[j].y, z);
 		}
 	}
-	for (int i = 0; i < vertices->length(); i++)
-		mesh->vVertices.push_back(vertices[i]);
+	for (int i = 0; i < mesh->mNumVertices; i++)
+		mesh->vVertices.emplace_back(vertices[i]);
 
 
 	mesh->mNumIndices = 6 * nn * (mm - 1);
@@ -587,15 +587,15 @@ MbR* MbR::generaIndexMbR(int nn, int mm, glm::dvec3* perfil)
 			/* El contador indice sirve para llevar cuenta de los índices generados hasta ahora.
 			Se recorre la cara desde la esquina inferior izquierda*/
 			int indice = i * mm + j;
-			// Los cuatro índices son entonces:
+			
 			mesh->vIndices[indiceMayor++] = indice;
 			mesh->vIndices[indiceMayor++] = (indice + mm) % (nn * mm);
+			mesh->vIndices[indiceMayor++] = (indice + mm + 1) % (nn * mm);
+
 			mesh->vIndices[indiceMayor++] = (indice + mm + 1) % (nn * mm);
 			mesh->vIndices[indiceMayor++] = indice + 1;
-
 			mesh->vIndices[indiceMayor++] = indice;
-			mesh->vIndices[indiceMayor++] = (indice + mm) % (nn * mm);
-			mesh->vIndices[indiceMayor++] = (indice + mm + 1) % (nn * mm);
+			//mesh->vIndices[indiceMayor++] = (indice + mm) % (nn * mm);
 		}
 	}
 	mesh->buildNormalVectors();

@@ -10,6 +10,7 @@ public:
 	virtual ~Material() {};
 	virtual void upload();
 	void setCopper();
+	void setGold();
 protected:
 	// Coeficientes de reflexión
 	glm::fvec4 ambient = { 0.2, 0.2, 0.2, 1.0 };

@@ -46,13 +46,24 @@ void Scene::init()
 		gObjects.push_back(suelo_);
 		suelo_->setTextureSuelo(texSuelo, texSuelo);*/
 
-		//Esfera* e = new Esfera(50.0, 10.0, 10.0);
-		//gObjects.push_back(e);
+		Esfera* e = new Esfera(100.0, 10.0, 10.0);
+		Material* mat = new Material();
+		mat->setGold();
+		e->setMaterial(mat);
+		dmat4 esfTr = translate(e->modelMat(), dvec3(0.0, 0.0, 200.0));
+		e->setModelMat(esfTr);
+		gObjects.push_back(e);
+		
+		Esfera* e2 = new Esfera(100.0, 10.0, 10.0);
+		e2->setColor(dvec4(1.0, 0.91, 0.0, 1.0));
+		dmat4 esfTr2 = translate(e2->modelMat(), dvec3(200.0, 0.0, 0.0));
+		e2->setModelMat(esfTr2);
+		gObjects.push_back(e2);
 
 	}
 	else if (id == 3) {
 
-		Texture* cajaFuera = new Texture();
+		/*Texture* cajaFuera = new Texture();
 		cajaFuera->load("..//Bmps//container.bmp");
 		Texture* cajaDentro = new Texture();
 		cajaDentro->load("..//Bmps//papelE.bmp");
@@ -60,7 +71,9 @@ void Scene::init()
 		gTextures.push_back(cajaDentro);
 		ContornoCaja* cajaCont = new ContornoCaja(100);
 		gObjects.push_back(cajaCont);
-		cajaCont->setTexturesCaja(cajaFuera, cajaDentro);
+		cajaCont->setTexturesCaja(cajaFuera, cajaDentro);*/
+		Toro* t = new Toro(20.0, 100.0, 12, 20.0);
+		gObjects.push_back(t);
 	}
 	else if (id == 4) {
 		Texture* texEstrella = new Texture();

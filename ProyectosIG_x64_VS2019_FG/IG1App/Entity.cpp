@@ -691,7 +691,7 @@ void CompoundEntity::update()
 	}
 }
 
-TIEavanzado::TIEavanzado(Texture * texAla,GLdouble h, GLdouble w)
+TIEavanzado::TIEavanzado(Texture* texAla, GLdouble h, GLdouble w)
 {
 	//CompoundEntity* tie = new CompoundEntity();
 	//Alas
@@ -704,19 +704,19 @@ TIEavanzado::TIEavanzado(Texture * texAla,GLdouble h, GLdouble w)
 	addTranslucidEntity(alaTie2);
 
 	//eje
-	Cylinder* eje = new Cylinder(h/5, h / 5, h *2);
-	dmat4 ejeTrans = translate(eje->modelMat(), dvec3(0.0, 0.0, -h ));
+	Cylinder* eje = new Cylinder(h / 5, h / 5, h * 2);
+	dmat4 ejeTrans = translate(eje->modelMat(), dvec3(0.0, 0.0, -h));
 	eje->setModelMat(ejeTrans);
 	eje->setColor(dvec4(0.0, 0.26, 0.42, 1.0));
 	addEntity(eje);
 
 	//nucleo
-	Sphere* nucleo = new Sphere(h/5 * 3);
+	Sphere* nucleo = new Sphere(h / 5 * 3);
 	nucleo->setColor(dvec4(0.0, 0.26, 0.42, 1.0));
 	addEntity(nucleo);
 
 	//morro
-	Cylinder* morro = new Cylinder(h/5*2, h / 5 * 2, h / 5 );
+	Cylinder* morro = new Cylinder(h / 5 * 2, h / 5 * 2, h / 5);
 	dmat4 morroTrans = translate(morro->modelMat(), dvec3(h / 5 * 2, 0.0, 0.0));
 	morroTrans = rotate(morroTrans, radians(90.0), dvec3(0.0, 1.0, 0.0));
 	morro->setColor(dvec4(0.0, 0.26, 0.42, 1.0));
@@ -732,9 +732,9 @@ TIEavanzado::TIEavanzado(Texture * texAla,GLdouble h, GLdouble w)
 	addEntity(tapa);
 }
 
-AlaTIEavanzado::AlaTIEavanzado(GLdouble h, GLdouble w,GLdouble dist)
+AlaTIEavanzado::AlaTIEavanzado(GLdouble h, GLdouble w, GLdouble dist)
 {
-	mMesh = Mesh::generaAlaTieTexCor(h, w,dist);
+	mMesh = Mesh::generaAlaTieTexCor(h, w, dist);
 }
 
 AlaTIEavanzado::~AlaTIEavanzado()
@@ -766,7 +766,7 @@ Cubo::~Cubo()
 
 void Cubo::render(glm::dmat4 const& modelViewMat) const
 {
-	
+
 	glEnable(GL_COLOR_MATERIAL);
 
 	glColor3f(0.0, 1.0, 0.0);
@@ -805,6 +805,28 @@ Esfera::~Esfera()
 	delete mMesh; mMesh = nullptr;
 }
 
+void Esfera::render(glm::dmat4 const& modelViewMat) const
+{
+	if (m_ != nullptr) {
+		glColorMaterial(GL_FRONT, GL_SPECULAR);
+		m_->upload();
+		dmat4 aMat = modelViewMat * mModelMat;  // glm matrix multiplication
+		upload(aMat);
+		mMesh->render();
+		glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	}
+	else {
+		glEnable(GL_COLOR_MATERIAL);
+
+		glColor3f(mColor.r, mColor.g, mColor.b);
+		dmat4 aMat = modelViewMat * mModelMat;
+		upload(aMat);
+		mMesh->render();
+		glColor3f(1.0, 1.0, 1.0);
+		glDisable(GL_COLOR_MATERIAL);
+	}
+}
+
 Toro::Toro(GLdouble r, GLdouble R, GLdouble p, GLdouble m)
 {
 	dvec3* perfil = new dvec3[p];
@@ -830,4 +852,16 @@ Toro::Toro(GLdouble r, GLdouble R, GLdouble p, GLdouble m)
 Toro::~Toro()
 {
 	delete mMesh; mMesh = nullptr;
+}
+
+void Toro::render(glm::dmat4 const& modelViewMat) const
+{
+	glEnable(GL_COLOR_MATERIAL);
+
+	glColor3f(mColor.r, mColor.g, mColor.b);
+	dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);
+	mMesh->render();
+	glColor3f(1.0, 1.0, 1.0);
+	glDisable(GL_COLOR_MATERIAL);
 }

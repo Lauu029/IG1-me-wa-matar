@@ -7,6 +7,7 @@
 
 #include "Mesh.h"
 #include "Texture.h"
+#include "Material.h"
 using namespace glm;
 //-------------------------------------------------------------------------
 
@@ -32,9 +33,9 @@ public:
 	glm::dvec4 getColor();
 
 	void setPos(GLdouble x, GLdouble y, GLdouble z);
+	Mesh* mMesh = nullptr;   // the mesh
 protected:
 
-	Mesh* mMesh = nullptr;   // the mesh
 	glm::dmat4 mModelMat;    // modeling matrix
 	glm::dvec4 mColor;		//Para los colores
 	glm::dvec3 posL;	//posicion de la entidad
@@ -260,11 +261,22 @@ protected:
 
 };
 //--------------------------------------------------------------
-class Esfera : public Abs_Entity {
+class EntityWithMaterial : public Abs_Entity {
+public:
+	EntityWithMaterial() : Abs_Entity() { };
+	virtual ~EntityWithMaterial() { };
+	void setMaterial(Material* matl) { m_ = matl; };
+	
+protected:
+	Material* m_=nullptr;
+};
+//--------------------------------------------------------------
+class Esfera : public EntityWithMaterial {
 public:
 	Esfera(GLdouble r, GLdouble p, GLdouble m);
 	~Esfera();
 	
+	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
 
 };
@@ -274,6 +286,7 @@ public:
 	Toro(GLdouble r, GLdouble R, GLdouble p, GLdouble m);
 	~Toro();
 	
+	virtual void render(glm::dmat4 const& modelViewMat) const;
 protected:
 
 };
