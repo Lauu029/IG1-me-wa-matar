@@ -46,8 +46,8 @@ void Scene::init()
 		gObjects.push_back(suelo_);
 		suelo_->setTextureSuelo(texSuelo, texSuelo);*/
 
-		Esfera* e = new Esfera(50.0, 10.0, 10.0);
-		gObjects.push_back(e);
+		//Esfera* e = new Esfera(50.0, 10.0, 10.0);
+		//gObjects.push_back(e);
 
 	}
 	else if (id == 3) {
