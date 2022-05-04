@@ -15,7 +15,9 @@ void Scene::init()
 	// Lights
 	// Textures
 	// Graphics objects (entities) of the scene
-
+	GLfloat amb[] = { 0.0, 0.0, 0.0, 1.0 };
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, amb);
+	setLights();
 	gObjects.push_back(new EjesRGB(400.0));
 
 	if (id == 0)
@@ -279,6 +281,9 @@ void Scene::setGL()
 	glEnable(GL_DEPTH_TEST);  // enable Depth test 
 	glEnable(GL_TEXTURE_2D);
 
+	glEnable(GL_LIGHTING);
+	glEnable(GL_NORMALIZE);
+
 }
 //-------------------------------------------------------------------------
 void Scene::resetGL()
@@ -291,8 +296,9 @@ void Scene::resetGL()
 
 void Scene::render(Camera const& cam) const
 {
-	sceneDirLight(cam);
+	//sceneDirLight(cam);
 	cam.upload();
+	uploadLights(cam);
 
 	for (Abs_Entity* el : gObjects)
 	{
@@ -364,4 +370,28 @@ void Scene::orbita()
 {
 	//rota en la direccion del morro
 	rotacionTie->setModelMat(rotate(rotacionTie->modelMat(), radians(1.0), dvec3(0.0, 0.0, -1.0)));
+}
+
+void Scene::setLights()
+{
+	dirLight = new DirLight();
+	glm::fvec4 ambient = { 0, 0, 0, 1 };
+	glm::fvec4 diffuse = { 1, 1, 1, 1 };
+	glm::fvec4 specular = { 0.5, 0.5, 0.5, 1 };
+	glm::fvec4 posDir = { 1, 1, 1, 0 };
+	dirLight->setAmbient(ambient);
+	dirLight->setSpecular(diffuse);
+	dirLight->setDiffuse(specular);
+	dirLight->setPosDir(posDir);
+}
+
+void Scene::DirLightAble(bool active)
+{
+	if (active) dirLight->enable();
+	else  dirLight->disable();
+}
+
+void Scene::uploadLights(Camera const& cam) const
+{
+	dirLight->upload(cam.viewMat());
 }

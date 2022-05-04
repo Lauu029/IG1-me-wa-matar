@@ -10,6 +10,7 @@
 
 #include <vector>
 #include "Texture.h"
+#include "Light.h"
 
 //-------------------------------------------------------------------------
 
@@ -17,7 +18,7 @@ class Scene
 { 
 public:
 	Scene() {};
-	~Scene() { free(); resetGL(); };
+	~Scene() { delete dirLight; dirLight = nullptr; free(); resetGL(); };
 
 	Scene(const Scene& s) = delete;  // no copy constructor
 	Scene& operator=(const Scene& s) = delete;  // no copy assignment
@@ -34,6 +35,10 @@ public:
 	void sceneDirLight(Camera const& cam)const;
 	void rota();
 	void orbita();
+	void setLights();
+	void DirLightAble(bool active);
+
+	void uploadLights(Camera const& cam)const;
 protected:
 	CompoundEntity* rotacionTie;
 	void free();
@@ -44,6 +49,9 @@ protected:
 	std::vector<Abs_Entity*> gTranslucidObjects;  // Entities (graphic objects) of the scene
 	std::vector<Texture*> gTextures;
 	std::vector<Material*> gMaterials;
+
+	DirLight* dirLight;
+	PosLight* posLight;
 };
 //-------------------------------------------------------------------------
 

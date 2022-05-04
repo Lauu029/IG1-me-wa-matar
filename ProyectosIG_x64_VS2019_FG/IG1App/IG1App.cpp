@@ -258,6 +258,12 @@ void IG1App::key(unsigned char key, int x, int y)
 		break;
 		change2Views();
 		break;
+	case 'q':
+		mScene1->DirLightAble(true);
+		break;
+	case 'w':
+		mScene1->DirLightAble(false);
+		break;
 	default:
 		need_redisplay = false;
 		break;
