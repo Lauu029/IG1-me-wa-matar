@@ -17,7 +17,7 @@
 class Scene	
 { 
 public:
-	Scene() {};
+	Scene() { setLights(); };
 	~Scene() { delete dirLight; dirLight = nullptr; free(); resetGL(); };
 
 	Scene(const Scene& s) = delete;  // no copy constructor
@@ -37,7 +37,8 @@ public:
 	void orbita();
 	void setLights();
 	void DirLightAble(bool active);
-
+	void PosLightAble(bool active);
+	void SpotLightAble(bool active);
 	void uploadLights(Camera const& cam)const;
 protected:
 	CompoundEntity* rotacionTie;
@@ -52,6 +53,7 @@ protected:
 
 	DirLight* dirLight;
 	PosLight* posLight;
+	SpotLight* spotLight;
 };
 //-------------------------------------------------------------------------
 

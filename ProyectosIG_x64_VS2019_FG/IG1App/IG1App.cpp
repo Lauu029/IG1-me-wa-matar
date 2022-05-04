@@ -264,6 +264,18 @@ void IG1App::key(unsigned char key, int x, int y)
 	case 'w':
 		mScene1->DirLightAble(false);
 		break;
+	case 'a':
+		mScene1->PosLightAble(true);
+		break;
+	case 's':
+		mScene1->PosLightAble(false);
+		break;
+	case 'x':
+		mScene1->SpotLightAble(true);
+		break;
+	case 'z':
+		mScene1->SpotLightAble(false);
+		break;
 	default:
 		need_redisplay = false;
 		break;

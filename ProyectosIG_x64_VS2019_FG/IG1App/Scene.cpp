@@ -17,8 +17,8 @@ void Scene::init()
 	// Graphics objects (entities) of the scene
 	GLfloat amb[] = { 0.0, 0.0, 0.0, 1.0 };
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, amb);
-	setLights();
 	gObjects.push_back(new EjesRGB(400.0));
+
 
 	if (id == 0)
 	{
@@ -34,7 +34,7 @@ void Scene::init()
 		nodoFicticio2->addEntity(tr);
 		nodoFicticio->addEntity(nodoFicticio2);
 		gObjects.push_back(nodoFicticio);
-		
+
 	}
 	else if (id == 1)
 	{
@@ -56,7 +56,7 @@ void Scene::init()
 		dmat4 esfTr = translate(e->modelMat(), dvec3(0.0, 0.0, 200.0));
 		e->setModelMat(esfTr);
 		gObjects.push_back(e);
-		
+
 		Esfera* e2 = new Esfera(100.0, 10.0, 10.0);
 		e2->setColor(dvec4(1.0, 0.91, 0.0, 1.0));
 		dmat4 esfTr2 = translate(e2->modelMat(), dvec3(200.0, 0.0, 0.0));
@@ -75,7 +75,7 @@ void Scene::init()
 		ContornoCaja* cajaCont = new ContornoCaja(100);
 		gObjects.push_back(cajaCont);
 		cajaCont->setTexturesCaja(cajaFuera, cajaDentro);*/
-		Toro* t = new Toro(20.0, 100.0, 12, 20.0);
+		Toro* t = new Toro(50.0, 500.0, 64, 32.0);
 		gObjects.push_back(t);
 	}
 	else if (id == 4) {
@@ -152,14 +152,14 @@ void Scene::init()
 		dvec4 colorOjo2;
 		colorOjo2.r = 0.16;
 		colorOjo2.g = 0.19;
-		colorOjo2.b =  0.2;
+		colorOjo2.b = 0.2;
 		colorOjo2.a = 1.0;
 		ojo2->setColor(colorOjo2);
 		dmat4 conTrans2 = translate(ojo2->modelMat(), dvec3(30.0, 30.0, 90.0));
 		ojo2->setModelMat(conTrans2);
 		gObjects.push_back(ojo2);
 		//disco
-		PartialDisk* discoParcial = new PartialDisk(50.0, 100.0,90.0,180.0);
+		PartialDisk* discoParcial = new PartialDisk(50.0, 100.0, 90.0, 180.0);
 		dvec4 colorDiscoP;
 		colorDiscoP.r = 0.0;
 		colorDiscoP.g = 1.0;
@@ -167,7 +167,7 @@ void Scene::init()
 		colorDiscoP.a = 1.0;
 		discoParcial->setColor(colorDiscoP);
 		dmat4 discPTrans = translate(discoParcial->modelMat(), dvec3(0.0, 0.0, 50.0));
-	
+
 		discoParcial->setModelMat(discPTrans);
 		gObjects.push_back(discoParcial);
 	}
@@ -179,22 +179,22 @@ void Scene::init()
 
 		gObjects.push_back(new Foto(100));
 		gObjects.back()->setTexture(fotoText);*/
-		glClearColor(0.0, 0.0, 0.0,0.0);
-		
+		glClearColor(0.0, 0.0, 0.0, 0.0);
+
 		//planeta
 		GLdouble radioPlaneta = 250.0;
-		Sphere* esfera = new Sphere(radioPlaneta);
+		Esfera* esfera = new Esfera(radioPlaneta,200.0,200.0);
 
-		esfera->setColor(dvec4(1.0,0.91,0.0,1.0));
+		esfera->setColor(dvec4(1.0, 0.91, 0.0, 1.0));
 		gObjects.push_back(esfera);
 
 		//nave
-		GLdouble altoNave=50.0;
+		GLdouble altoNave = 50.0;
 		rotacionTie = new CompoundEntity();
 		Texture* texAla = new Texture();
-		texAla->load("..//Bmps//noche.bmp",255/2);
-		TIEavanzado* tie = new TIEavanzado(texAla,altoNave,75);
-		tie->setModelMat(translate(tie->modelMat(),dvec3(0.0,radioPlaneta+altoNave,0.0)));
+		texAla->load("..//Bmps//noche.bmp", 255 / 2);
+		TIEavanzado* tie = new TIEavanzado(texAla, altoNave, 75);
+		tie->setModelMat(translate(tie->modelMat(), dvec3(0.0, radioPlaneta + altoNave, 0.0)));
 		gTextures.push_back(texAla);
 		rotacionTie->addEntity(tie);
 		gObjects.push_back(rotacionTie);
@@ -307,6 +307,7 @@ void Scene::render(Camera const& cam) const
 	//preparacion para el render translucido
 	glDepthMask(GL_FALSE);
 	glEnable(GL_BLEND);
+	glShadeModel(GL_SMOOTH);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	for (Abs_Entity* tr : gTranslucidObjects) {
 		tr->render(cam.viewMat());
@@ -375,7 +376,10 @@ void Scene::orbita()
 void Scene::setLights()
 {
 	dirLight = new DirLight();
+	posLight = new PosLight();
+	spotLight = new SpotLight();
 	glm::fvec4 ambient = { 0, 0, 0, 1 };
+	glm::fvec4 posLightambient = { 0.2, 0.2, 0, 1 };
 	glm::fvec4 diffuse = { 1, 1, 1, 1 };
 	glm::fvec4 specular = { 0.5, 0.5, 0.5, 1 };
 	glm::fvec4 posDir = { 1, 1, 1, 0 };
@@ -383,6 +387,20 @@ void Scene::setLights()
 	dirLight->setSpecular(diffuse);
 	dirLight->setDiffuse(specular);
 	dirLight->setPosDir(posDir);
+
+	posLight->setAmbient(posLightambient);
+	posLight->setSpecular(specular);
+	posLight->setDiffuse(glm::fvec4{ (1.0, 1.0, 0.0) });
+	posLight->setPosDir(glm::fvec3{ (0.0,400.0,400.0) });
+
+	spotLight->setSpecular({ 0.0, 0.0, 0.0, 1 });
+	spotLight->setDiffuse({ 1, 1,1, 1 });
+	spotLight->setPosDir({ 0, 500, 500 });
+	spotLight->setSpot(glm::fvec3(0.0, -1.0,-1.0), 10, 0);
+
+	spotLight->disable();
+	dirLight->disable();
+	posLight->disable();
 }
 
 void Scene::DirLightAble(bool active)
@@ -391,7 +409,25 @@ void Scene::DirLightAble(bool active)
 	else  dirLight->disable();
 }
 
+void Scene::PosLightAble(bool active)
+{
+	if (active) posLight->enable();
+	else posLight->disable();
+}
+
+void Scene::SpotLightAble(bool active)
+{
+	if (active) spotLight->enable();
+	else spotLight->disable();
+
+}
+
 void Scene::uploadLights(Camera const& cam) const
 {
-	dirLight->upload(cam.viewMat());
+	if (dirLight)
+		dirLight->upload(cam.viewMat());
+	if (posLight)
+		posLight->upload(cam.viewMat());
+	if (spotLight)
+		spotLight->upload(cam.viewMat());
 }
