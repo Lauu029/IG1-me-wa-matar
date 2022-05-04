@@ -696,6 +696,7 @@ TIEavanzado::TIEavanzado(Texture* texAla, GLdouble h, GLdouble w)
 {
 	//CompoundEntity* tie = new CompoundEntity();
 	//Alas
+	TIELight = new SpotLight();
 	AlaTIEavanzado* alaTie1 = new AlaTIEavanzado(h, w, h);
 	alaTie1->setTexture(texAla);
 	addTranslucidEntity(alaTie1);
@@ -731,6 +732,41 @@ TIEavanzado::TIEavanzado(Texture* texAla, GLdouble h, GLdouble w)
 	tapa->setColor(dvec4(0.0, 0.26, 0.42, 1.0));
 	tapa->setModelMat(tapaTrans);
 	addEntity(tapa);
+
+	TIELight->setAmbient({ 0, 0, 0, 1 });
+	TIELight->setSpecular({0.0, 0.0, 0.0, 1});
+
+	TIELight->setSpot(glm::fvec3(0.0, -1.0, 0.0), 30, 0);
+	TIELight->disable();
+}
+
+TIEavanzado::~TIEavanzado()
+{
+	delete TIELight;
+}
+
+void TIEavanzado::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);
+	TIELight->upload(aMat);
+	for (Abs_Entity* o : gObjects) {
+		o->render(aMat);
+	}
+	glDepthMask(GL_FALSE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	for (Abs_Entity* tr : gTranslucidObjects) {
+		tr->render(aMat);
+	}
+	glDepthMask(GL_TRUE);
+	glDisable(GL_BLEND);
+}
+
+void TIEavanzado::setSpotAble(bool able)
+{
+	if (able) TIELight->enable();
+	else TIELight->disable();
 }
 
 AlaTIEavanzado::AlaTIEavanzado(GLdouble h, GLdouble w, GLdouble dist)
@@ -809,6 +845,8 @@ Esfera::~Esfera()
 
 void Esfera::render(glm::dmat4 const& modelViewMat) const
 {
+
+	glShadeModel(GL_SMOOTH);
 	if (m_ != nullptr) {
 		glColorMaterial(GL_FRONT, GL_SPECULAR);
 		m_->upload();

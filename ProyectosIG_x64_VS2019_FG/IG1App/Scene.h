@@ -18,7 +18,9 @@ class Scene
 { 
 public:
 	Scene() { setLights(); };
-	~Scene() { delete dirLight; dirLight = nullptr; free(); resetGL(); };
+	~Scene() { delete dirLight; dirLight = nullptr; 
+	delete spotLight; spotLight = nullptr;
+	delete posLight; posLight = nullptr; free(); resetGL(); };
 
 	Scene(const Scene& s) = delete;  // no copy constructor
 	Scene& operator=(const Scene& s) = delete;  // no copy assignment
@@ -39,6 +41,8 @@ public:
 	void DirLightAble(bool active);
 	void PosLightAble(bool active);
 	void SpotLightAble(bool active);
+	void TIELightAble(bool active);
+
 	void uploadLights(Camera const& cam)const;
 protected:
 	CompoundEntity* rotacionTie;
@@ -54,6 +58,8 @@ protected:
 	DirLight* dirLight;
 	PosLight* posLight;
 	SpotLight* spotLight;
+
+	TIEavanzado* tie = nullptr;
 };
 //-------------------------------------------------------------------------
 

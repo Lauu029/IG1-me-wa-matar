@@ -183,7 +183,7 @@ void Scene::init()
 
 		//planeta
 		GLdouble radioPlaneta = 250.0;
-		Esfera* esfera = new Esfera(radioPlaneta,200.0,200.0);
+		Esfera* esfera = new Esfera(radioPlaneta,300.0,300.0);
 
 		esfera->setColor(dvec4(1.0, 0.91, 0.0, 1.0));
 		gObjects.push_back(esfera);
@@ -193,9 +193,10 @@ void Scene::init()
 		rotacionTie = new CompoundEntity();
 		Texture* texAla = new Texture();
 		texAla->load("..//Bmps//noche.bmp", 255 / 2);
-		TIEavanzado* tie = new TIEavanzado(texAla, altoNave, 75);
+		tie = new TIEavanzado(texAla, altoNave, 75);
 		tie->setModelMat(translate(tie->modelMat(), dvec3(0.0, radioPlaneta + altoNave, 0.0)));
 		gTextures.push_back(texAla);
+		
 		rotacionTie->addEntity(tie);
 		gObjects.push_back(rotacionTie);
 	}
@@ -307,7 +308,6 @@ void Scene::render(Camera const& cam) const
 	//preparacion para el render translucido
 	glDepthMask(GL_FALSE);
 	glEnable(GL_BLEND);
-	glShadeModel(GL_SMOOTH);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	for (Abs_Entity* tr : gTranslucidObjects) {
 		tr->render(cam.viewMat());
@@ -318,6 +318,7 @@ void Scene::render(Camera const& cam) const
 //-----------------------------------------------------------------------
 void Scene::setScene(int id)
 {
+	if (tie != nullptr) tie = nullptr;
 	free();
 	gObjects.clear();
 	setId(id);
@@ -365,6 +366,7 @@ void Scene::sceneDirLight(Camera const& cam) const {
 void Scene::rota()
 {
 	rotacionTie->setModelMat(rotate(rotacionTie->modelMat(), radians(3.0), dvec3(0.0, 1.0, 0.0)));
+
 }
 
 void Scene::orbita()
@@ -378,6 +380,7 @@ void Scene::setLights()
 	dirLight = new DirLight();
 	posLight = new PosLight();
 	spotLight = new SpotLight();
+
 	glm::fvec4 ambient = { 0, 0, 0, 1 };
 	glm::fvec4 posLightambient = { 0.2, 0.2, 0, 1 };
 	glm::fvec4 diffuse = { 1, 1, 1, 1 };
@@ -393,11 +396,12 @@ void Scene::setLights()
 	posLight->setDiffuse(glm::fvec4{ (1.0, 1.0, 0.0) });
 	posLight->setPosDir(glm::fvec3{ (0.0,400.0,400.0) });
 
+	spotLight->setAmbient(ambient);
 	spotLight->setSpecular({ 0.0, 0.0, 0.0, 1 });
 	spotLight->setDiffuse({ 1, 1,1, 1 });
 	spotLight->setPosDir({ 0, 500, 500 });
 	spotLight->setSpot(glm::fvec3(0.0, -1.0,-1.0), 10, 0);
-
+	
 	spotLight->disable();
 	dirLight->disable();
 	posLight->disable();
@@ -420,6 +424,11 @@ void Scene::SpotLightAble(bool active)
 	if (active) spotLight->enable();
 	else spotLight->disable();
 
+}
+
+void Scene::TIELightAble(bool active)
+{
+	if (tie != nullptr) tie->setSpotAble(active);
 }
 
 void Scene::uploadLights(Camera const& cam) const

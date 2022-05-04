@@ -8,6 +8,7 @@
 #include "Mesh.h"
 #include "Texture.h"
 #include "Material.h"
+#include "Light.h"
 using namespace glm;
 //-------------------------------------------------------------------------
 
@@ -241,7 +242,11 @@ protected:
 class TIEavanzado : public CompoundEntity {
 public:
 	explicit TIEavanzado(Texture* texAla, GLdouble h, GLdouble w);
+	~TIEavanzado();
+	virtual void render(glm::dmat4 const& modelViewMat) const override;
+	void setSpotAble(bool able);
 protected:
+	SpotLight* TIELight;
 };
 //--------------------------------------------------------------
 class AlaTIEavanzado : public CompoundEntity {

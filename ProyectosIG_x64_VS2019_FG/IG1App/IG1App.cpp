@@ -276,6 +276,12 @@ void IG1App::key(unsigned char key, int x, int y)
 	case 'z':
 		mScene1->SpotLightAble(false);
 		break;
+	case 'v':
+		mScene1->TIELightAble(true);
+		break;
+	case 'b':
+		mScene1->TIELightAble(false);
+		break;
 	default:
 		need_redisplay = false;
 		break;
